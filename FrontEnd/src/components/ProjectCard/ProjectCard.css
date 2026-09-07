@@ -1,0 +1,92 @@
+.cardContainer {
+  width: calc(100% - 2rem - 2px);
+  padding: 16px;
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  color: var(--color-gray-800);
+  position: relative;
+
+  box-shadow: var(--card-shadow);
+}
+
+.TitleText {
+  margin: 0;
+  font-size: 18px;
+  width: 100%;
+  font-weight: 700;
+
+  text-align: left;
+}
+
+.DescriptionText {
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 1rem;
+  /*text-align:justify;*/
+
+  line-clamp: 4;
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.cardBottomContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 16px;
+  font-weight: 600;
+
+  height: fit-content;
+}
+
+.BottomText {
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+}
+
+.ratingContainer {
+  display: flex;
+  flex-direction: row;
+  align-content: center !important;
+}
+
+.addNewProject {
+  border: 2px dashed var(--border-color);
+  height: 12lvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 34px);
+}
+
+.addContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.cardStatusRow {
+  display: flex;
+  margin-top: 1rem;
+  justify-content: center;
+
+  background: var(--color-gray-100);
+  padding: .5rem 0;
+
+  border-radius: 12px;
+}
+
+
+.similarityStaus {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 16px;
+  font-weight: 600;
+}

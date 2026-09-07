@@ -1,0 +1,85 @@
+.teamReviewCard {
+    display: flex;
+
+
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--color-white);
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    gap: 8px;
+
+    width: 100%;
+    background-color: var(--color-gray-50);
+    color: var(--color-gray-800);
+
+    box-shadow: var(--card-shadow);
+}
+
+.teamReviewLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    width: 100%;
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.teamReviewTeamName {
+    font-size: 12px;
+    color: var(--color-gray-400);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    margin: 0;
+}
+
+.teamReviewProjectTitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 0;
+}
+
+.teamReviewMembers {
+    text-wrap: wrap;
+    color: var(--color-gray-800);
+    padding: .4rem 0;
+    gap: .5rem;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.teamReviewMember {
+    padding: .2rem .6rem;
+    /*background: var(--color-gray-100);*/
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+
+}
+.teamReviewMemberIcon {
+    margin-right: .2rem;
+    margin-bottom: .1rem;
+}
+.statusLabel {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-gray-700);
+    display: block;
+    margin-top: .6rem;
+}
+
+.statusLabel--pending { color: var(--color-amber-700); }
+.statusLabel--approved { color: var(--color-green-700); }
+.statusLabel--returned_by_teacher { color: var(--color-red-700); }

@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "Secret key used to sign JWT tokens."
+    },
+    {
+      "name": "jwt.expiration-ms",
+      "type": "java.lang.Long",
+      "description": "JWT token expiration time in milliseconds."
+    },
+    {
+      "name": "app.frontend-url",
+      "type": "java.lang.String",
+      "description": "Base URL of the frontend application, used for building links in emails."
+    },
+    {
+      "name": "app.university-email-domain",
+      "type": "java.lang.String",
+      "description": "Allowed email domain for university accounts."
+    },
+    {
+      "name": "app.upload-dir",
+      "type": "java.lang.String",
+      "description": "Directory where uploaded project files are stored."
+    }
+  ]
+}

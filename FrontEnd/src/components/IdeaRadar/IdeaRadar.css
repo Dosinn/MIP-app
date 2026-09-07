@@ -1,0 +1,170 @@
+.ideaRadarBox {
+    background: var(--color-gray-50);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--card-shadow);
+}
+
+.radarMaturityHeader {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 4px;
+}
+
+.maturityScoreLeft {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.maturityScoreNumber {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--color-black);
+    line-height: 1;
+}
+
+.maturityScoreDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.maturityLabel {
+    font-size: 12px;
+    color: var(--color-gray-700);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.maturityStatusText {
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.maturity--high {
+    color: var(--color-green-700);
+}
+
+.maturity--med {
+    color: var(--color-amber-700);
+}
+
+.maturity--low {
+    color: var(--color-red-700);
+}
+
+.radarSvgWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 380px;
+    margin: 4px auto 0;
+    overflow: visible;
+}
+
+.radarSvg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.radarGridPolygon {
+    fill: none;
+    stroke: var(--color-gray-200);
+    stroke-width: 1.5px;
+    stroke-dasharray: 3 3;
+}
+
+.radarAxis {
+    stroke: var(--color-gray-200);
+    stroke-width: 1.5px;
+}
+
+.radarBaselinePoly {
+    fill: color-mix(in srgb, var(--color-green-700) 10%, transparent);
+    stroke: var(--color-green-700);
+    stroke-width: 2.2px;
+    stroke-dasharray: 4 3;
+}
+
+.radarCurrentPoly {
+    fill: color-mix(in srgb, var(--color-primary-blue) 20%, transparent);
+    stroke: var(--color-primary-blue);
+    stroke-width: 2.5px;
+    transition: all 0.3s ease;
+}
+
+.radarDot {
+    fill: var(--color-primary-blue);
+    stroke: #ffffff;
+    stroke-width: 2px;
+    transition: all 0.3s ease;
+}
+
+.radarLabel {
+    font-family: inherit;
+    font-size: 1px;
+}
+
+.radarLabelText {
+    font-size: 13px;
+    font-weight: 700;
+    fill: var(--color-slate-800);
+}
+
+.radarLabelVal {
+    font-size: 11px;
+    font-weight: 600;
+    fill: var(--color-gray-500);
+}
+
+.radarLegend {
+    display: flex;
+    gap: 16px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--color-gray-400);
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.legendDot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.legendDot--current {
+    background: var(--color-primary-blue);
+}
+
+.legendDot--baseline {
+    background: var(--color-green-700);
+}
+
+.legendName {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-700);
+}

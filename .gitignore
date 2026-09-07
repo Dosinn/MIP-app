@@ -1,0 +1,56 @@
+# Dependencies
+node_modules/
+FrontEnd/node_modules/
+package-lock.json.backup
+
+# Production Builds
+dist/
+FrontEnd/dist/
+build/
+
+# Java / Maven / Spring Boot
+Spring/target/
+*.class
+*.jar
+*.war
+.mvn/wrapper/maven-wrapper.jar
+hs_err_pid*.log
+
+# Python / FastAPI
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*.py[cod]
+*$py.class
+FastApi/.venv/
+.venv/
+venv/
+ENV/
+*.egg-info/
+.pytest_cache/
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.local
+
+# IDE & Editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker local data
+.storage/
+storage/
+pgdata/

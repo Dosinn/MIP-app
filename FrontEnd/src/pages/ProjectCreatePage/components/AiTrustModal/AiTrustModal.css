@@ -1,0 +1,148 @@
+/* Hero */
+.aiTrustHero {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--color-gray-50);
+    border: 1.5px solid var(--border-color);
+    border-radius: 14px;
+    padding: 1rem;
+    margin-bottom: 16px;
+}
+
+.aiTrustHeroText {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.aiTrustHeroTitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-green-700);
+    margin: 0;
+}
+
+.aiTrustHeroDesc {
+    font-size: 13px;
+    color: var(--color-green-700);
+    line-height: 1.45;
+    margin: 0;
+}
+
+.aiTrustDimensionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.aiTrustSectionHeading {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 4px 0 4px;
+}
+
+.aiTrustDimCard {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--color-gray-50);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+.aiTrustDimBody {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+}
+
+.aiTrustDimHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.aiTrustDimTitle {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.aiTrustDimSubtitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-700);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.aiTrustDimDesc {
+    font-size: 13px;
+    color: var(--color-slate-800);
+    line-height: 1.45;
+    margin: 0;
+}
+
+/* Footer notices */
+.aiTrustFooterNotice {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--color-gray-50);
+    border: 1px dashed var(--border-color);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.aiTrustNoticeItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--color-slate-800);
+    line-height: 1.4;
+}
+
+.aiTrustCheckIcon {
+    color: var(--color-green-700);
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+
+/* Sticky actions bar — прилипає до низу СКРОЛ-контейнера (.modalBody), не viewport */
+.aiTrustModalActions {
+    position: sticky;
+    bottom: -20px;              /* компенсує padding-bottom: 20px в .modalBody */
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 0 20px;
+    margin: 16px -16px -20px;   /* компенсує горизонтальний padding .modalBody */
+    padding-left: 16px;
+    padding-right: 16px;
+    background: var(--bg-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.aiTrustCloseBtn {
+    padding: 9px 22px;
+    border-radius: 10px;
+    border: none;
+    background: var(--color-primary-blue);
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}

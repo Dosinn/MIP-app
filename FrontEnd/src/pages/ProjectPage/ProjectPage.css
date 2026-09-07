@@ -1,0 +1,192 @@
+.projectDetails {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-white);
+    min-height: 100%;
+}
+
+.projectCover {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(6rem + env(safe-area-inset-top)) 16px 40px;
+    box-sizing: border-box;
+
+    background-color: #5ee0f5;
+}
+
+
+.backButton,
+.bookmarkButton {
+    position: absolute;
+    top: 20px;
+    background: var(--color-white);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: calc(env(safe-area-inset-top));
+
+    color: var(--color-blue-400);
+}
+
+.backButton {
+    left: 16px;
+    background: transparent;
+    color: var(--color-black);
+    padding: 0;
+    height: 36px !important;
+}
+
+.bookmarkButton {
+    right: 16px;
+}
+
+.projectContent {
+    /*padding: 1.5rem;*/
+    padding: 1.25rem 1rem 3rem;
+}
+
+.projectTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 0 0 16px;
+    line-height: 1.3;
+}
+
+.metaRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.metaLeft,
+.metaRight {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avatarProject {
+    height: 36px;
+    width: 36px;
+}
+
+.metaAvatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--color-gray-200);
+    color: var(--color-gray-500);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.metaText {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    text-decoration: none;
+}
+
+.metaTextName {
+    text-decoration: underline;
+}
+
+.ratingBadge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-slate-800);
+}
+
+.projectDescription {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-gray-700);
+    margin-bottom: 20px;
+
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.filesButton {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--color-gray-200);
+    border-radius: 12px;
+    background: var(--color-gray-50);
+    color: var(--color-gray-700);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+    -webkit-tap-highlight-color: transparent;
+
+    box-shadow: var(--card-shadow);
+}
+
+.filesButtonChevron {
+    margin-left: auto;
+    color: var(--color-gray-400) !important;
+    flex-shrink: 0;
+}
+
+.filesButton svg {
+    color: var(--color-red-500);
+    flex-shrink: 0;
+}
+
+
+.improveButton {
+    width: 100%;
+    padding: 14px;
+    background-color: var(--color-primary-blue);
+    color: var(--color-white);
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 28px;
+}
+
+.sectionTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 0 0 12px;
+}
+
+.improvementsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ratingContainer {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+    color: var(--color-slate-800);
+}
+.sectionTitleProject {
+    font-size: 18px;
+    margin: .75rem 0;
+}

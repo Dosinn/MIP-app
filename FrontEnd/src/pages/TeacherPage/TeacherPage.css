@@ -1,0 +1,27 @@
+.teacherPage {
+    padding: 1.25rem 1rem 3rem;
+}
+
+.projectList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.teacherEmptyState {
+    text-align: center;
+    color: var(--color-gray-500);
+    font-size: 15px;
+    padding: 32px 16px;
+}
+
+/* Admin-only teacher picker */
+.teacherFilterRow {
+    margin-bottom: 4px;
+}
+
+
+.teacherAddBtnRow {
+    margin-bottom: 1rem;
+    display: flex;
+}

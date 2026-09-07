@@ -1,0 +1,80 @@
+.fileSection {
+    border: 1px solid var(--color-gray-200);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.fileSectionHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--color-white);
+    border: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.fileSectionHeaderText {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.sectionStatusBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 999px;
+    margin-left: .5rem;
+}
+
+.sectionStatusBadge--open {
+    color: var(--color-green-700);
+}
+
+.sectionStatusBadge--upcoming {
+    color: var(--color-primary-blue);
+}
+
+.sectionStatusBadge--expired {
+    color: var(--color-amber-700);
+}
+
+.sectionStatusBadge--locked {
+    color: var(--color-red-700);
+}
+
+.fileSectionTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-slate-800);
+    margin: 0;
+}
+
+
+.fileSectionChevron {
+    color: var(--color-gray-400);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.fileSectionChevronOpen {
+    transform: rotate(180deg);
+}
+
+.fileSectionBody {
+    padding: 0 16px 16px;
+    border-top: 1px solid var(--color-gray-100);
+}
+
+.fileSectionDescription {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-800);
+    margin: 1rem 0 0 0;
+}

@@ -1,0 +1,37 @@
+# ==============================================================================
+# Dockerfile for Python FastAPI NLP & Similarity Microservice
+# ==============================================================================
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    HF_HOME=/storage/huggingface \
+    TRANSFORMERS_CACHE=/storage/huggingface
+
+# Install PyTorch CPU first (efficient caching)
+COPY FastApi/requirements.txt /app/
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+# Install remaining Python dependencies
+RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu -r /app/requirements.txt
+
+# Copy backend source code
+COPY FastApi/ /app/
+
+# Ensure storage directories exist
+RUN mkdir -p /storage/huggingface /storage/data
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=20s --timeout=5s --start-period=60s --retries=5 \
+    CMD curl -f http://localhost:8000/project/health || exit 1
+
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1"]

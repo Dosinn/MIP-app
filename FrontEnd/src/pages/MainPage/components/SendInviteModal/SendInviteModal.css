@@ -1,0 +1,88 @@
+.inviteConfirmContent {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.inviteConfirmUserRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background-color: var(--color-gray-50);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+}
+
+.inviteConfirmUserInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.inviteConfirmUserName {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-slate-800);
+}
+
+.inviteConfirmUserEmail {
+    font-size: 13px;
+    color: var(--color-gray-500);
+}
+
+.inviteConfirmText {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-gray-700);
+    margin: 0;
+    font-weight: 500;
+}
+
+.inviteConfirmActions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.inviteCancelBtn {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-700);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.inviteCancelBtn:hover {
+    background-color: var(--color-gray-200);
+}
+
+.inviteSubmitBtn {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: var(--color-primary-blue);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.inviteSubmitBtn:hover {
+    opacity: 0.92;
+}
+
+.inviteSubmitBtn:active,
+.inviteCancelBtn:active {
+    transform: scale(0.98);
+}

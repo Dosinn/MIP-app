@@ -1,0 +1,26 @@
+.urgentItem {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 1rem;
+    border: 1px solid var(--color-gray-200);
+    background: var(--color-gray-50);
+    box-shadow: var(--card-shadow);
+    border-radius: 12px;
+    padding: .75rem .75rem .75rem 1.75rem;
+    margin-bottom: 1rem;
+}
+.urgentLine {
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+    justify-content: center;
+}
+.urgentTitle, .urgentDate{
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.5;
+}
+.urgentTitle {
+    font-weight: 700;
+}

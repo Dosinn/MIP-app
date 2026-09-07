@@ -1,0 +1,72 @@
+.teacherComments {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.commentItem {
+    display: flex;
+    gap: 10px;
+    padding: 14px;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 12px;
+    background: var(--color-gray-50);
+
+    box-shadow: var(--card-shadow) !important;
+}
+
+.commentBody {
+    flex: 1;
+    min-width: 0;
+}
+
+.commentDate {
+    font-size: 13px;
+    color: var(--color-gray-800);
+    flex-shrink: 0;
+    margin: .3rem 0 0;
+}
+
+.commentMessage {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-gray-800);
+    line-height: 1.5;
+    margin: .3rem 0 0;
+}
+
+.commentsEmpty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 1.5rem 1rem;
+    color: var(--color-gray-700);
+    font-size: 15px;
+}
+
+.commentsEmpty p {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-gray-800);
+    margin: 0;
+}
+
+.commentAuthor {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-slate-800);
+    margin: 0;
+}
+
+.commentStatusWord {
+    font-weight: 700;
+}
+
+.commentStatusWord--approved {
+    color: var(--color-green-700);
+}
+
+.commentStatusWord--returned_by_teacher {
+    color: var(--color-amber-700);
+}

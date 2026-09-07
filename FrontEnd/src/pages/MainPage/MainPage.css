@@ -1,0 +1,137 @@
+.mainPage {
+    /*padding: 1rem 1.5rem;*/
+    padding: 1.25rem 1rem 3rem;
+}
+.projectSection {
+    margin-bottom: 2rem;
+}
+
+.teamContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem !important;
+}
+.teamMember {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+
+    background: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+
+    padding: 0;
+
+}
+.avatarCircleAdd {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-white);
+    border: 2px dashed var(--border-color);
+    color: var(--color-gray-400);
+    padding: 0;
+}
+
+.memberName {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-gray-800);
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+}
+
+.teamMemberPending {
+    opacity: 0.70;
+}
+
+.pendingClockIcon {
+    color: var(--color-primary-blue);
+    flex-shrink: 0;
+    margin-right: 1rem;
+}
+
+
+/* ─── Incoming invite row ─────────────────────────────────────────────────── */
+/*noinspection CssNonIntegerLengthInPixels*/
+.teamMemberIncoming:first-child {
+    /*background-color: var(--color-blue-alpha-10);*/
+    border-top: 1.5px solid var(--color-primary-blue);
+    gap: 10px;
+    padding-top: .7rem;
+}
+
+.avatarImgIncoming {
+    background-color: var(--color-primary-blue);
+    color: #fff;
+}
+
+.inlineInviteActions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.inlineAcceptBtn,
+.inlineDeclineBtn {
+    border: none;
+    border-radius: 8px;
+    padding: .6rem 1.2rem;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s ease, transform 0.1s ease;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+}
+
+.inlineAcceptBtn:active,
+.inlineDeclineBtn:active {
+    transform: scale(0.96);
+}
+
+.inlineAcceptBtn {
+    background-color: var(--color-primary-blue);
+    color: #fff;
+}
+
+.inlineAcceptBtn:hover { opacity: 0.88; }
+
+.inlineDeclineBtn {
+    background-color: var(--color-gray-100);
+    color: var(--color-gray-500);
+}
+
+.inlineDeclineBtn:hover { background-color: var(--color-gray-200); }
+
+.inlineAcceptBtn:disabled,
+.inlineDeclineBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.reminderRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-gray-100);
+}
+
+.reminderIcon {
+    color: var(--color-amber-700);
+    flex-shrink: 0;
+}
+
+.reminderText {
+    font-size: 14px;
+    color: var(--color-slate-800);
+}

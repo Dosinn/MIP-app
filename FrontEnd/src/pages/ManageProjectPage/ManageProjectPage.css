@@ -1,0 +1,134 @@
+.manageContent {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1rem 3rem;
+}
+
+.managePage {
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    background-color: var(--color-white);
+}
+
+.manageHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(16px + env(safe-area-inset-top)) 16px 16px;
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.manageHeaderTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 0;
+
+}
+
+.backButtonManage,
+.deleteIconButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.backButtonManage {
+    color: var(--color-slate-800);
+}
+
+.deleteIconButton {
+    color: var(--color-red-500);
+}
+
+.saveButton {
+    margin-top: 28px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color-primary-blue);
+    color: var(--color-white);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.saveButton:disabled {
+    opacity: 0.6;
+}
+
+/* Delete confirm modal */
+.deleteOverlay {
+    position: fixed;
+    inset: 0;
+    background: var(--color-black-alpha-35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 2000;
+}
+
+.deleteModal {
+    background: var(--color-white);
+    border-radius: 16px;
+    padding: 24px;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+}
+
+.deleteModal h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+}
+
+.deleteModal p {
+    margin: 0 0 20px;
+    font-size: 16px;
+    color: var(--color-gray-800);
+}
+
+.deleteModalActions {
+    display: flex;
+    gap: 10px;
+}
+
+.cancelButton,
+.confirmDeleteButton {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.cancelButton {
+    background: var(--color-gray-100);
+    color: var(--color-gray-800);
+}
+
+.confirmDeleteButton {
+    background: var(--color-red-500);
+    color: var(--color-white);
+}
+
+.fileSectionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

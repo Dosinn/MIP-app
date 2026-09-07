@@ -1,0 +1,172 @@
+/*noinspection DuplicatedCode*/
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+
+
+  --color-white: #fff;
+  --color-black: #000;
+  --color-primary-blue: #1594c7;
+
+  --color-gray-50: #fafbfc;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-700: #374151;
+  --color-gray-800: #333;
+
+  --color-slate-200: #dce1ec;
+  --color-slate-800: #1e293b;
+
+  --color-blue-400: #3ca3ec;
+  --color-blue-alpha-10: rgba(60, 163, 236, 0.1);
+
+  --color-red-500: #ef4444;
+  --color-red-700: #b91c1c;
+
+  --color-green-700: #15803d;
+  --color-amber-700: #b45309;
+
+  --color-green-alpha-12: rgba(21, 128, 61, 0.12);
+  --color-red-alpha-12: rgba(185, 28, 28, 0.12);
+  --color-amber-alpha-15: rgba(180, 83, 9, 0.15);
+
+  --color-black-alpha-35: rgba(0, 0, 0, 0.35);
+
+
+  --bg-color: var(--color-white);
+  --text-color: var(--color-gray-800);
+  --card-bg: var(--color-white);
+  --border-color: var(--color-slate-200);
+  --accent-color: var(--color-primary-blue);
+
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+@media (prefers-color-scheme: dark) {
+  /*noinspection DuplicatedCode*/
+  :root:not([data-theme="light"]) {
+    --color-white: #1a1a1a;
+    --color-black: #fff;
+
+    --color-gray-50: #15161A;
+    --color-gray-100: #1f2937;
+    --color-gray-200: #374151;
+    --color-gray-300: #4b5563;
+    --color-gray-400: #4b5563;
+    --color-gray-500: #9ca3af;
+    --color-gray-700: #d1d5db;
+    --color-gray-800: #f3f4f6;
+
+    --color-slate-200: #374151;
+    --color-slate-800: #e2e8f0;
+
+    --color-blue-alpha-10: rgba(60, 163, 236, 0.2);
+
+    --color-red-700: #f87171;
+    --color-green-700: #4ade80;
+    --color-amber-700: #fcd34d;
+
+    --color-green-alpha-12: rgba(74, 222, 128, 0.2);
+    --color-red-alpha-12: rgba(248, 113, 113, 0.2);
+    --color-amber-alpha-15: rgba(252, 211, 77, 0.2);
+
+    --color-black-alpha-35: rgba(0, 0, 0, 0.6);
+
+    --bg-color: var(--color-white);
+    --text-color: var(--color-gray-800);
+    --card-bg: var(--color-white);
+    --border-color: var(--color-slate-200);
+    --accent-color: var(--color-primary-blue);
+
+    --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/*noinspection DuplicatedCode*/
+:root[data-theme="dark"] {
+  --color-white: #121213;
+  --color-black: #fff;
+
+  --color-gray-50: #15161A;
+  --color-gray-100: #1D1F25;
+  --color-gray-200: #374151;
+  --color-gray-300: #4b5563;
+  --color-gray-400: #4b5563;
+  --color-gray-500: #9ca3af;
+  --color-gray-700: #d1d5db;
+  --color-gray-800: #f3f4f6;
+
+  --color-slate-200: #374151;
+  --color-slate-800: #e2e8f0;
+
+  --color-blue-alpha-10: rgba(60, 163, 236, 0.2);
+
+  --color-red-700: #f87171;
+  --color-green-700: #4ade80;
+  --color-amber-700: #fcd34d;
+
+  --color-green-alpha-12: rgba(74, 222, 128, 0.2);
+  --color-red-alpha-12: rgba(248, 113, 113, 0.2);
+  --color-amber-alpha-15: rgba(252, 211, 77, 0.2);
+
+  --color-black-alpha-35: rgba(0, 0, 0, 0.6);
+
+  --bg-color: var(--color-white);
+  --text-color: var(--color-gray-800);
+  --card-bg: var(--color-white);
+  --border-color: var(--color-slate-200);
+  --accent-color: var(--color-primary-blue);
+
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/*noinspection DuplicatedCode*/
+:root[data-theme="light"] {
+  --color-white: #fff;
+  --color-black: #000;
+
+  --color-gray-50: #fafbfc;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-700: #374151;
+  --color-gray-800: #333;
+
+  --color-slate-200: #dce1ec;
+  --color-slate-800: #1e293b;
+
+  --color-blue-alpha-10: rgba(60, 163, 236, 0.1);
+
+  --color-red-700: #b91c1c;
+  --color-green-700: #15803d;
+  --color-amber-700: #b45309;
+
+  --color-green-alpha-12: rgba(21, 128, 61, 0.12);
+  --color-red-alpha-12: rgba(185, 28, 28, 0.12);
+  --color-amber-alpha-15: rgba(180, 83, 9, 0.15);
+
+  --color-black-alpha-35: rgba(0, 0, 0, 0.35);
+
+  --bg-color: var(--color-white);
+  --text-color: var(--color-gray-800);
+  --card-bg: var(--color-white);
+  --border-color: var(--color-slate-200);
+  --accent-color: var(--color-primary-blue);
+
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}

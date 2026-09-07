@@ -1,0 +1,491 @@
+.adminPage {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1rem 3rem;
+}
+
+.adminTabsBar {
+    display: flex;
+    gap: 6px;
+    border-radius: 12px;
+    margin-bottom: 1.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.adminTabsBar::-webkit-scrollbar {
+    display: none;
+}
+
+.adminTabBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: .75rem 1rem !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+/*noinspection ALL*/
+.adminTabBtn--active {
+    background-color: var(--color-white);
+    color: var(--color-primary-blue);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.adminTabContent {
+    gap: 16px;
+}
+
+.sectionBtn {
+    margin-bottom: 1rem;
+}
+
+
+/* Sections View */
+.adminSectionActions {
+    margin-bottom: 1rem;
+}
+
+.adminSectionHeading {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 0;
+}
+
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.adminAddBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 14px;
+    /*noinspection CssNonIntegerLengthInPixels*/
+    border: 1.5px solid var(--border-color);
+    color: var(--color-gray-800);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: opacity 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+
+    background-color: var(--color-gray-50);
+
+    box-shadow: var(--card-shadow);
+}
+
+.adminAddBtn:hover {
+    opacity: 0.9;
+}
+
+.adminSectionsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.adminSectionCard {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 14px;
+    background-color: var(--color-white);
+    border: 1px solid var(--border-color);
+}
+
+.adminSectionCardHeader {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.adminSectionOrderBadge {
+    height: auto;
+    color: var(--color-primary-blue);
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 0 1rem 0 .5rem;
+    /*noinspection CssNonIntegerLengthInPixels*/
+    border-right: 1.5px solid var(--color-primary-blue);
+}
+
+.adminSectionHeaderInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.adminSectionTitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 0 0 3px;
+}
+
+.adminSectionDescription {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    margin: 0;
+    line-height: 1.4;
+    width: 50vw;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.adminSectionControls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.adminControlBtn {
+    background: none;
+    /*noinspection CssNonIntegerLengthInPixels*/
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-700);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+.adminControlBtn:hover {
+    color: var(--color-primary-blue);
+    border-color: var(--color-primary-blue);
+}
+
+.adminControlBtn--delete:hover {
+    color: var(--color-red-500);
+    border-color: var(--color-red-500);
+}
+
+.adminSectionDatesRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-gray-100);
+}
+
+.adminSectionDateItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--color-gray-500);
+    font-weight: 500;
+}
+
+.adminUsersList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.adminUserCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background-color: var(--color-white);
+    border: 1px solid var(--border-color);
+}
+
+.adminUserInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.adminUserNameRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.adminUserName {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 0;
+}
+
+.adminUserEmail {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    margin: 2px 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+
+
+.adminTeacherActions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+
+/* Modal Form Styles */
+.adminModalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.adminFieldLabel {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-slate-800);
+    /*margin-bottom: .4rem;*/
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.adminModalInput,
+.adminModalTextarea {
+    width: 100%;
+    padding: 1rem .75rem;
+    /*noinspection CssNonIntegerLengthInPixels*/
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+    background-color: var(--color-white);
+    color: var(--color-gray-800);
+    line-height: normal;
+
+    font-style: normal;
+
+    font-family: inherit;
+
+}
+
+.adminModalSelect {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='10' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23374151' stroke-width='2' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+}
+
+.adminModalInput:focus,
+.adminModalTextarea:focus {
+    border-color: var(--color-primary-blue);
+}
+
+
+.adminModalActions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.adminSaveBtn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--color-primary-blue);
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.adminSaveBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.adminScheduleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: .75rem;
+    background-color: var(--color-gray-50);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    transition: background-color 0.15s ease;
+
+    box-shadow: var(--card-shadow);
+}
+
+.adminScheduleRow:hover {
+    background-color: var(--color-gray-100);
+}
+
+.adminScheduleRowInfo {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+}
+
+.adminScheduleTime {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-slate-800);
+    line-height: 1.5;
+}
+
+.adminScheduleTime span {
+    font-size: 14px;
+    color: var(--color-gray-700);
+    font-weight: 500;
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.adminScheduleRoomBadge {
+    font-size: 17px;
+    font-weight: 600;
+
+    /*noinspection CssNonIntegerLengthInPixels*/
+    border-right: 1.5px solid var(--color-gray-800);
+    height: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    color: var(--color-gray-700);
+    padding: 0 .75rem 0 .2rem;
+}
+
+.adminScheduleRowActions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Teacher Grouped Lessons in Lessons Tab */
+.adminTeacherGroupCard {
+    background-color: var(--color-white);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.adminTeacherGroupHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.adminTeacherGroupHeaderLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.adminTeacherGroupName {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 0;
+}
+
+.adminTeacherGroupEmail {
+    font-size: 13px;
+    color: var(--color-gray-500);
+    margin: 0;
+}
+
+.adminTeacherGroupLessons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.adminTeacherGroupEmpty {
+    font-size: 13px;
+    color: var(--color-gray-400);
+    margin: 4px 0;
+    font-style: italic;
+}
+
+.adminLectureCard {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: 1rem 1.15rem;
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.2s ease;
+}
+
+.adminLectureDate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 2rem;
+    flex-shrink: 0;
+}
+
+.adminLectureWeekday {
+    font-size: 15px;
+    color: var(--color-gray-800);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.adminLectureCardInfo {
+    flex: 1;
+    min-width: 0;
+    padding-left: 1rem;
+    /*noinspection CssNonIntegerLengthInPixels*/
+    border-left: 3.5px solid var(--color-green-700);
+}
+
+.adminLectureDetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 0.25rem;
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.adminLectureTime {
+    /*noinspection CssNonIntegerLengthInPixels*/
+    font-size: 15.5px;
+    font-weight: 600;
+    color: var(--color-slate-800);
+}
+
+

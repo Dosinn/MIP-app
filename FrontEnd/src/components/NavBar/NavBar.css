@@ -1,0 +1,94 @@
+.navBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+
+    position: sticky;
+    top: 0;
+    background-color: var(--color-white);
+    width: 100%;
+
+    height: calc(10lvh + env(safe-area-inset-top));
+    /*padding-top: env(safe-area-inset-top);*/
+    box-sizing: border-box;
+
+    z-index: 1000;
+    padding: 0 1rem;
+    border-bottom: 1px solid var(--border-color);
+
+}
+.greetingText {
+    font-size: 25px;
+    color: var(--color-gray-800);
+    font-weight: 500;
+    text-align: left;
+
+    margin: env(safe-area-inset-top) 0 0;
+}
+
+.avatarImg {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--color-gray-200);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-500);
+}
+
+.navbarRight {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    margin-top: env(safe-area-inset-top);
+}
+
+.bellButton {
+    position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-gray-800);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.notificationDot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 10px;
+    height: 10px;
+    background-color: var(--color-red-500);
+    border-radius: 50%;
+    border: 2px solid var(--color-white);
+}
+
+.notifList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.notifStatusWord--approved {
+    color: var(--color-green-700);
+}
+
+.notifStatusWord--returned_by_teacher {
+    color: var(--color-amber-700);
+}
+
+.notifListDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--color-red-500);
+    flex-shrink: 0;
+    margin-top: 6px;
+}

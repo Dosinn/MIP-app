@@ -1,0 +1,36 @@
+.sessionTabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-bottom: 1.5rem;
+}
+
+.sessionTabActiveSecondLevel {
+    border: 2px solid var(--color-primary-blue) !important;
+    background: var(--color-gray-50) !important;
+    color: var(--color-gray-800) !important;
+}
+
+.sessionTabs::-webkit-scrollbar { display: none; }
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.sessionTab {
+    flex-shrink: 0;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1.5px solid var(--color-gray-200);
+    background: var(--color-white);
+    color: var(--color-gray-700);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sessionTabActive {
+    background-color: var(--color-primary-blue);
+    border-color: var(--color-primary-blue);
+    color: var(--color-white);
+}

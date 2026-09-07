@@ -1,0 +1,41 @@
+"""
+Calibrated NLP & Similarity Thresholds for MIP Platform
+Derived from empirical analysis of real student project proposals in 'Projekt_a_jeho_sucasti (1)'.
+"""
+
+# Problem Cohesion
+PROBLEM_COHESION_GREEN = 0.70
+PROBLEM_COHESION_YELLOW = 0.55
+PROBLEM_OUTLIER_GAP = 0.12
+MIN_SENTENCES_FOR_COHESION = 2
+
+# Audience Niche Precision
+AUDIENCE_PRECISION_GREEN = 0.60
+AUDIENCE_PRECISION_YELLOW = 0.45
+AUDIENCE_LOWEST_SEGMENT_ALERT = 0.45
+AUDIENCE_DISTANCE_THRESHOLD = 0.35
+
+# Problem-Solution Alignment
+ALIGNMENT_DECISION_BOUNDARY = 0.50
+ALIGNMENT_NORM_MIN = 0.35
+ALIGNMENT_NORM_MAX = 0.75
+
+# Similarity & Uniqueness
+SIMILARITY_RETRIEVAL_THRESHOLD = 0.48
+SIMILARITY_DISPLAY_THRESHOLD_PCT = 52.0
+TITLE_WEIGHT = 0.30
+DESC_WEIGHT = 0.70
+UNIQUENESS_PROBLEM_WEIGHT = 0.50
+UNIQUENESS_AUDIENCE_WEIGHT = 0.50
+
+# Category Classification
+CATEGORY_CONFIDENT_THRESHOLD = 0.44
+
+# Real Dataset Median Baseline (for improvement mode)
+REAL_DATASET_BASELINE = {
+    "problemFocus": 76,
+    "nichePrecision": 72,
+    "alignment": 78,
+    "uniqueness": 70,
+    "evidence": 75,
+}

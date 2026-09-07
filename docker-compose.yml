@@ -1,0 +1,95 @@
+services:
+  # 1. Веб-шлюз та Статичний фронтенд (React PWA + Ultralight Nginx Alpine) — порт 80 для ONCE
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    depends_on:
+      spring:
+        condition: service_healthy
+      fastapi:
+        condition: service_healthy
+
+  # 2. Python FastAPI мікросервіс (NLP, SlovakBERT, аналіз та подібність проєктів)
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
+    expose:
+      - "8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/university_db
+      - MODEL_NAME=kinit/slovakbert-sts-stsb
+      - SIMILARITY_K=5
+      - SIMILARITY_THRESHOLD=0.48
+      - TITLE_WEIGHT=0.3
+      - DESC_WEIGHT=0.7
+    volumes:
+      - once_storage:/storage
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/project/health || exit 1"]
+      interval: 20s
+      timeout: 5s
+      start_period: 60s
+      retries: 5
+
+  # 3. Spring Boot 4 REST API (Основна бізнес-логіка, користувачі, команди, файли)
+  spring:
+    build:
+      context: .
+      dockerfile: Dockerfile.spring
+    expose:
+      - "8080"
+    environment:
+      # Database
+      - POSTGRES_DB=university_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/university_db
+      # Security
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production-min-32-chars-long}
+      # File uploads stored in ONCE persistent volume
+      - UPLOAD_DIR=/storage/uploads
+      # Mail
+      - MAIL_HOST=${MAIL_HOST:-sandbox.smtp.mailtrap.io}
+      - MAIL_PORT=${MAIL_PORT:-2525}
+      - MAIL_USERNAME=${MAIL_USERNAME:-}
+      - MAIL_PASSWORD=${MAIL_PASSWORD:-}
+      - UNIVERSITY_EMAIL_DOMAIN=${UNIVERSITY_EMAIL_DOMAIN:-@stuba.sk}
+    volumes:
+      - once_storage:/storage
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 5
+
+  # 4. База даних PostgreSQL 16
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: university_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d university_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  once_storage:
+    name: mip_once_storage
+  pgdata:
+    name: mip_postgres_data

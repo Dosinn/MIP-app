@@ -1,0 +1,10 @@
+.appLayout {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: 92lvh;
+}
+
+.pageContent {
+    overflow-y: auto; /* скрол тільки якщо контент реально не влазить */
+}
+

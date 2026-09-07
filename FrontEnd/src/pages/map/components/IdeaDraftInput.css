@@ -1,0 +1,71 @@
+/* IdeaDraftInput.css */
+.draftInputPanel {
+    position: absolute;
+    bottom: 28px;
+    left: 24px;
+    z-index: 10;
+    width: 80lvw;
+    background: var(--color-gray-50);
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    padding: 14px;
+    box-shadow: var(--card-shadow);
+}
+
+.draftInputHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.draftInputLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-slate-800 );
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.draftInputSpinner {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid var(--color-slate-800);
+    border-top-color: var(--color-primary-blue);
+    animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.draftInputTitle {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #E5E7EB;
+    padding: 6px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1E293B;
+    outline: none;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    background: transparent;
+}
+
+.draftInputTitle:focus {
+    border-bottom-color: var(--color-primary-blue);
+}
+
+.draftInputDescription {
+    width: 100%;
+    border: none;
+    resize: none;
+    font-size: 16px;
+    color: #374151;
+    outline: none;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: transparent;
+}

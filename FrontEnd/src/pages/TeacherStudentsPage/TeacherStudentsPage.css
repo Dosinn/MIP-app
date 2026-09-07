@@ -1,0 +1,227 @@
+.teacherStudentsPage {
+    padding: 1.25rem 1rem 3rem;
+}
+
+.teacherStudentsHeader {
+    margin-bottom: 1rem;
+}
+
+.teacherStudentsTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    margin: 0;
+}
+
+.sessionTabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-bottom: 1.25rem;
+}
+
+.sessionTabs::-webkit-scrollbar {
+    display: none;
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.sessionTab {
+    flex-shrink: 0;
+    padding: 9px 18px;
+    border-radius: 10px;
+    border: 1.5px solid var(--color-gray-200);
+    background: var(--color-white);
+    color: var(--color-gray-700);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sessionTabActive {
+    background-color: var(--color-primary-blue);
+    border-color: var(--color-primary-blue);
+    color: var(--color-white);
+}
+
+.teacherSearchWrapper .searchBar {
+    margin: 0 0 1.25rem 0;
+}
+
+.teamsList,
+.unassignedList {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.teamCard {
+    background-color: var(--color-white);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.teamCardTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.teamTag {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    font-style: normal;
+}
+
+
+.teamMembersList {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    margin-top: .1rem;
+}
+
+.teamMemberItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: .5rem .75rem;
+    background-color: var(--color-gray-50);
+    border-radius: 8px;
+}
+
+.teacherTeamMemberAvatar{
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.teamMemberDetails {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+    margin-left: .2rem;
+}
+
+.teamMemberName {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    line-height: .5;
+    margin-bottom: .6rem;
+    margin-top: .1rem;
+}
+
+.teamMemberEmail {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    line-height: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.teamMemberRemoveBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-red-500, #ef4444);
+    border-radius: 8px;
+    padding: 6px 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.teamMemberRemoveBtn:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.teamMemberRemoveBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.noMembersText {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-gray-700);
+    margin: 0;
+    /*font-style: italic;*/
+}
+
+.unassignedCard {
+    background-color: var(--color-white);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: .75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.unassignedDetails {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.unassignedName {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-slate-800);
+    line-height: 1;
+}
+
+.unassignedEmail {
+    font-size: 14px;
+    color: var(--color-gray-500);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: .3rem;
+}
+
+/* --- EMPTY STATE --- */
+.emptyStateBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px;
+    background-color: var(--color-white);
+    border: 1px dashed var(--color-gray-200);
+    border-radius: 14px;
+    color: var(--color-gray-400);
+    text-align: center;
+    gap: 8px;
+}
+
+.emptyStateIcon {
+    color: var(--color-gray-300);
+}
+
+/*noinspection CssNonIntegerLengthInPixels*/
+.emptyStateBox p {
+    font-size: 13.5px;
+    margin: 0;
+}

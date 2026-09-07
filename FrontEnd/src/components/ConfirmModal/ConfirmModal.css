@@ -1,0 +1,59 @@
+.confirmModalBody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 4px 0 8px;
+}
+
+.confirmModalText {
+    font-size: 15px;
+    color: var(--color-gray-700, #475569);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.confirmModalActions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-gray-100, #f1f5f9);
+}
+
+.confirmModalActions .cancelButton,
+.confirmModalActions .rejectButton,
+.confirmModalActions .approveButton {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.confirmModalActions .cancelButton {
+    border: 1.5px solid var(--color-gray-200, #e2e8f0);
+    background: var(--color-white, #ffffff);
+    color: var(--color-gray-500, #64748b);
+}
+
+.confirmModalActions .rejectButton {
+    border: none;
+    background: var(--color-red-500, #ef4444);
+    color: var(--color-white, #ffffff);
+}
+
+.confirmModalActions .approveButton {
+    border: none;
+    background: var(--color-primary-blue, #0284c7);
+    color: var(--color-white, #ffffff);
+}
+
+.confirmModalActions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
