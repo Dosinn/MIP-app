@@ -249,7 +249,6 @@ export function LessonsTab({teachersQuery, lessonsQuery}: LessonsTabProps) {
                 </QueryState>
             </div>
 
-            {/* MODAL: CREATE / EDIT LESSON */}
             {isLessonModalOpen && (
                 <CreateLessonModal
                     isOpen={isLessonModalOpen}

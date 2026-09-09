@@ -102,7 +102,6 @@ function TeacherPage() {
                 </div>
             )}
 
-            {/* Admin-only: teacher selector tabs */}
             {isAdmin && (
                 <div className="teacherFilterRow">
                     <div className="sessionTabs">
@@ -120,7 +119,6 @@ function TeacherPage() {
                 </div>
             )}
 
-            {/* Lesson tabs */}
             <QueryState
                 isPending={loadingLessons}
                 isError={lessonsError}

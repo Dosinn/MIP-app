@@ -31,7 +31,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         refetch,
     } = useCurrentUser(token);
 
-    // If token exists but request failed (e.g. 401 or invalid token), treat as unauthenticated
     const hasValidSession = Boolean(token && user && !isError);
     const isOnboarded = Boolean(user && user.onboarded !== false);
     const isAuthenticated = Boolean(hasValidSession && isOnboarded);
@@ -74,7 +73,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
     const context = useContext(AuthContext);
     if (!context) {

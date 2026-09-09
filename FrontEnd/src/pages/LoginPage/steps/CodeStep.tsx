@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import OtpInput from '../components/OtpInput';
-import { useTranslation } from 'react-i18next';
+import {useTranslation} from 'react-i18next';
 import '../LoginFlow.css';
 
 interface CodeStepProps {
@@ -10,8 +10,8 @@ interface CodeStepProps {
     onBack: () => void;
 }
 
-function CodeStep({ email, onSubmit, onResend, onBack }: CodeStepProps) {
-    const { t } = useTranslation();
+function CodeStep({email, onSubmit, onResend, onBack}: CodeStepProps) {
+    const {t} = useTranslation();
     const [code, setCode] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -56,9 +56,9 @@ function CodeStep({ email, onSubmit, onResend, onBack }: CodeStepProps) {
             <p className="stepTitle">{t('code_step_title')}</p>
             <p className="stepSubtitle">{t('code_step_subtitle')} <strong>{email}</strong></p>
 
-            <OtpInput value={code} onChange={setCode} />
+            <OtpInput value={code} onChange={setCode}/>
 
-            {error && <p className="errorText" style={{ textAlign: 'center' }}>{error}</p>}
+            {error && <p className="errorText" style={{textAlign: 'center'}}>{error}</p>}
 
             <button
                 type="button"

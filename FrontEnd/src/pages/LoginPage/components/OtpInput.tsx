@@ -1,4 +1,4 @@
-import { useRef, type KeyboardEvent, type ClipboardEvent } from 'react';
+import {type ClipboardEvent, type KeyboardEvent, useRef} from 'react';
 import '../LoginFlow.css';
 
 interface OtpInputProps {
@@ -7,7 +7,7 @@ interface OtpInputProps {
     onChange: (value: string) => void;
 }
 
-function OtpInput({ length = 6, value, onChange }: OtpInputProps) {
+function OtpInput({length = 6, value, onChange}: OtpInputProps) {
     const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
     const digits = value.split('').concat(Array(length).fill('')).slice(0, length);
@@ -44,7 +44,9 @@ function OtpInput({ length = 6, value, onChange }: OtpInputProps) {
             {digits.map((digit, index) => (
                 <input
                     key={index}
-                    ref={(el) => { inputsRef.current[index] = el; }}
+                    ref={(el) => {
+                        inputsRef.current[index] = el;
+                    }}
                     type="text"
                     inputMode="numeric"
                     maxLength={1}
@@ -53,7 +55,7 @@ function OtpInput({ length = 6, value, onChange }: OtpInputProps) {
                     onChange={(e) => handleChange(index, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(index, e)}
                     onPaste={handlePaste}
-                    {...(index === 0 ? { autoFocus: true } : {})}
+                    {...(index === 0 ? {autoFocus: true} : {})}
                 />
             ))}
         </div>

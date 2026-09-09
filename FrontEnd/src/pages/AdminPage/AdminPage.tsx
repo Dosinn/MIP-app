@@ -1,11 +1,6 @@
 import {useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {
-    Calendar,
-    Users,
-    GraduationCap,
-    Clock,
-} from 'lucide-react';
+import {Calendar, Clock, GraduationCap, Users,} from 'lucide-react';
 
 import './AdminPage.css';
 import '../TeacherStudentsPage/TeacherStudentsPage.css';

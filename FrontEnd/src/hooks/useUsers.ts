@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import usersRepository from '../api/repositories/UsersRepository.ts';
-import { queryKeys } from '../api/queryKeys.ts';
+import {queryKeys} from '../api/queryKeys.ts';
 
 export function useCurrentUser(tokenParam?: string | null) {
     const token = tokenParam !== undefined ? tokenParam : localStorage.getItem('authToken');
@@ -40,10 +40,10 @@ export function useAllStudents() {
 export function useCreateTeacher() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ name, email }: { name: string; email: string }) =>
+        mutationFn: ({name, email}: { name: string; email: string }) =>
             usersRepository.createTeacher(name, email),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['users', 'teachers'] });
+            queryClient.invalidateQueries({queryKey: ['users', 'teachers']});
         },
     });
 }
@@ -51,10 +51,10 @@ export function useCreateTeacher() {
 export function useUpdateUserRole() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ id, role }: { id: number | string; role: string }) =>
+        mutationFn: ({id, role}: { id: number | string; role: string }) =>
             usersRepository.updateUserRole(id, role),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['users'] });
+            queryClient.invalidateQueries({queryKey: ['users']});
         },
     });
 }
@@ -62,11 +62,14 @@ export function useUpdateUserRole() {
 export function useUpdateUser() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ id, data }: { id: number | string; data: { name?: string; email?: string; role?: string; isTeacher?: boolean } }) =>
+        mutationFn: ({id, data}: {
+            id: number | string;
+            data: { name?: string; email?: string; role?: string; isTeacher?: boolean }
+        }) =>
             usersRepository.updateUser(id, data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['users'] });
-            queryClient.invalidateQueries({ queryKey: queryKeys.users.teachers() });
+            queryClient.invalidateQueries({queryKey: ['users']});
+            queryClient.invalidateQueries({queryKey: queryKeys.users.teachers()});
         },
     });
 }
@@ -74,10 +77,10 @@ export function useUpdateUser() {
 export function useCompleteOnboarding() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ name, teacherId }: { name: string; teacherId: number | string }) =>
+        mutationFn: ({name, teacherId}: { name: string; teacherId: number | string }) =>
             usersRepository.completeOnboarding(name, teacherId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.auth.me() });
+            queryClient.invalidateQueries({queryKey: queryKeys.auth.me()});
         },
     });
 }

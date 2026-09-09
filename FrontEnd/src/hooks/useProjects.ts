@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query';
-import projectsRepository, { type CreateProjectPayload } from '../api/repositories/ProjectsRepository.ts';
-import { queryKeys } from '../api/queryKeys.ts';
+import {keepPreviousData, useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import projectsRepository, {type CreateProjectPayload} from '../api/repositories/ProjectsRepository.ts';
+import {queryKeys} from '../api/queryKeys.ts';
 
 export function useProjectsLibrary(search?: string, categoryIds?: number[]) {
     return useQuery({
@@ -34,20 +34,20 @@ export function useSavedProjectIds() {
 export function useToggleSaveProject() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: async ({ projectId, isSaved }: { projectId: number; isSaved: boolean }) => {
+        mutationFn: async ({projectId, isSaved}: { projectId: number; isSaved: boolean }) => {
             if (isSaved) {
                 await projectsRepository.unsaveProject(projectId);
             } else {
                 await projectsRepository.saveProject(projectId);
             }
         },
-        onMutate: async ({ projectId, isSaved }) => {
-            await queryClient.cancelQueries({ queryKey: ['projects', 'saved', 'ids'] });
+        onMutate: async ({projectId, isSaved}) => {
+            await queryClient.cancelQueries({queryKey: ['projects', 'saved', 'ids']});
             const previousIds = queryClient.getQueryData<number[]>(['projects', 'saved', 'ids']) ?? [];
             queryClient.setQueryData<number[]>(['projects', 'saved', 'ids'], (old = []) =>
                 isSaved ? old.filter((id) => id !== projectId) : [...old, projectId]
             );
-            return { previousIds };
+            return {previousIds};
         },
         onError: (_err, _vars, context) => {
             if (context?.previousIds) {
@@ -55,8 +55,8 @@ export function useToggleSaveProject() {
             }
         },
         onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: ['projects', 'saved'] });
-            queryClient.invalidateQueries({ queryKey: ['projects', 'saved', 'ids'] });
+            queryClient.invalidateQueries({queryKey: ['projects', 'saved']});
+            queryClient.invalidateQueries({queryKey: ['projects', 'saved', 'ids']});
         },
     });
 }
@@ -90,9 +90,9 @@ export function useCreateProject() {
     return useMutation({
         mutationFn: (payload: CreateProjectPayload) => projectsRepository.createProject(payload),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['projects'] });
-            queryClient.invalidateQueries({ queryKey: queryKeys.teams.mine() });
-            queryClient.invalidateQueries({ queryKey: queryKeys.lessons.mine() });
+            queryClient.invalidateQueries({queryKey: ['projects']});
+            queryClient.invalidateQueries({queryKey: queryKeys.teams.mine()});
+            queryClient.invalidateQueries({queryKey: queryKeys.lessons.mine()});
         },
     });
 }
@@ -100,13 +100,13 @@ export function useCreateProject() {
 export function useUpdateProject() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ id, data }: {
+        mutationFn: ({id, data}: {
             id: number | string;
             data: Parameters<typeof projectsRepository.updateProject>[1];
         }) => projectsRepository.updateProject(id, data),
         onSuccess: (_data, variables) => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(variables.id) });
-            queryClient.invalidateQueries({ queryKey: ['projects'] });
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.detail(variables.id)});
+            queryClient.invalidateQueries({queryKey: ['projects']});
         },
     });
 }
@@ -116,7 +116,7 @@ export function useDeleteProject() {
     return useMutation({
         mutationFn: (id: number | string) => projectsRepository.deleteProject(id),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['projects'] });
+            queryClient.invalidateQueries({queryKey: ['projects']});
         },
     });
 }
@@ -124,11 +124,11 @@ export function useDeleteProject() {
 export function useRateProject() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ id, rating }: { id: number | string; rating: number }) =>
+        mutationFn: ({id, rating}: { id: number | string; rating: number }) =>
             projectsRepository.rateProject(id, rating),
         onSuccess: (_data, variables) => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(variables.id) });
-            queryClient.invalidateQueries({ queryKey: ['projects'] });
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.detail(variables.id)});
+            queryClient.invalidateQueries({queryKey: ['projects']});
         },
     });
 }
@@ -136,15 +136,16 @@ export function useRateProject() {
 export function useApproveProject() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ projectId, message }: { projectId: number | string; message?: string }) =>
+        mutationFn: ({projectId, message}: { projectId: number | string; message?: string }) =>
             projectsRepository.approveProject(projectId, message),
         onSuccess: (_data, variables) => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(variables.projectId) });
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.history(variables.projectId) });
-            queryClient.invalidateQueries({ queryKey: ['lessons', 'reviews'] });
-            queryClient.invalidateQueries({ queryKey: ['reviews', 'teacher', 'all'] });
-            queryClient.invalidateQueries({ queryKey: ['comments', variables.projectId] });
-            queryClient.invalidateQueries({ queryKey: ['project', variables.projectId] });
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.detail(variables.projectId)});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.history(variables.projectId)});
+            queryClient.invalidateQueries({queryKey: ['lessons', 'reviews']});
+            queryClient.invalidateQueries({queryKey: ['reviews', 'teacher', 'all']});
+            queryClient.invalidateQueries({queryKey: ['comments', variables.projectId]});
+            queryClient.invalidateQueries({queryKey: ['project', variables.projectId]});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.all()});
         },
     });
 }
@@ -152,15 +153,15 @@ export function useApproveProject() {
 export function useReturnProject() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ projectId, message }: { projectId: number | string; message?: string }) =>
+        mutationFn: ({projectId, message}: { projectId: number | string; message?: string }) =>
             projectsRepository.returnProject(projectId, message),
         onSuccess: (_data, variables) => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(variables.projectId) });
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.history(variables.projectId) });
-            queryClient.invalidateQueries({ queryKey: ['lessons', 'reviews'] });
-            queryClient.invalidateQueries({ queryKey: ['reviews', 'teacher', 'all'] });
-            queryClient.invalidateQueries({ queryKey: ['comments', variables.projectId] });
-            queryClient.invalidateQueries({ queryKey: ['project', variables.projectId] });
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.detail(variables.projectId)});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.history(variables.projectId)});
+            queryClient.invalidateQueries({queryKey: ['lessons', 'reviews']});
+            queryClient.invalidateQueries({queryKey: ['reviews', 'teacher', 'all']});
+            queryClient.invalidateQueries({queryKey: ['comments', variables.projectId]});
+            queryClient.invalidateQueries({queryKey: ['project', variables.projectId]});
         },
     });
 }
@@ -184,11 +185,11 @@ export function useArchiveProject() {
     return useMutation({
         mutationFn: (projectId: number | string) => projectsRepository.archiveProject(projectId),
         onSuccess: (_data, projectId) => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.all() });
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(Number(projectId)) });
-            queryClient.invalidateQueries({ queryKey: ['reviews', 'teacher', 'all'] });
-            queryClient.invalidateQueries({ queryKey: ['projects', 'archived', 'my'] });
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.mine() });
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.all()});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.detail(Number(projectId))});
+            queryClient.invalidateQueries({queryKey: ['reviews', 'teacher', 'all']});
+            queryClient.invalidateQueries({queryKey: ['projects', 'archived', 'my']});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.mine()});
         },
     });
 }
@@ -198,11 +199,12 @@ export function useUnarchiveProject() {
     return useMutation({
         mutationFn: (projectId: number | string) => projectsRepository.unarchiveProject(projectId),
         onSuccess: (_data, projectId) => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.all() });
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.detail(Number(projectId)) });
-            queryClient.invalidateQueries({ queryKey: ['reviews', 'teacher', 'all'] });
-            queryClient.invalidateQueries({ queryKey: ['projects', 'archived', 'my'] });
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.mine() });
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.all()});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.detail(Number(projectId))});
+            queryClient.invalidateQueries({queryKey: ['reviews', 'teacher', 'all']});
+            queryClient.invalidateQueries({queryKey: ['projects', 'archived', 'my']});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.mine()});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.all()});
         },
     });
 }
@@ -212,10 +214,10 @@ export function useArchiveSchoolYear() {
     return useMutation({
         mutationFn: () => projectsRepository.archiveSchoolYear(),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.all() });
-            queryClient.invalidateQueries({ queryKey: ['reviews', 'teacher', 'all'] });
-            queryClient.invalidateQueries({ queryKey: ['projects', 'archived', 'my'] });
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.mine() });
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.all()});
+            queryClient.invalidateQueries({queryKey: ['reviews', 'teacher', 'all']});
+            queryClient.invalidateQueries({queryKey: ['projects', 'archived', 'my']});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.mine()});
         },
     });
 }

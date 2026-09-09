@@ -74,23 +74,6 @@
     gap: 8px;
 }
 
-.avatarProject {
-    height: 36px;
-    width: 36px;
-}
-
-.metaAvatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: var(--color-gray-200);
-    color: var(--color-gray-500);
-    font-size: 12px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .metaText {
     font-size: 14px;

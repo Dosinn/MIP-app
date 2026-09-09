@@ -1,4 +1,3 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Modal from '../Modal/Modal.tsx';
 import './ConfirmModal.css';
@@ -15,17 +14,7 @@ export interface ConfirmModalProps {
     onCancel: () => void;
 }
 
-export const ConfirmModal: React.FC<ConfirmModalProps> = ({
-    isOpen,
-    title,
-    message,
-    confirmText,
-    cancelText,
-    isDanger = false,
-    loading = false,
-    onConfirm,
-    onCancel,
-}) => {
+export function ConfirmModal({isOpen, title, message, confirmText, cancelText, isDanger = false, loading = false, onConfirm, onCancel}: ConfirmModalProps) {
     const { t } = useTranslation();
 
     if (!isOpen) return null;
@@ -56,6 +45,6 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
             </div>
         </Modal>
     );
-};
+}
 
 export default ConfirmModal;

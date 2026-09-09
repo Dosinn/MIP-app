@@ -14,12 +14,6 @@
     border-radius: 12px;
 }
 
-.confirmInviteUserInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
 .confirmInviteUserName {
     font-size: 15px;
     font-weight: 600;

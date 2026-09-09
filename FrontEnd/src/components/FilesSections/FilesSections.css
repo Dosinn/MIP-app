@@ -34,8 +34,6 @@
 .filesList {
     display: flex;
     flex-direction: column;
-
-
 }
 
 .filesListItem {

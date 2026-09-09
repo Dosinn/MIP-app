@@ -100,16 +100,6 @@
     border-radius: 8px;
 }
 
-.teacherTeamMemberAvatar{
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
 .teamMemberDetails {
     display: flex;
     flex-direction: column;
@@ -142,17 +132,12 @@
     justify-content: center;
     background: transparent;
     border: 1px solid transparent;
-    color: var(--color-red-500, #ef4444);
+    color: var(--color-red-500);
     border-radius: 8px;
     padding: 6px 8px;
     cursor: pointer;
     transition: all 0.2s ease;
     flex-shrink: 0;
-}
-
-.teamMemberRemoveBtn:hover {
-    background-color: rgba(239, 68, 68, 0.1);
-    border-color: rgba(239, 68, 68, 0.3);
 }
 
 .teamMemberRemoveBtn:disabled {

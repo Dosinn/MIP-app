@@ -1,13 +1,13 @@
-import {type FormEvent, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import {type FormEvent, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import '../LoginFlow.css';
 
 interface EmailStepProps {
     onSubmit: (email: string) => Promise<void>;
 }
 
-function EmailStep({ onSubmit }: EmailStepProps) {
-    const { t } = useTranslation();
+function EmailStep({onSubmit}: EmailStepProps) {
+    const {t} = useTranslation();
     const [email, setEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);

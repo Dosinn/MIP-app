@@ -1,12 +1,12 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import {ArrowLeft, Star, User, User as UserIcon, Archive} from 'lucide-react';
-import { useTranslation } from 'react-i18next';
-import { useState, useMemo } from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {Archive, ArrowLeft, Star} from 'lucide-react';
+import {useTranslation} from 'react-i18next';
+import {useMemo, useState} from 'react';
 import {useQuery} from "@tanstack/react-query";
 
 import './TeacherProjectReview.css';
 import DecisionModal from './components/DecisionModal/DecisionModal.tsx';
-import type { HistoryElement, Project, SimilarityProject } from "../../api/schemas/ProjectSchema.ts";
+import type {HistoryElement, Project, SimilarityProject} from "../../api/schemas/ProjectSchema.ts";
 import projectsRepository from "../../api/repositories/ProjectsRepository.ts";
 import formatName from "../../utils/formatName.ts";
 import FilesSections from "../../components/FilesSections/FilesSections.tsx";
@@ -16,17 +16,18 @@ import similarityRepository from "../../api/repositories/SimilarityRepository.ts
 import ProjectCardComponent from "../../components/ProjectCard/ProjectCard.tsx";
 import QueryState from "../../components/QueryState/QueryState.tsx";
 import ConfirmModal from "../../components/ConfirmModal/ConfirmModal.tsx";
-import { useApproveProject, useReturnProject, useArchiveProject, useUnarchiveProject } from "../../hooks/useProjects.ts";
+import {useApproveProject, useArchiveProject, useReturnProject, useUnarchiveProject} from "../../hooks/useProjects.ts";
 import {useToast} from "../../components/Toast/ToastContext.tsx";
 import ProjectDiffViewer from './components/ProjectDiffViewer/ProjectDiffViewer.tsx';
 import getApiErrorMessage from "../../utils/errorHandler.ts";
 import IdeaFieldAccordion from "../../components/IdeaFieldAccordion/IdeaFieldAccordion.tsx";
+import UserAvatar from "../../components/UserAvatar/UserAvatar.tsx";
 
 function TeacherProjectReview() {
     const navigate = useNavigate();
-    const { id } = useParams();
-    const { t } = useTranslation();
-    const { showSuccess, showError } = useToast();
+    const {id} = useParams();
+    const {t} = useTranslation();
+    const {showSuccess, showError} = useToast();
 
     const [pendingDecision, setPendingDecision] = useState<'approved' | 'rejected' | null>(null);
     const [showTeamModal, setShowTeamModal] = useState(false);
@@ -100,12 +101,12 @@ function TeacherProjectReview() {
 
         try {
             if (pendingDecision === 'approved') {
-                await approveMutation.mutateAsync({ projectId: id, message: reason });
+                await approveMutation.mutateAsync({projectId: id, message: reason});
                 if (project) {
                     await similarityRepository.createEmbeddings(project.id)
                 }
             } else {
-                await returnMutation.mutateAsync({ projectId: id, message: reason });
+                await returnMutation.mutateAsync({projectId: id, message: reason});
             }
             showSuccess(t('decision_submitted_success'));
             setPendingDecision(null);
@@ -162,7 +163,7 @@ function TeacherProjectReview() {
         <div className="projectDetails">
             <div className="projectCover">
                 <button className="backButton" onClick={() => navigate(-1)}>
-                    <ArrowLeft size={32} />
+                    <ArrowLeft size={32}/>
                 </button>
             </div>
 
@@ -171,9 +172,8 @@ function TeacherProjectReview() {
 
                 <div className="metaRow">
                     <div className="metaLeft" onClick={() => setShowTeamModal(true)}>
-                        <div className="avatarImg avatarProject">
-                            <User size={16} strokeWidth={1.8} />
-                        </div>
+                        <UserAvatar name={firstMember?.name ?? ''} size={32}/>
+
                         <span className="metaText">
                             {firstMember && (
                                 <span className="metaTextName">
@@ -191,7 +191,7 @@ function TeacherProjectReview() {
                             disabled={isSubmitting}
                             title={project.archived ? t('unarchive_project_btn') : t('archive_project_btn')}
                         >
-                            <Archive size={15} />
+                            <Archive size={15}/>
                             <span>{project.archived ? t('status_archived') : t('archive_btn')}</span>
                         </button>
 
@@ -244,39 +244,39 @@ function TeacherProjectReview() {
 
                 )}
 
-                    {project.improvedFrom && (
-                        <div className="improvedFromSection">
-                            <p className="fieldLabel labelReview" style={{ marginTop: 0, marginBottom: '6px' }}>
-                                {t('improved_from_project_label')}
-                            </p>
-                            <ProjectCardComponent
-                                project={project.improvedFrom}
-                                onClick={() => navigate(`/project/${project.improvedFrom!.id}`, { state: { fromReview: true } })}
-                            />
-                        </div>
-                    )}
+                {project.improvedFrom && (
+                    <div className="improvedFromSection">
+                        <p className="fieldLabel labelReview" style={{marginTop: 0, marginBottom: '6px'}}>
+                            {t('improved_from_project_label')}
+                        </p>
+                        <ProjectCardComponent
+                            project={project.improvedFrom}
+                            onClick={() => navigate(`/project/${project.improvedFrom!.id}`, {state: {fromReview: true}})}
+                        />
+                    </div>
+                )}
 
-                    <h3 className="sectionTitleProject">Idea breakdown</h3>
+                <h3 className="sectionTitleProject">Idea breakdown</h3>
 
-                    <IdeaFieldAccordion
-                        label="Riešený problém"
-                        score={project.problemCohesion}
-                        text={project.problem}
-                    />
-                    <IdeaFieldAccordion
-                        label="Cieľová skupina"
-                        score={project.audiencePrecision}
-                        text={project.targetAudience}
-                    />
-                    <IdeaFieldAccordion
-                        label="Unikátnosť"
-                        score={project.uniquenessScore}
-                        text={project.uniqueness}
-                    />
+                <IdeaFieldAccordion
+                    label="Riešený problém"
+                    score={project.problemCohesion}
+                    text={project.problem}
+                />
+                <IdeaFieldAccordion
+                    label="Cieľová skupina"
+                    score={project.audiencePrecision}
+                    text={project.targetAudience}
+                />
+                <IdeaFieldAccordion
+                    label="Unikátnosť"
+                    score={project.uniquenessScore}
+                    text={project.uniqueness}
+                />
 
                 <h3 className="sectionTitleProject">Files</h3>
 
-                    <FilesSections sections={project.files} />
+                <FilesSections sections={project.files}/>
 
 
                 <QueryState
@@ -295,7 +295,7 @@ function TeacherProjectReview() {
                                 key={p.id}
                                 project={p}
                                 similarity={p.weighted_sim}
-                                onClick={() => navigate(`/project/${p.id}`, { state: { fromReview: true } })}
+                                onClick={() => navigate(`/project/${p.id}`, {state: {fromReview: true}})}
                             />
                         ))}
                     </div>
@@ -307,7 +307,7 @@ function TeacherProjectReview() {
                     isError={commentsError}
                     errorMessageKey="failed_to_load_comments"
                 >
-                    <HistoryComponent comments={comments} />
+                    <HistoryComponent comments={comments}/>
                 </QueryState>
 
                 {project.status === 'pending' && (
@@ -335,9 +335,7 @@ function TeacherProjectReview() {
                 <Modal title={t('team_members_text')} onClose={() => setShowTeamModal(false)}>
                     {project.team?.members?.map((member) => (
                         <div key={member.id} className="personOption personOptionStatic">
-                            <div className="avatarImg">
-                                <UserIcon size={20} strokeWidth={1.8} />
-                            </div>
+                            <UserAvatar name={member.name} size={48}/>
                             <div className="personInfo">
                                 <span className="personName">{member.name}</span>
                                 <span className="personEmail">{member.email}</span>

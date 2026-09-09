@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from "./context/ThemeContext.tsx";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from "./api/queryClient.ts";
 import { ToastProvider } from "./components/Toast/ToastContext.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
@@ -30,7 +29,6 @@ import IdeaMapPage from "./pages/map/MapPage.tsx";
 function App() {
     return (
         <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools initialIsOpen={false} />
 
             <AuthProvider>
                 <ToastProvider>

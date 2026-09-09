@@ -20,10 +20,10 @@
     gap: 12px;
     padding: 1rem 1.5rem;
     border-radius: 12px;
-    background: var(--card-bg, #ffffff);
+    background: var(--bg-color);
     color: var(--text-color, #1f2937);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--border-color, #e5e7eb);
+    border: 1px solid var(--border-color);
     animation: toastSlideIn 0.25s ease-out;
 }
 
@@ -55,7 +55,7 @@
 }
 
 .toast--info {
-    border-left: 4px solid var(--color-primary-blue);
+    border: 1px solid var(--color-primary-blue);
 }
 
 .toast--info .toastIcon {
@@ -80,7 +80,7 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    color: var(--color-gray-800, #9ca3af);
+    color: var(--color-gray-800);
     padding: 2px;
     display: flex;
     align-items: center;
@@ -90,5 +90,5 @@
 }
 
 .toastClose:hover {
-    color: var(--text-color, #1f2937);
+    color: var(--text-color);
 }

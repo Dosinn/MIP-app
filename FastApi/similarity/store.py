@@ -29,8 +29,13 @@ class EmbeddingStore:
         projects = result.all()
 
         self.ids = [p.id for p in projects]
-        self.title_embs = np.array([p.title_emb for p in projects])
-        self.desc_embs = np.array([p.desc_emb for p in projects])
+
+        if projects:
+            self.title_embs = np.array([p.title_emb for p in projects])
+            self.desc_embs = np.array([p.desc_emb for p in projects])
+        else:
+            self.title_embs = None
+            self.desc_embs = None
 
         self.relayout()
 
@@ -38,9 +43,9 @@ class EmbeddingStore:
     def add(self, project_id: int, title_emb, desc_emb):
         self.ids.append(project_id)
 
-        if self.title_embs is None:
-            self.title_embs = np.vstack([title_emb])
-            self.desc_embs = np.vstack([desc_emb])
+        if self.title_embs is None or self.title_embs.size == 0:
+            self.title_embs = np.atleast_2d(title_emb)
+            self.desc_embs = np.atleast_2d(desc_emb)
         else:
             self.title_embs = np.vstack([self.title_embs, title_emb])
             self.desc_embs = np.vstack([self.desc_embs, desc_emb])
@@ -57,7 +62,12 @@ class EmbeddingStore:
         new_pos = self.mds.project_new_point(distances)
 
         self.positions[project_id] = new_pos
-        self.mds.positions = np.vstack([self.mds.positions, new_pos])
+
+        if self.mds.positions is None or len(self.mds.positions) == 0:
+            self.mds.positions = np.atleast_2d(new_pos)
+        else:
+            self.mds.positions = np.vstack([self.mds.positions, new_pos])
+
         self.mds.ids.append(project_id)
 
     def remove(self, project_id: int):

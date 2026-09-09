@@ -1,24 +1,24 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useTranslation} from 'react-i18next';
 
 import EmailStep from './steps/EmailStep';
 import CodeStep from './steps/CodeStep';
 import ProfileStep from './steps/ProfileStep';
 
 import './LoginFlow.css';
-import { useRequestCode, useVerifyCode, useCompleteProfile } from '../../hooks/useAuth.ts';
+import {useCompleteProfile, useRequestCode, useVerifyCode} from '../../hooks/useAuth.ts';
 import {useToast} from '../../components/Toast/ToastContext.tsx';
 
-import { useAuth } from '../../context/AuthContext.tsx';
+import {useAuth} from '../../context/AuthContext.tsx';
 
 type Step = 'email' | 'code' | 'profile';
 
 function LoginFlow() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const navigate = useNavigate();
-    const { showError } = useToast();
-    const { user, login, refetchUser } = useAuth();
+    const {showError} = useToast();
+    const {user, login, refetchUser} = useAuth();
 
     const [step, setStep] = useState<Step>(() => {
         if (user && !user.onboarded) {
@@ -44,7 +44,7 @@ function LoginFlow() {
 
     const handleCodeSubmit = async (code: string) => {
         try {
-            const data = await verifyCodeMutation.mutateAsync({ email, code });
+            const data = await verifyCodeMutation.mutateAsync({email, code});
 
             if (data.token) {
                 await login(data.token);
@@ -73,7 +73,7 @@ function LoginFlow() {
 
     const handleProfileSubmit = async (name: string, teacherId: string) => {
         try {
-            await completeProfileMutation.mutateAsync({ name, teacherId });
+            await completeProfileMutation.mutateAsync({name, teacherId});
             await refetchUser();
 
             if (document.activeElement instanceof HTMLElement) {
@@ -89,9 +89,9 @@ function LoginFlow() {
     return (
         <div className="loginPage">
             <div className="loginCard">
-                <img src="/favicon-inverse.svg" alt="MIP" className="loginLogo" />
+                <img src="/favicon-inverse.svg" alt="MIP" className="loginLogo"/>
 
-                {step === 'email' && <EmailStep onSubmit={handleEmailSubmit} />}
+                {step === 'email' && <EmailStep onSubmit={handleEmailSubmit}/>}
 
                 {step === 'code' && (
                     <CodeStep
@@ -102,11 +102,11 @@ function LoginFlow() {
                     />
                 )}
 
-                {step === 'profile' && <ProfileStep onSubmit={handleProfileSubmit} />}
+                {step === 'profile' && <ProfileStep onSubmit={handleProfileSubmit}/>}
 
                 {step === 'email' && (
                     <p className="helpText">
-                        {t('login_help_problem')} <br />{t('login_help_contact')}
+                        {t('login_help_problem')} <br/>{t('login_help_contact')}
                     </p>
                 )}
             </div>

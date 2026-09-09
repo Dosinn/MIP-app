@@ -59,7 +59,7 @@ export function TeamMembersList({members, teamId, onMemberRemoved}: TeamMembersL
                                 title={t('remove_member_from_team')}
                                 disabled={removeMemberMutation.isPending}
                             >
-                                <UserMinus size={16} />
+                                <UserMinus size={18} />
                             </button>
                         )}
                     </div>

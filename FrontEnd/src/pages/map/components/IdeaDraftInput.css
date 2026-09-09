@@ -43,11 +43,11 @@
 .draftInputTitle {
     width: 100%;
     border: none;
-    border-bottom: 1px solid #E5E7EB;
+    border-bottom: 1px solid var(--border-color);
     padding: 6px 0;
     font-size: 16px;
     font-weight: 500;
-    color: #1E293B;
+    color: var(--color-slate-800);
     outline: none;
     box-sizing: border-box;
     margin-bottom: 8px;
@@ -63,7 +63,7 @@
     border: none;
     resize: none;
     font-size: 16px;
-    color: #374151;
+    color: var(--color-slate-800);
     outline: none;
     box-sizing: border-box;
     font-family: 'Inter', system-ui, sans-serif;

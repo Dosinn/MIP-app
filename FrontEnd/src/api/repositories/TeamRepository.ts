@@ -42,19 +42,16 @@ export const teamRepository = {
         return res.data;
     },
 
-    // Returns pending invites sent *to* the current user (incoming)
     async getMyPendingInvites(): Promise<TeamInvite[]> {
         const res = await apiClient.get<TeamInvite[]>('/invites/me/pending');
         return res.data;
     },
 
-    // Returns pending invites sent *by* the current user (outgoing)
     async getMySentPendingInvites(): Promise<TeamInvite[]> {
         const res = await apiClient.get<TeamInvite[]>('/invites/me/sent');
         return res.data;
     },
 
-    // token — inviteToken UUID string from the invite object
     async acceptInvite(token: string): Promise<TeamInvite> {
         const res = await apiClient.post<TeamInvite>(`/invites/${token}/accept`);
         return res.data;

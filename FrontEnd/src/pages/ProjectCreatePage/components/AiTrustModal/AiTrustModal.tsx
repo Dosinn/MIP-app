@@ -1,7 +1,5 @@
-import { useTranslation } from 'react-i18next';
-import {
-    CheckCircle2,
-} from 'lucide-react';
+import {useTranslation} from 'react-i18next';
+import {CheckCircle2,} from 'lucide-react';
 import Modal from '../../../../components/Modal/Modal.tsx';
 import './AiTrustModal.css';
 
@@ -10,8 +8,8 @@ interface AiTrustModalProps {
     onClose: () => void;
 }
 
-export function AiTrustModal({ isOpen, onClose }: AiTrustModalProps) {
-    const { t } = useTranslation();
+export function AiTrustModal({isOpen, onClose}: AiTrustModalProps) {
+    const {t} = useTranslation();
 
     if (!isOpen) return null;
 
@@ -53,7 +51,6 @@ export function AiTrustModal({ isOpen, onClose }: AiTrustModalProps) {
             title={t('ai_trust_modal_title')}
             onClose={onClose}
         >
-            {/* Hero Introduction */}
             <div className="aiTrustHero">
                 <div className="aiTrustHeroText">
                     <h4 className="aiTrustHeroTitle">
@@ -65,7 +62,6 @@ export function AiTrustModal({ isOpen, onClose }: AiTrustModalProps) {
                 </div>
             </div>
 
-            {/* 5 Dimensions list */}
             <div className="aiTrustDimensionsList">
                 <h5 className="aiTrustSectionHeading">
                     <span>{t('ai_trust_radar_heading')}</span>
@@ -75,7 +71,7 @@ export function AiTrustModal({ isOpen, onClose }: AiTrustModalProps) {
                     <div key={idx} className="aiTrustDimCard">
                         <div className="aiTrustDimBody">
                             <div className="aiTrustDimHeader">
-                                <span className="aiTrustDimTitle" style={{ color: dim.color }}>{dim.title}</span>
+                                <span className="aiTrustDimTitle" style={{color: dim.color}}>{dim.title}</span>
                                 <span className="aiTrustDimSubtitle">{dim.subtitle}</span>
                             </div>
                             <p className="aiTrustDimDesc">{dim.desc}</p>
@@ -84,17 +80,15 @@ export function AiTrustModal({ isOpen, onClose }: AiTrustModalProps) {
                 ))}
             </div>
 
-            {/* Privacy and objectivity notice */}
             <div className="aiTrustFooterNotice">
                 <div className="aiTrustNoticeItem">
-                    <CheckCircle2 size={16} className="aiTrustCheckIcon" />
+                    <CheckCircle2 size={16} className="aiTrustCheckIcon"/>
                     <span>
                         {t('ai_trust_deterministic_note')} {t('ai_trust_privacy_note')}
                     </span>
                 </div>
             </div>
 
-            {/* Sticky footer */}
             <div className="aiTrustModalActions">
                 <button type="button" className="aiTrustCloseBtn" onClick={onClose}>
                     {t('understand_btn')}

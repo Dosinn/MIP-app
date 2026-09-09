@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
-import TeacherPicker, { type Teacher } from '../components/TeacherSelector';
 import { useTranslation } from 'react-i18next';
 import '../LoginFlow.css';
 import { useTeachers } from '../../../hooks/useUsers.ts';
 import UserAvatar from "../../../components/UserAvatar/UserAvatar.tsx";
+import PersonPicker from "../../../components/PersonPicker/PersonPicker.tsx";
+import type {Teacher, User} from "../../../api/schemas/PeopleSchema.ts";
 
 interface ProfileStepProps {
     onSubmit: (name: string, teacherId: string) => Promise<void>;
@@ -74,11 +75,14 @@ function ProfileStep({ onSubmit }: ProfileStepProps) {
             </button>
 
             {showPicker && (
-                <TeacherPicker
-                    teachers={teachers}
-                    selectedId={selectedTeacher ? String(selectedTeacher.id) : null}
+                <PersonPicker
+                    title={t('select_teacher_title')}
+                    searchPlaceholder={t('search_teacher_placeholder')}
+                    emptyMessage={t('no_teacher_found_msg')}
+                    people={teachers as User[]}
+                    selectedIds={selectedTeacher ? [String(selectedTeacher.id)] : []}
                     onSelect={(teacher) => {
-                        setSelectedTeacher(teacher);
+                        setSelectedTeacher(teacher as Teacher);
                         setShowPicker(false);
                     }}
                     onClose={() => setShowPicker(false)}

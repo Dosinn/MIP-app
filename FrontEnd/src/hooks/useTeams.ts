@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import teamRepository from '../api/repositories/TeamRepository.ts';
-import { queryKeys } from '../api/queryKeys.ts';
+import {queryKeys} from '../api/queryKeys.ts';
 
 export function useMyTeam() {
     const token = localStorage.getItem('authToken');
@@ -25,15 +25,14 @@ export function useInviteMember() {
     return useMutation({
         mutationFn: (invitedEmail: string) => teamRepository.inviteMember(invitedEmail),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.teams.mine() });
-            queryClient.invalidateQueries({ queryKey: queryKeys.teams.sentInvites() });
-            queryClient.invalidateQueries({ queryKey: queryKeys.teams.invites() });
-            queryClient.invalidateQueries({ queryKey: queryKeys.teams.detail() });
+            queryClient.invalidateQueries({queryKey: queryKeys.teams.mine()});
+            queryClient.invalidateQueries({queryKey: queryKeys.teams.sentInvites()});
+            queryClient.invalidateQueries({queryKey: queryKeys.teams.invites()});
+            queryClient.invalidateQueries({queryKey: queryKeys.teams.detail()});
         },
     });
 }
 
-/** Incoming: invites sent TO the current user */
 export function usePendingInvites() {
     const token = localStorage.getItem('authToken');
     return useQuery({
@@ -44,7 +43,6 @@ export function usePendingInvites() {
     });
 }
 
-/** Outgoing: invites sent BY the current user that are still pending */
 export function useSentPendingInvites() {
     const token = localStorage.getItem('authToken');
     return useQuery({
@@ -55,16 +53,15 @@ export function useSentPendingInvites() {
     });
 }
 
-/** inviteToken — UUID string from the invite object */
 export function useAcceptInvite() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: (inviteToken: string) => teamRepository.acceptInvite(inviteToken),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.teams.invites() });
-            queryClient.invalidateQueries({ queryKey: queryKeys.teams.mine() });
-            queryClient.invalidateQueries({ queryKey: queryKeys.teams.sentInvites() });
-            queryClient.invalidateQueries({ queryKey: queryKeys.projects.mine() });
+            queryClient.invalidateQueries({queryKey: queryKeys.teams.invites()});
+            queryClient.invalidateQueries({queryKey: queryKeys.teams.mine()});
+            queryClient.invalidateQueries({queryKey: queryKeys.teams.sentInvites()});
+            queryClient.invalidateQueries({queryKey: queryKeys.projects.mine()});
         },
     });
 }
@@ -74,7 +71,7 @@ export function useDeclineInvite() {
     return useMutation({
         mutationFn: (inviteToken: string) => teamRepository.declineInvite(inviteToken),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.teams.invites() });
+            queryClient.invalidateQueries({queryKey: queryKeys.teams.invites()});
         },
     });
 }
@@ -82,13 +79,13 @@ export function useDeclineInvite() {
 export function useRemoveTeamMember() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ teamId, userId }: { teamId: number; userId: number }) =>
+        mutationFn: ({teamId, userId}: { teamId: number; userId: number }) =>
             teamRepository.removeMember(teamId, userId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['teacherAllReviews'] });
-            queryClient.invalidateQueries({ queryKey: ['students'] });
-            queryClient.invalidateQueries({ queryKey: ['teams'] });
-            queryClient.invalidateQueries({ queryKey: ['projects'] });
+            queryClient.invalidateQueries({queryKey: ['teacherAllReviews']});
+            queryClient.invalidateQueries({queryKey: ['students']});
+            queryClient.invalidateQueries({queryKey: ['teams']});
+            queryClient.invalidateQueries({queryKey: ['projects']});
         },
     });
 }

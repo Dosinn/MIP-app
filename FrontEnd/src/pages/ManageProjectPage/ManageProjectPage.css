@@ -1,24 +1,3 @@
-.manageContent {
-    display: flex;
-    flex-direction: column;
-    padding: 1.25rem 1rem 3rem;
-}
-
-.managePage {
-    display: flex;
-    flex-direction: column;
-    min-height: 100dvh;
-    background-color: var(--color-white);
-}
-
-.manageHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: calc(16px + env(safe-area-inset-top)) 16px 16px;
-    border-bottom: 1px solid var(--color-gray-200);
-}
-
 .manageHeaderTitle {
     font-size: 20px;
     font-weight: 700;
@@ -44,27 +23,6 @@
     color: var(--color-red-500);
 }
 
-.saveButton {
-    margin-top: 28px;
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 10px;
-    background-color: var(--color-primary-blue);
-    color: var(--color-white);
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.saveButton:disabled {
-    opacity: 0.6;
-}
 
 /* Delete confirm modal */
 .deleteOverlay {

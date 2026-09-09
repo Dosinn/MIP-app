@@ -13,13 +13,6 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-.createHeaderTitle {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--color-slate-800);
-    margin: 0;
-}
-
 .headerSpacer {
     padding-top: 1rem;
     width: 22px;
@@ -227,17 +220,6 @@
     flex-shrink: 0;
 }
 
-.similarCardDesc {
-    font-size: 13px;
-    color: var(--color-gray-700);
-    line-height: 1.4;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
 .similarCardBottom {
     display: flex;
     justify-content: flex-end;
@@ -313,71 +295,6 @@
     line-height: 1.5;
 }
 
-/* Uniqueness Comparison Notice */
-.uniquenessComparisonNotice {
-    background: var(--color-gray-100);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 6px 10px;
-    font-size: 13px;
-    color: var(--color-slate-800);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 4px;
-}
-
-.uniquenessComparisonNotice strong {
-    color: var(--color-primary-blue);
-}
-
-.uniquenessCompareBox {
-    background: var(--color-gray-50);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    padding: 10px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.uniquenessCandidateRow {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    background: var(--color-gray-100);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 8px 10px;
-    margin-bottom: .5rem;
-}
-
-.uniquenessCandidateTitle {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--color-slate-800);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.uniquenessCandidateStats {
-    display: flex;
-    gap: 14px;
-}
-
-.uniquenessCandidateStat {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--color-gray-700);
-}
-
-.uniquenessCompareTitle {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--color-slate-800);
-    margin: 0;
-}
 
 /* AI Trust Trigger Button */
 .radarTopBarRow {

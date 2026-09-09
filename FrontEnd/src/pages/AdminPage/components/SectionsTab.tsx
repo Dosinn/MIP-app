@@ -219,18 +219,6 @@ export function SectionsTab() {
                             </button>
                         </div>
 
-                        {/* TODO if we need this*/}
-                        {/*{editingSection && (*/}
-                        {/*    <button*/}
-                        {/*        type="button"*/}
-                        {/*        className="adminSaveBtn adminDeleteBtn"*/}
-                        {/*        onClick={() => handleDeleteSection(Number(editingSection.id))}*/}
-                        {/*        disabled={createSectionMutation.isPending || updateSectionMutation.isPending}*/}
-                        {/*    >*/}
-                        {/*        {t('delete_btn_text')}*/}
-                        {/*    </button>*/}
-                        {/*)}*/}
-
                     </div>
                 </Modal>
             )}

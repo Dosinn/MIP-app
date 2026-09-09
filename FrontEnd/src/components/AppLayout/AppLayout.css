@@ -5,6 +5,6 @@
 }
 
 .pageContent {
-    overflow-y: auto; /* скрол тільки якщо контент реально не влазить */
+    overflow-y: auto;
 }
 

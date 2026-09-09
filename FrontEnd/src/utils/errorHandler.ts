@@ -9,10 +9,6 @@ export interface BackendErrorData {
     message?: string;
 }
 
-/**
- * Extracts translated error message from backend error response errorCode,
- * falling back to provided fallback translation key or general error.
- */
 export function getApiErrorMessage(error: unknown, fallbackKey = 'general_error_msg'): string {
     if (error && typeof error === 'object' && 'response' in error) {
         const axiosErr = error as AxiosError<BackendErrorData>;

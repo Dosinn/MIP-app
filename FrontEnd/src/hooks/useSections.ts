@@ -1,6 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import filesRepository from '../api/repositories/FilesRepository.ts';
-import { queryKeys } from '../api/queryKeys.ts';
+import {queryKeys} from '../api/queryKeys.ts';
 
 export function useSections() {
     return useQuery({
@@ -20,7 +20,7 @@ export function useCreateSection() {
             endsAt?: string;
         }) => filesRepository.createSection(data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.sections.all() });
+            queryClient.invalidateQueries({queryKey: queryKeys.sections.all()});
         },
     });
 }
@@ -29,9 +29,9 @@ export function useUpdateSection() {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: ({
-            id,
-            data,
-        }: {
+                         id,
+                         data,
+                     }: {
             id: number | string;
             data: {
                 name: string;
@@ -42,7 +42,7 @@ export function useUpdateSection() {
             };
         }) => filesRepository.updateSection(id, data),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.sections.all() });
+            queryClient.invalidateQueries({queryKey: queryKeys.sections.all()});
         },
     });
 }
@@ -52,7 +52,7 @@ export function useDeleteSection() {
     return useMutation({
         mutationFn: (id: number | string) => filesRepository.deleteSection(id),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: queryKeys.sections.all() });
+            queryClient.invalidateQueries({queryKey: queryKeys.sections.all()});
         },
     });
 }

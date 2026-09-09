@@ -60,9 +60,6 @@
     margin-right: 1rem;
 }
 
-
-/* ─── Incoming invite row ─────────────────────────────────────────────────── */
-/*noinspection CssNonIntegerLengthInPixels*/
 .teamMemberIncoming:first-child {
     /*background-color: var(--color-blue-alpha-10);*/
     border-top: 1.5px solid var(--color-primary-blue);
@@ -70,10 +67,6 @@
     padding-top: .7rem;
 }
 
-.avatarImgIncoming {
-    background-color: var(--color-primary-blue);
-    color: #fff;
-}
 
 .inlineInviteActions {
     display: flex;
@@ -117,21 +110,4 @@
 .inlineDeclineBtn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-}
-.reminderRow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--color-gray-100);
-}
-
-.reminderIcon {
-    color: var(--color-amber-700);
-    flex-shrink: 0;
-}
-
-.reminderText {
-    font-size: 14px;
-    color: var(--color-slate-800);
 }

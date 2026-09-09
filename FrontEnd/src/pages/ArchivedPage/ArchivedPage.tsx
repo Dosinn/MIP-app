@@ -1,23 +1,23 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import './ArchivedPage.css';
 import ProjectCardComponent from '../../components/ProjectCard/ProjectCard.tsx';
 import QueryState from '../../components/QueryState/QueryState.tsx';
-import { useTranslation } from 'react-i18next';
-import { useMyArchivedProjects, useUnarchiveProject } from '../../hooks/useProjects.ts';
-import { Archive, ArrowLeft, RefreshCw } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext.tsx';
-import { useToast } from '../../components/Toast/ToastContext.tsx';
-import type { ProjectCard } from '../../api/schemas/ProjectSchema.ts';
+import {useTranslation} from 'react-i18next';
+import {useMyArchivedProjects, useUnarchiveProject} from '../../hooks/useProjects.ts';
+import {Archive, ArrowLeft, RefreshCw} from 'lucide-react';
+import {useNavigate} from 'react-router-dom';
+import {useAuth} from '../../context/AuthContext.tsx';
+import {useToast} from '../../components/Toast/ToastContext.tsx';
+import type {ProjectCard} from '../../api/schemas/ProjectSchema.ts';
 import ConfirmModal from "../../components/ConfirmModal/ConfirmModal.tsx";
 
 function ArchivedPage() {
-    const { t } = useTranslation();
+    const {t} = useTranslation();
     const navigate = useNavigate();
-    const { user } = useAuth();
-    const { showSuccess, showError } = useToast();
+    const {user} = useAuth();
+    const {showSuccess, showError} = useToast();
 
-    const { data: projects = [], isPending, isError, refetch } = useMyArchivedProjects();
+    const {data: projects = [], isPending, isError, refetch} = useMyArchivedProjects();
     const unarchiveMutation = useUnarchiveProject();
 
     const [projectToUnarchive, setProjectToUnarchive] = useState<ProjectCard | null>(null);
@@ -59,7 +59,7 @@ function ArchivedPage() {
                     onClick={() => navigate('/account')}
                     aria-label={t('back_btn_aria')}
                 >
-                    <ArrowLeft size={26} />
+                    <ArrowLeft size={26}/>
                 </button>
                 <div className="archivedTitleGroup">
                     <div className="archivedTitleWrapper">
@@ -71,13 +71,13 @@ function ArchivedPage() {
             <div className="projectsContainerArchived">
                 {projects.length === 0 ? (
                     <div className="emptyArchivedState">
-                        <Archive size={40} className="emptyArchivedIcon" />
+                        <Archive size={40} className="emptyArchivedIcon"/>
                         <p className="teacherEmptyState">{t('no_archived_projects_msg')}</p>
                     </div>
                 ) : (
                     projects.map((project) => (
                         <div key={project.id} className="archivedCardWrapper">
-                            <ProjectCardComponent project={project} />
+                            <ProjectCardComponent project={project}/>
                             {canUnarchive && (
                                 <div className="archivedCardActions">
                                     <button
@@ -86,7 +86,7 @@ function ArchivedPage() {
                                         onClick={() => setProjectToUnarchive(project)}
                                         title={t('unarchive_project_btn')}
                                     >
-                                        <RefreshCw size={14} />
+                                        <RefreshCw size={14}/>
                                         <span>{t('unarchive_project_btn')}</span>
                                     </button>
                                 </div>
@@ -96,21 +96,17 @@ function ArchivedPage() {
                 )}
             </div>
 
-            {/* Modal for Unarchive confirmation */}
             {projectToUnarchive && (
-
-
                 <ConfirmModal
                     isOpen={!!projectToUnarchive}
                     title={t('unarchive_confirm_title')}
                     message={t('unarchive_confirm_desc', {title: projectToUnarchive.title})}
                     confirmText={unarchiveMutation.isPending ? t('unarchiving_loader') : t('confirm_unarchive_btn')}
-                    isDanger={true}
-                    loading={unarchiveMutation.isPending }
+                    isDanger={false}
+                    loading={unarchiveMutation.isPending}
                     onConfirm={handleConfirmUnarchive}
                     onCancel={() => setProjectToUnarchive(null)}
                 />
-
             )}
         </div>
     );

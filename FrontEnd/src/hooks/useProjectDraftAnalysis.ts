@@ -1,14 +1,13 @@
-// hooks/useProjectDraftAnalysis.ts
-import { useState, useCallback, useRef } from 'react';
+import {useCallback, useRef, useState} from 'react';
 import similarityRepository from '../api/repositories/SimilarityRepository';
-import { useAnalyzeProblem, useAnalyzeAudience, useAnalyzeAlignment, useClassifyCategories } from './useNlp';
-import { useCompareUniqueness } from './useSimilarity';
-import type { SimilarityProject, UniquenessCompareResult } from '../api/schemas/ProjectSchema';
+import {useAnalyzeAlignment, useAnalyzeAudience, useAnalyzeProblem, useClassifyCategories} from './useNlp';
+import {useCompareUniqueness} from './useSimilarity';
+import type {SimilarityProject, UniquenessCompareResult} from '../api/schemas/ProjectSchema';
 import type {
-    ProblemCohesionResult,
-    AudienceAnalysisResult,
     AlignmentResult,
+    AudienceAnalysisResult,
     CategoryClassifyResult,
+    ProblemCohesionResult,
 } from '../api/schemas/NlpSchema';
 
 const MIN_TITLE_LENGTH = 3;
@@ -62,21 +61,18 @@ export function useProjectDraftAnalysis({
                                             problem,
                                             audience,
                                             uniqueness,
-                                            improvingProject,
+                                            improvingProject
                                         }: UseProjectDraftAnalysisArgs) {
-    // Similar Projects List (Max 3) — coarse, from title+description (early nudge)
+
     const [similarProjects, setSimilarProjects] = useState<SimilarityProject[]>([]);
 
-    // NLP Analysis States
     const [problemAnalysis, setProblemAnalysis] = useState<ProblemCohesionResult>(DEFAULT_PROBLEM_ANALYSIS);
     const [audienceAnalysis, setAudienceAnalysis] = useState<AudienceAnalysisResult>(DEFAULT_AUDIENCE_ANALYSIS);
     const [alignmentResult, setAlignmentResult] = useState<AlignmentResult>(DEFAULT_ALIGNMENT_RESULT);
     const [categoryResult, setCategoryResult] = useState<CategoryClassifyResult>(DEFAULT_CATEGORY_RESULT);
 
-    // Precise uniqueness comparison — from problem+audience rerank against real projects
     const [uniquenessCompare, setUniquenessCompare] = useState<UniquenessCompareResult | null>(null);
 
-    // Change Tracking Refs (Prevents duplicate requests on re-blur)
     const lastCheckedTitleDescRef = useRef<string>('');
     const lastCheckedProblemRef = useRef<string>('');
     const lastCheckedAudienceRef = useRef<string>('');
@@ -85,14 +81,12 @@ export function useProjectDraftAnalysis({
     const lastCheckedAlignmentRef = useRef<string>('');
     const lastCheckedCompareRef = useRef<string>('');
 
-    // Mutations
     const analyzeProblemMutation = useAnalyzeProblem();
     const analyzeAudienceMutation = useAnalyzeAudience();
     const analyzeAlignmentMutation = useAnalyzeAlignment();
     const classifyCategoriesMutation = useClassifyCategories();
     const compareUniquenessMutation = useCompareUniqueness();
 
-    // ----------------- ON-BLUR REQUEST HANDLERS -----------------
 
     const triggerCategoriesCheck = useCallback(async () => {
         const full = `${title} ${description} ${problem} ${audience} ${uniqueness}`.trim();
@@ -120,7 +114,7 @@ export function useProjectDraftAnalysis({
 
         lastCheckedAlignmentRef.current = key;
         try {
-            const res = await analyzeAlignmentMutation.mutateAsync({ problem: probText, solution: solText });
+            const res = await analyzeAlignmentMutation.mutateAsync({problem: probText, solution: solText});
             setAlignmentResult(res);
         } catch {
             /* keep last known alignment */

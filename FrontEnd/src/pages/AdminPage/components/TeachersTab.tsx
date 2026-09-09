@@ -135,7 +135,6 @@ export function TeachersTab({query}: TeachersTabProps) {
                 </QueryState>
             </div>
 
-            {/* MODAL: ADD TEACHER */}
             {isTeacherModalOpen && (
                 <Modal
                     title={t('add_teacher_title')}
@@ -181,7 +180,6 @@ export function TeachersTab({query}: TeachersTabProps) {
                 </Modal>
             )}
 
-            {/* MODAL: EDIT TEACHER */}
             {isEditTeacherModalOpen && editingTeacher && (
                 <Modal
                     title={`${t('edit_teacher_title')}: ${editingTeacher.name}`}

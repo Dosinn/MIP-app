@@ -6,6 +6,8 @@ from project.models import Project, Team, TeamMember, User
 from project.schemas import ProjectDetail, TeamSchema, UserSchema
 from similarity.schemas import SimilarityResult
 
+from sentence_transformers import SentenceTransformer
+
 from init.lifespan import embedding_store
 
 
@@ -72,7 +74,7 @@ class ProjectService:
 
         return project if project is not None else None
 
-    async def set_project_embeddings(self, session: AsyncSession, model: AsyncSession, project_id: int):
+    async def set_project_embeddings(self, session: AsyncSession, model: SentenceTransformer, project_id: int):
 
         project_to_update = await self.get_project(session, project_id)
 

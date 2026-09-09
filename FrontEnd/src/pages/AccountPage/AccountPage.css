@@ -12,18 +12,6 @@
     margin-bottom: 24px;
 }
 
-.accountAvatar {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background-color: var(--color-gray-200);
-    color: var(--color-gray-500);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-}
-
 .accountName {
     font-size: 22px;
     font-weight: 700;

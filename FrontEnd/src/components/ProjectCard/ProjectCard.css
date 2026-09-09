@@ -1,7 +1,7 @@
 .cardContainer {
   width: calc(100% - 2rem - 2px);
   padding: 16px;
-  background-color: var(--color-gray-50);
+  background-color: var(--color-white);
   border: 1px solid var(--border-color);
   border-radius: 12px;
   color: var(--color-gray-800);

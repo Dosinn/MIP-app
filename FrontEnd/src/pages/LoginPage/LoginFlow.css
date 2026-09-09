@@ -204,26 +204,9 @@
     flex-direction: row;
 }
 
-.teacherAvatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    font-size: 14px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .teacherSelectPlaceholder {
     color: var(--color-gray-400);
     font-size: 16px;
-}
-
-.teacherSelectedInfoAvatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
 }
 
 .teacherSelectedInfo {
@@ -237,19 +220,6 @@
     font-weight: 600;
     margin-left: 1rem;
 
-}
-
-.teacherSelectedAvatar {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background-color: var(--color-primary-blue);
-    color: var(--color-white);
-    font-size: 12px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .helpText {

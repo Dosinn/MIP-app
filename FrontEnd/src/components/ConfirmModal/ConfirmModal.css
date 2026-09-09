@@ -7,7 +7,7 @@
 
 .confirmModalText {
     font-size: 15px;
-    color: var(--color-gray-700, #475569);
+    color: var(--color-gray-700);
     line-height: 1.5;
     margin: 0;
 }
@@ -17,7 +17,7 @@
     gap: 10px;
     margin-top: 8px;
     padding-top: 16px;
-    border-top: 1px solid var(--color-gray-100, #f1f5f9);
+    border-top: 1px solid var(--color-gray-100);
 }
 
 .confirmModalActions .cancelButton,
@@ -36,21 +36,21 @@
 }
 
 .confirmModalActions .cancelButton {
-    border: 1.5px solid var(--color-gray-200, #e2e8f0);
-    background: var(--color-white, #ffffff);
-    color: var(--color-gray-500, #64748b);
+    border: 1.5px solid var(--color-gray-200);
+    background: var(--color-white);
+    color: var(--color-gray-500);
 }
 
 .confirmModalActions .rejectButton {
     border: none;
-    background: var(--color-red-500, #ef4444);
-    color: var(--color-white, #ffffff);
+    background: var(--color-red-500);
+    color: var(--color-white);
 }
 
 .confirmModalActions .approveButton {
     border: none;
-    background: var(--color-primary-blue, #0284c7);
-    color: var(--color-white, #ffffff);
+    background: var(--color-primary-blue);
+    color: var(--color-white);
 }
 
 .confirmModalActions button:disabled {

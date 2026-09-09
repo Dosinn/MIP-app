@@ -1,24 +1,31 @@
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom"
-import { useTranslation } from "react-i18next";
+import {useState} from 'react';
+import {useNavigate} from "react-router-dom"
+import {useTranslation} from "react-i18next";
 
-import type { LessonResponse, User } from "../../api/schemas/PeopleSchema.ts";
-import { Clock, Plus } from "lucide-react";
+import type {LessonResponse, User} from "../../api/schemas/PeopleSchema.ts";
+import {Clock, Plus} from "lucide-react";
 
 import QueryState from "../../components/QueryState/QueryState.tsx";
-import {useMyTeam, useInviteMember, usePendingInvites, useSentPendingInvites, useAcceptInvite, useDeclineInvite } from "../../hooks/useTeams.ts";
-import { useSearchStudents } from "../../hooks/useUsers.ts";
-import { useMyLessons } from "../../hooks/useLessons.ts";
-import { useSections } from "../../hooks/useSections.ts";
-import { useMyProject } from "../../hooks/useProjects.ts";
+import {
+    useAcceptInvite,
+    useDeclineInvite,
+    useInviteMember,
+    useMyTeam,
+    usePendingInvites,
+    useSentPendingInvites
+} from "../../hooks/useTeams.ts";
+import {useSearchStudents} from "../../hooks/useUsers.ts";
+import {useMyLessons} from "../../hooks/useLessons.ts";
+import {useSections} from "../../hooks/useSections.ts";
+import {useMyProject} from "../../hooks/useProjects.ts";
 import {useToast} from "../../components/Toast/ToastContext.tsx";
-import { getApiErrorMessage } from "../../utils/errorHandler.ts";
-import type { TeamInvite } from "../../api/repositories/TeamRepository.ts";
+import {getApiErrorMessage} from "../../utils/errorHandler.ts";
+import type {TeamInvite} from "../../api/repositories/TeamRepository.ts";
 
 import LessonItem from "../MainPage/components/LessonItem/LessonItem.tsx";
-import UrgentDeadlines, { type Deadline } from "../MainPage/components/UrgentDeadlines/UrgentDeadlines.tsx";
+import UrgentDeadlines, {type Deadline} from "../MainPage/components/UrgentDeadlines/UrgentDeadlines.tsx";
 import UserAvatar from "../../components/UserAvatar/UserAvatar.tsx";
-import { ProjectCardAdd, ProjectCardComponent } from "../../components/ProjectCard/ProjectCard.tsx";
+import {ProjectCardAdd, ProjectCardComponent} from "../../components/ProjectCard/ProjectCard.tsx";
 import PersonPicker from "../../components/PersonPicker/PersonPicker.tsx";
 import SendInviteModal from "./components/SendInviteModal/SendInviteModal.tsx";
 import RespondInviteModal from "./components/RespondInviteModal/RespondInviteModal.tsx";
@@ -35,8 +42,8 @@ function sortLessons(lessons: LessonResponse[]) {
 
 function MainPage() {
     const navigate = useNavigate();
-    const { t } = useTranslation();
-    const { showSuccess, showError } = useToast();
+    const {t} = useTranslation();
+    const {showSuccess, showError} = useToast();
 
     const [showPicker, setShowPicker] = useState(false);
     const [searchStudentQuery, setSearchStudentQuery] = useState('');
@@ -46,13 +53,13 @@ function MainPage() {
         action: 'accept' | 'decline';
     } | null>(null);
 
-    const { data: team, isPending: loadingTeam, isError: teamError, refetch: refetchTeam } = useMyTeam();
-    const { data: myProject, isPending: loadingMyProject } = useMyProject();
-    const { data: incomingInvites = [] } = usePendingInvites();    // sent TO me
-    const { data: sentInvites = [] } = useSentPendingInvites();    // sent BY me
-    const { data: searchStudents = [] } = useSearchStudents(searchStudentQuery);
-    const { data: lessons = [], isPending: loadingLessons } = useMyLessons();
-    const { data: sections = [] } = useSections();
+    const {data: team, isPending: loadingTeam, isError: teamError, refetch: refetchTeam} = useMyTeam();
+    const {data: myProject, isPending: loadingMyProject} = useMyProject();
+    const {data: incomingInvites = []} = usePendingInvites();    // sent TO me
+    const {data: sentInvites = []} = useSentPendingInvites();    // sent BY me
+    const {data: searchStudents = []} = useSearchStudents(searchStudentQuery);
+    const {data: lessons = [], isPending: loadingLessons} = useMyLessons();
+    const {data: sections = []} = useSections();
 
     const inviteMutation = useInviteMember();
     const acceptMutation = useAcceptInvite();
@@ -72,10 +79,10 @@ function MainPage() {
     const earliestSection = futureSections[0];
     const deadline: Deadline | null = earliestSection
         ? {
-              id: earliestSection.id,
-              title: earliestSection.name,
-              dueDate: earliestSection.endsAt!,
-          }
+            id: earliestSection.id,
+            title: earliestSection.name,
+            dueDate: earliestSection.endsAt!,
+        }
         : null;
 
     const handlePickPerson = (person: User) => {
@@ -143,14 +150,14 @@ function MainPage() {
         <div className="mainPage">
             {deadline && (
                 <div className="urgentSection">
-                    <UrgentDeadlines deadline={deadline} />
+                    <UrgentDeadlines deadline={deadline}/>
                 </div>
             )}
 
             <div className="lessonsList">
                 <h1 className="sectionText">{t('upcoming_classes')}</h1>
                 {loadingLessons ? (
-                    <QueryState isPending={true} />
+                    <QueryState isPending={true}/>
                 ) : lessons.length > 0 ? (
                     sortLessons(lessons).map((lesson) => {
                         const isLecture = lesson.type?.toLowerCase() === 'lecture';
@@ -174,7 +181,7 @@ function MainPage() {
             <div className="projectSection">
                 <h1 className="sectionText">{t('your_projects_text')}</h1>
                 {loadingMyProject ? (
-                    <QueryState isPending={true} />
+                    <QueryState isPending={true}/>
                 ) : myProject ? (
                     <ProjectCardComponent
                         project={myProject}
@@ -182,7 +189,7 @@ function MainPage() {
                         onClick={() => navigate(`/project/${myProject.id}/manage`)}
                     />
                 ) : (
-                    <ProjectCardAdd onClick={() => navigate("/create-project")} />
+                    <ProjectCardAdd onClick={() => navigate("/create-project")}/>
                 )}
 
             </div>
@@ -194,7 +201,7 @@ function MainPage() {
                     {/* Confirmed team members */}
                     {teamMembers.map((user) => (
                         <div key={user.id} className="teamMember">
-                            <UserAvatar name={user.name} size={48} />
+                            <UserAvatar name={user.name} size={48}/>
                             <div className="personInfo">
                                 <span className="personName">{user.name}</span>
                                 {user.email && (
@@ -207,14 +214,14 @@ function MainPage() {
                     {/* Outgoing pending invites */}
                     {sentInvites.map((invite) => (
                         <div key={`sent-${invite.id}`} className="teamMember teamMemberPending">
-                            <UserAvatar name={invite.invitedUser.name} size={48} />
+                            <UserAvatar name={invite.invitedUser.name} size={48}/>
                             <div className="personInfo">
                                 <span className="personName">{invite.invitedUser.name}</span>
                                 {invite.invitedUser.email && (
                                     <span className="personEmail">{invite.invitedUser.email}</span>
                                 )}
                             </div>
-                            <Clock size={24} className="pendingClockIcon" />
+                            <Clock size={24} className="pendingClockIcon"/>
                         </div>
                     ))}
 
@@ -222,7 +229,7 @@ function MainPage() {
                     {!isFullTeam && (
                         <button type="button" className="teamMember teamMemberAdd" onClick={() => setShowPicker(true)}>
                             <div className="avatarCircleAdd">
-                                <Plus size={22} strokeWidth={2} />
+                                <Plus size={22} strokeWidth={2}/>
                             </div>
                             <p className="memberName">{t('add_member_text')}</p>
                         </button>
@@ -232,7 +239,7 @@ function MainPage() {
                     <div className="incomingInvitesList">
                         {incomingInvites.map((invite) => (
                             <div key={`incoming-${invite.id}`} className="teamMember teamMemberIncoming">
-                                <UserAvatar name={invite.invitedBy.name} size={48} />
+                                <UserAvatar name={invite.invitedBy.name} size={48}/>
                                 <div className="personInfo">
                                     <span className="personName">{invite.invitedBy.name}</span>
                                     <span className="personEmail">{t('invite_from_subtext')}</span>
@@ -240,14 +247,14 @@ function MainPage() {
                                 <div className="inlineInviteActions">
                                     <button
                                         className="inlineDeclineBtn"
-                                        onClick={() => setPendingInviteAction({ invite, action: 'decline' })}
+                                        onClick={() => setPendingInviteAction({invite, action: 'decline'})}
                                         disabled={isBusy}
                                     >
                                         {t('invite_decline_btn')}
                                     </button>
                                     <button
                                         className="inlineAcceptBtn"
-                                        onClick={() => setPendingInviteAction({ invite, action: 'accept' })}
+                                        onClick={() => setPendingInviteAction({invite, action: 'accept'})}
                                         disabled={isBusy}
                                     >
                                         {t('invite_accept_btn')}

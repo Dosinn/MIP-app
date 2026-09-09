@@ -8,7 +8,20 @@ export default defineConfig({
   server: {
     host: true,
     allowedHosts: ['.ngrok-free.dev', '.ngrok-free.app', '.trycloudflare.com'],
+    proxy: {
+      // FastAPI
+      '^/(nlp|similarity|project)(/|$)': {
+        target: 'http://fastapi:8000',
+        changeOrigin: true,
+      },
+      // Spring Boot
+      '^/(auth|categories|files|lessons|notifications|projects|sections|teams|invites|users|actuator)(/|$)': {
+        target: 'http://spring:8080',
+        changeOrigin: true,
+      },
+    },
   },
+
 
   plugins: [react(), VitePWA({
     registerType: 'autoUpdate',

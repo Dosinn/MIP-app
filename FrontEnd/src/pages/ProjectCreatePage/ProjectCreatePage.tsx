@@ -25,7 +25,6 @@ const MIN_AUDIENCE_LENGTH = 8;
 const MIN_UNIQUENESS_LENGTH = 8;
 const DRAFT_STORAGE_KEY = 'project_create_draft';
 
-// Calibrated median baseline derived from the real student MIP project dataset
 const REAL_MIP_BASELINE: RadarData = {
     problemFocus: 76,
     nichePrecision: 72,
@@ -34,11 +33,7 @@ const REAL_MIP_BASELINE: RadarData = {
     evidence: 75,
 };
 
-/**
- * Multi-factor Evidence & Validation Scoring (0–100)
- * Evaluates quantified metrics (%, €, TRL), technical keywords, and authority references.
- */
-function calculateEvidenceScore(text: string): { score: number; hasMetrics: boolean; hasCitations: boolean } {
+export function calculateEvidenceScore(text: string): { score: number; hasMetrics: boolean; hasCitations: boolean } {
     const trimmed = (text || '').trim();
     if (!trimmed || trimmed.length < 10) return { score: 0, hasMetrics: false, hasCitations: false };
 
@@ -167,15 +162,17 @@ export function ProjectCreatePage() {
 
     const topOverallSimilarity = uniquenessCompare?.candidates[0]?.overall_similarity ?? null;
 
-    // Calibrated Uniqueness: if no similar candidate exists (null or <= 45%), project is 100% unique!
-    // In SlovakBERT, candidate similarities for real projects span 45% (different) to 95% (duplicate).
+    const MIDPOINT = 65;
+    const STEEPNESS = 0.08;
+
     const calibratedUniqueness = useMemo(() => {
         if (problem.trim().length < MIN_PROBLEM_LENGTH || uniqueness.trim().length < MIN_UNIQUENESS_LENGTH) {
             return 0;
         }
-        if (topOverallSimilarity === null || topOverallSimilarity <= 45) return 100;
-        if (topOverallSimilarity >= 95) return 0;
-        return Math.round(100 - ((topOverallSimilarity - 45) / 50) * 100);
+        if (topOverallSimilarity === null) return 100;
+
+        const score = 100 / (1 + Math.exp(STEEPNESS * (topOverallSimilarity - MIDPOINT)));
+        return Math.round(score);
     }, [topOverallSimilarity, problem, uniqueness]);
 
     const lowestPrecisionSegment = audienceAnalysis.lowest_segment;
@@ -339,8 +336,8 @@ export function ProjectCreatePage() {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                             onBlur={handleTitleDescBlur}
-                            rows={4}
-                            maxLength={500}
+                            rows={5}
+                            maxLength={1000}
                         />
                     </div>
 
@@ -412,8 +409,7 @@ export function ProjectCreatePage() {
                             value={problem}
                             onChange={(e) => setProblem(e.target.value)}
                             onBlur={handleProblemBlur}
-                            rows={4}
-                            maxLength={10000}
+                            rows={5}
                         />
 
                         {problem.trim().length > 10 && (
@@ -460,7 +456,7 @@ export function ProjectCreatePage() {
                             value={audience}
                             onChange={(e) => setAudience(e.target.value)}
                             onBlur={handleAudienceBlur}
-                            rows={4}
+                            rows={5}
                         />
 
                         {lowestPrecisionSegment && (lowestPrecisionSegment.precision ?? 1) < 0.45 && (
@@ -495,32 +491,9 @@ export function ProjectCreatePage() {
                             value={uniqueness}
                             onChange={(e) => setUniqueness(e.target.value)}
                             onBlur={handleUniquenessBlur}
-                            rows={3}
-                            maxLength={500}
+                            rows={5}
                         />
 
-                        {uniquenessCompare && uniquenessCompare.candidates.length > 0 && (
-                            <div className="uniquenessCompareBox">
-                                <span className="uniquenessCompareTitle">
-                                    {t('similar_by_content_title')}
-                                </span>
-                                <div className="uniquenessCandidatesList">
-                                    {uniquenessCompare.candidates.map((c) => (
-                                        <div key={c.project_id} className="uniquenessCandidateRow">
-                                            <span className="uniquenessCandidateTitle">{c.title}</span>
-                                            <div className="uniquenessCandidateStats">
-                                                <span className="uniquenessCandidateStat">
-                                                    {t('problem_similarity_short')}: {c.problem_similarity ?? '—'}%
-                                                </span>
-                                                <span className="uniquenessCandidateStat">
-                                                    {t('audience_similarity_short')}: {c.audience_similarity ?? '—'}%
-                                                </span>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
                     </div>
 
                     {categoryResult.tags.length > 0 && (
