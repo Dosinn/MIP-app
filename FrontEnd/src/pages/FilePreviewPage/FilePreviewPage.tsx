@@ -14,7 +14,6 @@ function FilePreviewPage() {
 
     const isPdf = fileName.toLowerCase().endsWith('.pdf');
 
-    // Dynamically allow pinch-to-zoom only on the file preview screen
     useEffect(() => {
         const viewportMeta = document.querySelector('meta[name="viewport"]');
         const lockedContent = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=overlays-content';

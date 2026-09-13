@@ -1,5 +1,4 @@
 services:
-  # 1. Веб-шлюз та Статичний фронтенд (React PWA + Ultralight Nginx Alpine) — порт 80 для ONCE
   frontend:
     build:
       context: .
@@ -10,7 +9,6 @@ services:
       - spring
       - fastapi
 
-  # 2. Python FastAPI мікросервіс (NLP, SlovakBERT, аналіз та подібність проєктів)
   fastapi:
     build:
       context: .
@@ -36,7 +34,6 @@ services:
       start_period: 60s
       retries: 5
 
-  # 3. Spring Boot 4 REST API (Основна бізнес-логіка, користувачі, команди, файли)
   spring:
     build:
       context: .
@@ -68,7 +65,6 @@ services:
       start_period: 90s
       retries: 5
 
-  # 4. База даних PostgreSQL 16
   db:
     image: postgres:16-alpine
     ports:

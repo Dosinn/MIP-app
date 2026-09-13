@@ -102,7 +102,6 @@ export const PWAGatekeeper: React.FC<PWAGatekeeperProps> = ({ children }) => {
         setIsBypassed(true);
     };
 
-    // If running in standalone PWA or user bypassed the gatekeeper for this session, render children
     if (isStandalone || isBypassed) {
         return <>{children}</>;
     }

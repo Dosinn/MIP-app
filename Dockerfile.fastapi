@@ -1,9 +1,5 @@
-# ==============================================================================
-# Dockerfile for Python FastAPI NLP & Similarity Microservice
-# ==============================================================================
 FROM python:3.11-slim
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     build-essential \
@@ -16,20 +12,15 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     HF_HOME=/storage/huggingface \
     TRANSFORMERS_CACHE=/storage/huggingface
 
-# 1. Upgrade pip, setuptools and wheel to latest versions
 RUN pip install --no-cache-dir --upgrade pip setuptools wheel
 
-# 2. Pre-install PyTorch CPU (large dependency, cached separately)
 RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
 
-# 3. Install remaining application dependencies from requirements.txt
 COPY FastApi/requirements.txt /app/
 RUN pip install --no-cache-dir --extra-index-url https://download.pytorch.org/whl/cpu -r /app/requirements.txt
 
-# 4. Copy backend source code
 COPY FastApi/ /app/
 
-# 5. Ensure storage directories exist
 RUN mkdir -p /storage/huggingface /storage/data
 
 EXPOSE 8000

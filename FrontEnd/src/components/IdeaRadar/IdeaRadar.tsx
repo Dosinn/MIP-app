@@ -85,7 +85,6 @@ export const IdeaRadar: React.FC<IdeaRadarProps> = ({
     };
 
     const status = getScoreStatus(overallScore);
-    // const StatusIcon = status.icon;
 
     return (
         <div className="ideaRadarBox">
@@ -107,7 +106,6 @@ export const IdeaRadar: React.FC<IdeaRadarProps> = ({
                     viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
                     className="radarSvg"
                 >
-                    {/* Background spider grid */}
                     {levels.map((level) => (
                         <polygon
                             key={level}
@@ -120,7 +118,6 @@ export const IdeaRadar: React.FC<IdeaRadarProps> = ({
                         />
                     ))}
 
-                    {/* Radiating axis lines */}
                     {radarAxes.map((_, i) => {
                         const angle = i * angleSlice - Math.PI / 2;
                         return (
@@ -135,15 +132,12 @@ export const IdeaRadar: React.FC<IdeaRadarProps> = ({
                         );
                     })}
 
-                    {/* Baseline polygon (if improving) */}
                     {baselinePoints && (
                         <polygon points={baselinePoints} className="radarBaselinePoly" />
                     )}
 
-                    {/* Current draft polygon */}
                     <polygon points={currentPoints} className="radarCurrentPoly" />
 
-                    {/* Dots on vertices */}
                     {radarAxes.map((axis, i) => {
                         const val = current[axis.key as keyof RadarData] ?? 50;
                         const { x, y } = getCoordinates(val, i);
@@ -158,7 +152,6 @@ export const IdeaRadar: React.FC<IdeaRadarProps> = ({
                         );
                     })}
 
-                    {/* Axis Labels placed precisely around large web */}
                     {radarAxes.map((axis, i) => {
                         const val = current[axis.key as keyof RadarData] ?? 50;
 

@@ -80,12 +80,10 @@ class ProjectService:
         if project_to_update is None:
             return None
 
-        # Verify that project is APPROVED before placing it on the radar map or similarity index
         review_stmt = select(ProjectReview).where(ProjectReview.project_id == project_id)
         review = (await session.exec(review_stmt)).first()
 
         if review is None or review.status != "APPROVED":
-            # If it's not approved, ensure it is NOT in the active embedding store
             embedding_store.remove(project_to_update.id)
             project_to_update.title_emb = None
             project_to_update.desc_emb = None
@@ -102,6 +100,3 @@ class ProjectService:
         await session.commit()
 
         return project_to_update
-
-        # todo
-    # async def get_titles_and_descriptions_by_ids(self, session: AsyncSession, ids: list[int]):

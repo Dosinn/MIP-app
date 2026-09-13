@@ -8,7 +8,6 @@
     z-index: 100;
 }
 
-/* Top bar — matches ProjectPage .backButton style */
 .filePreviewHeader {
     display: flex;
     align-items: center;
@@ -78,7 +77,6 @@
     color: var(--color-slate-800);
 }
 
-/* Viewer — full remaining height */
 .filePreviewBody {
     flex: 1;
     min-height: 0;
@@ -100,7 +98,6 @@
     background: var(--color-white);
 }
 
-/* Fallback for mobile / non-PDF */
 .filePreviewFallback {
     width: 100%;
     height: 100%;
@@ -123,7 +120,7 @@
     margin: 0;
     font-size: 15px;
     line-height: 1.5;
-    color: var(--color-gray-600);
+    color: var(--color-gray-700);
 }
 
 .filePreviewFallbackBtn {

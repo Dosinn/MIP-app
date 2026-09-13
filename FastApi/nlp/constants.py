@@ -1,8 +1,3 @@
-"""
-Calibrated NLP & Similarity Thresholds for MIP Platform
-Derived from empirical analysis of real student project proposals in 'Projekt_a_jeho_sucasti (1)'.
-"""
-
 # Problem Cohesion
 PROBLEM_COHESION_GREEN = 0.70
 PROBLEM_COHESION_YELLOW = 0.55
