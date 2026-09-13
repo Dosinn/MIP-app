@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { FileText, Upload, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import './FileUploader.css';
 import type {FileAttachment} from "../../../../api/schemas/FilesSchema.ts";
 
@@ -30,6 +31,17 @@ function FileUploader({
 }: FileUploaderProps) {
     const { t } = useTranslation();
     const inputRef = useRef<HTMLInputElement>(null);
+    const navigate = useNavigate();
+
+    const openPreview = (file: FileAttachment) => {
+        const viewUrl = file.viewUrl ?? file.fileUrl;
+        const params = new URLSearchParams({
+            url:      viewUrl,
+            download: file.fileUrl,
+            name:     file.fileName,
+        });
+        navigate(`/file-preview?${params.toString()}`);
+    };
 
     const addFiles = (fileList: FileList | null) => {
         if (!fileList || disabled) return;
@@ -69,7 +81,7 @@ function FileUploader({
                         <div
                             key={`existing-${file.id}`}
                             className="fileItem"
-                            onClick={() => window.open(file.fileUrl, '_blank', 'noopener,noreferrer')}
+                            onClick={() => openPreview(file)}
                         >
                             <FileText size={22} className="fileIcon" />
                             <span className="fileName">{file.fileName}</span>
@@ -104,6 +116,7 @@ function FileUploader({
                         ))}
                 </div>
                 )}
+
         </div>
     );
 }

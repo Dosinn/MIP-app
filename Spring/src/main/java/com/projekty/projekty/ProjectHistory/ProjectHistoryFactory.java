@@ -15,6 +15,13 @@ public class ProjectHistoryFactory {
                 .message(message)
                 .titleSnapshot(project.getTitle())
                 .descriptionSnapshot(project.getDescription())
+                .problemSnapshot(project.getProblem())
+                .targetAudienceSnapshot(project.getTargetAudience())
+                .uniquenessSnapshot(project.getUniqueness())
+                .problemCohesionSnapshot(project.getProblemCohesion())
+                .audiencePrecisionSnapshot(project.getAudiencePrecision())
+                .alignmentScoreSnapshot(project.getAlignmentScore())
+                .uniquenessScoreSnapshot(project.getUniquenessScore())
                 .build();
     }
 }

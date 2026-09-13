@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/files/*/download").permitAll()
+                .requestMatchers(HttpMethod.GET, "/files/*/download", "/files/*/view").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
@@ -49,7 +49,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:5173", "https://deviant-learned-valuation-movements.trycloudflare.com", "https://protrude-graffiti-cotton.ngrok-free.dev"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://localhost", "http://localhost:80", "https://deviant-learned-valuation-movements.trycloudflare.com", "https://protrude-graffiti-cotton.ngrok-free.dev"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

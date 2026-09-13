@@ -5,10 +5,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserFactory {
 
-    public User createUnregistered(String email) {
+
+
+    public User createFromGoogle(String email, String name) {
         return User.builder()
                 .email(email)
-                .name("")
+                .name(name != null ? name : "")
                 .userRole(UserRole.STUDENT)
                 .onboarded(false)
                 .build();

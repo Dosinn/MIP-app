@@ -214,8 +214,10 @@ export function ManageProjectPage() {
                 refetchProject();
             }
 
-            // Sync updated embeddings in FastAPI
-            await similarityRepository.createEmbeddings(id);
+            // Sync updated embeddings in FastAPI only if the project has been approved
+            if (project?.status === 'approved') {
+                await similarityRepository.createEmbeddings(id);
+            }
 
             showSuccess(t('project_saved_success'));
         } catch (err) {

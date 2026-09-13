@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlmodel import select
 
 from init.lifespan import encode_async
-from project.models import Project, Team, TeamMember, User
+from project.models import Project, Team, TeamMember, User, ProjectReview
 from project.schemas import ProjectDetail, TeamSchema, UserSchema
 from similarity.schemas import SimilarityResult
 
@@ -75,22 +75,33 @@ class ProjectService:
         return project if project is not None else None
 
     async def set_project_embeddings(self, session: AsyncSession, model: SentenceTransformer, project_id: int):
-
         project_to_update = await self.get_project(session, project_id)
 
-        if project_to_update is not None:
-            title_emb, desc_emb = await encode_async(model, [project_to_update.title, project_to_update.description])
-
-            project_to_update.title_emb = title_emb.tolist()
-            project_to_update.desc_emb = desc_emb.tolist()
-
-            embedding_store.add_and_place(project_to_update.id, title_emb, desc_emb)
-
-            await session.commit()
-
-            return project_to_update
-        else:
+        if project_to_update is None:
             return None
+
+        # Verify that project is APPROVED before placing it on the radar map or similarity index
+        review_stmt = select(ProjectReview).where(ProjectReview.project_id == project_id)
+        review = (await session.exec(review_stmt)).first()
+
+        if review is None or review.status != "APPROVED":
+            # If it's not approved, ensure it is NOT in the active embedding store
+            embedding_store.remove(project_to_update.id)
+            project_to_update.title_emb = None
+            project_to_update.desc_emb = None
+            await session.commit()
+            return project_to_update
+
+        title_emb, desc_emb = await encode_async(model, [project_to_update.title, project_to_update.description])
+
+        project_to_update.title_emb = title_emb.tolist()
+        project_to_update.desc_emb = desc_emb.tolist()
+
+        embedding_store.add_and_place(project_to_update.id, title_emb, desc_emb)
+
+        await session.commit()
+
+        return project_to_update
 
         # todo
     # async def get_titles_and_descriptions_by_ids(self, session: AsyncSession, ids: list[int]):

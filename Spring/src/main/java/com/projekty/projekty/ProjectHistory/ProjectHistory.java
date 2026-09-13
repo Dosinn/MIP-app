@@ -48,6 +48,27 @@ public class ProjectHistory implements java.io.Serializable {
     @Column(name = "title_snapshot")
     private String titleSnapshot;
 
+    @Column(name = "problem_snapshot", columnDefinition = "TEXT")
+    private String problemSnapshot;
+
+    @Column(name = "target_audience_snapshot", columnDefinition = "TEXT")
+    private String targetAudienceSnapshot;
+
+    @Column(name = "uniqueness_snapshot", columnDefinition = "TEXT")
+    private String uniquenessSnapshot;
+
+    @Column(name = "problem_cohesion_snapshot")
+    private Double problemCohesionSnapshot;
+
+    @Column(name = "audience_precision_snapshot")
+    private Double audiencePrecisionSnapshot;
+
+    @Column(name = "alignment_score_snapshot")
+    private Double alignmentScoreSnapshot;
+
+    @Column(name = "uniqueness_score_snapshot")
+    private Double uniquenessScoreSnapshot;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

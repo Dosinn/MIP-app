@@ -67,6 +67,13 @@ export const HistoryElementSchema = z.object({
     status: z.string(),
     descriptionSnapshot: z.string().optional().nullable(),
     titleSnapshot: z.string().optional().nullable(),
+    problemSnapshot: z.string().optional().nullable(),
+    targetAudienceSnapshot: z.string().optional().nullable(),
+    uniquenessSnapshot: z.string().optional().nullable(),
+    problemCohesionSnapshot: z.number().optional().nullable(),
+    audiencePrecisionSnapshot: z.number().optional().nullable(),
+    alignmentScoreSnapshot: z.number().optional().nullable(),
+    uniquenessScoreSnapshot: z.number().optional().nullable(),
 });
 
 export const NotificationSchema = z.object({

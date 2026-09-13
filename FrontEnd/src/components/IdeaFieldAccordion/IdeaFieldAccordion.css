@@ -22,6 +22,7 @@
     font-size: 15px;
     font-weight: 600;
     color: var(--color-slate-800);
+    text-align: left;
 }
 
 .ideaFieldRight {
@@ -55,4 +56,67 @@
     font-size: 14px;
     color: var(--color-gray-700);
     line-height: 1.6;
+}
+
+.ideaScoreDiffBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 2px 8px;
+    background: var(--color-gray-50);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+}
+
+.ideaScoreOld {
+    color: var(--color-gray-400);
+}
+
+.ideaScoreArrow {
+    color: var(--color-gray-400);
+}
+
+.ideaScoreNew {
+    color: var(--color-slate-800);
+    font-weight: 700;
+}
+
+.ideaScoreDelta {
+    font-weight: 700;
+    font-size: 11.5px;
+}
+
+.ideaScoreDelta--pos {
+    color: var(--color-green-700);
+}
+
+.ideaScoreDelta--neg {
+    color: var(--color-red-700);
+}
+
+.ideaFieldDiffText {
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--color-slate-800);
+    word-break: break-word;
+}
+
+.ideaFieldDiffText .diffWordIns {
+    background: color-mix(in srgb, var(--color-green-700) 15%, transparent);
+    color: var(--color-green-700);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1.5px solid var(--color-green-700);
+}
+
+.ideaFieldDiffText .diffWordDel {
+    background: color-mix(in srgb, var(--color-red-700) 15%, transparent);
+    color: var(--color-red-700);
+    text-decoration: line-through;
+    font-weight: 600;
+    border-bottom: 1.5px solid var(--color-red-700);
+    opacity: 0.8;
 }

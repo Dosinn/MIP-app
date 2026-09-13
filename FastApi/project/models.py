@@ -62,3 +62,11 @@ class Category(SQLModel, table=True):
     color: Optional[str] = None
     description: Optional[str] = None
     embedding: list[float] = Field(sa_column=Column(ARRAY(Float)), default_factory=list)
+
+class ProjectReview(SQLModel, table=True):
+    __tablename__ = "project_reviews"
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    status: str
+    project_id: int = Field(foreign_key="projects.id")
+    lesson_id: int

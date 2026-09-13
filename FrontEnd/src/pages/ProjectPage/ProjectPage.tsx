@@ -138,24 +138,24 @@ function ProjectPage() {
                     </div>
                 </div>
 
-                <h3 className="sectionTitleProject">Description</h3>
+                <h3 className="sectionTitleProject">{t('description_title')}</h3>
 
                 <p className="projectDescription">{project.description}</p>
 
-                <h3 className="sectionTitleProject">Idea breakdown</h3>
+                <h3 className="sectionTitleProject">{t('idea_breakdown_title')}</h3>
 
                 <IdeaFieldAccordion
-                    label="Riešený problém"
+                    label={t('problem_label')}
                     score={project.problemCohesion}
                     text={project.problem}
                 />
                 <IdeaFieldAccordion
-                    label="Cieľová skupina"
+                    label={t('audience_label')}
                     score={project.audiencePrecision}
                     text={project.targetAudience}
                 />
                 <IdeaFieldAccordion
-                    label="Unikátnosť"
+                    label={t('uniqueness_label')}
                     score={project.uniquenessScore}
                     text={project.uniqueness}
                 />

@@ -51,8 +51,6 @@ class SimilarityService:
 
     async def get_draft_position(self, title: str, description: str, model, k: int = 3) -> DraftPositionResponse:
 
-        print(len(embedding_store.ids), embedding_store.ids, embedding_store.is_empty)
-
         if embedding_store.is_empty:
             return DraftPositionResponse(point=DraftPoint(x=0.0, y=0.0), neighbors=[])
 

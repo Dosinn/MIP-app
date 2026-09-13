@@ -4,6 +4,7 @@ export const FileSchema = z.object({
     id: z.number(),
     fileName: z.string(),
     fileUrl: z.string(),
+    viewUrl: z.string().optional(),
     fileSize: z.number().optional(),
     uploadedAt: z.string().optional(),
 });

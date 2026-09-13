@@ -25,16 +25,24 @@ import AdminPage from "./pages/AdminPage/AdminPage.tsx";
 import TeacherStudentsPage from "./pages/TeacherStudentsPage/TeacherStudentsPage.tsx";
 import TeacherProjectReview from "./pages/TeacherProjectReview/TeacherProjectReview.tsx";
 import IdeaMapPage from "./pages/map/MapPage.tsx";
+import FilePreviewPage from "./pages/FilePreviewPage/FilePreviewPage.tsx";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import PWAGatekeeper from "./components/PWAGatekeeper/PWAGatekeeper.tsx";
+
+const GOOGLE_CLIENT_ID =
+    import.meta.env.VITE_GOOGLE_CLIENT_ID ||
+    '516425979009-77lsabevsqs8acugjt03e3p8krv4u1t2.apps.googleusercontent.com';
 
 function App() {
     return (
-        <QueryClientProvider client={queryClient}>
-
-            <AuthProvider>
-                <ToastProvider>
-                    <ThemeProvider>
-                        <BrowserRouter>
-                            <Routes>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+            <QueryClientProvider client={queryClient}>
+                <AuthProvider>
+                    <ToastProvider>
+                        <ThemeProvider>
+                            <PWAGatekeeper>
+                                <BrowserRouter>
+                                    <Routes>
                                 {/* Public route for unauthenticated users */}
                                 <Route
                                     path="/login"
@@ -109,14 +117,26 @@ function App() {
                                     />
                                 </Route>
 
+                                {/* File preview — standalone, no layout, no BottomMenu */}
+                                <Route
+                                    path="/file-preview"
+                                    element={
+                                        <ProtectedRoute>
+                                            <FilePreviewPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+
                                 {/* Fallback route */}
                                 <Route path="*" element={<Navigate to="/" replace />} />
                             </Routes>
                         </BrowserRouter>
+                        </PWAGatekeeper>
                     </ThemeProvider>
                 </ToastProvider>
-            </AuthProvider>
-        </QueryClientProvider>
+                </AuthProvider>
+            </QueryClientProvider>
+        </GoogleOAuthProvider>
     );
 }
 

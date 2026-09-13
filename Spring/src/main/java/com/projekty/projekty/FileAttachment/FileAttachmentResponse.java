@@ -6,6 +6,7 @@ public record FileAttachmentResponse(
         Long id,
         String fileName,
         String fileUrl,
+        String viewUrl,
         Long fileSize,
         LocalDateTime uploadedAt
 ) {
@@ -14,6 +15,7 @@ public record FileAttachmentResponse(
                 file.getId(),
                 file.getFileName(),
                 "/files/" + file.getId() + "/download",
+                "/files/" + file.getId() + "/view",
                 file.getFileSize(),
                 file.getUploadedAt()
         );

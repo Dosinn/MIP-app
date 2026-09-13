@@ -25,12 +25,6 @@ WORKDIR /app
 
 RUN apk add --no-cache wget
 
-# Create non-root user and shared uploads folder
-RUN addgroup -S spring && adduser -S spring -G spring
-RUN mkdir -p /storage/uploads && chown -R spring:spring /storage
-
-USER spring:spring
-
 COPY --from=builder /build/target/*.jar app.jar
 
 EXPOSE 8080

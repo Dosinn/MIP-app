@@ -7,12 +7,8 @@ export interface VerifyCodeResponse {
 }
 
 export const authRepository = {
-    async requestCode(email: string): Promise<void> {
-        await apiClient.post('/auth/request-code', { email });
-    },
-
-    async verifyCode(email: string, code: string): Promise<VerifyCodeResponse> {
-        const res = await apiClient.post<VerifyCodeResponse>('/auth/verify-code', { email, code });
+    async googleLogin(idToken: string): Promise<VerifyCodeResponse> {
+        const res = await apiClient.post<VerifyCodeResponse>('/auth/google', { idToken });
         return res.data;
     },
 

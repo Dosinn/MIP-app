@@ -36,6 +36,22 @@ public class FileAttachmentController {
                 .body(resource);
     }
 
+    @GetMapping("/{fileId}/view")
+    public ResponseEntity<Resource> viewFile(@PathVariable Long fileId) {
+        FileAttachment file = fileAttachmentService.getFileById(fileId);
+        Resource resource = fileAttachmentService.loadFileForDownload(fileId);
+
+        org.springframework.http.MediaType mediaType = org.springframework.http.MediaType.APPLICATION_PDF;
+        if (file.getFileName() != null && !file.getFileName().toLowerCase().endsWith(".pdf")) {
+            mediaType = org.springframework.http.MediaType.APPLICATION_OCTET_STREAM;
+        }
+
+        return ResponseEntity.ok()
+                .contentType(mediaType)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getFileName() + "\"")
+                .body(resource);
+    }
+
     @DeleteMapping("/{fileId}")
     public ResponseEntity<Void> deleteFile(@PathVariable Long fileId) {
         User currentUser = currentUserProvider.getCurrentUser();

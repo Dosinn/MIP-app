@@ -2,7 +2,7 @@ import numpy as np
 from sqlmodel import select, func
 
 from config import Config
-from project.models import Project
+from project.models import Project, ProjectReview
 from .smacof import WeightedSMACOF
 from .mds import MDSModel
 
@@ -19,7 +19,9 @@ class EmbeddingStore:
     async def load(self, session):
         result = await session.exec(
             select(Project.id, Project.title_emb, Project.desc_emb)
+            .join(ProjectReview, ProjectReview.project_id == Project.id)
             .where(
+                ProjectReview.status == "APPROVED",
                 Project.title_emb.isnot(None),
                 Project.desc_emb.isnot(None),
                 func.cardinality(Project.title_emb) > 0,

@@ -94,7 +94,7 @@ export const IdeaRadar: React.FC<IdeaRadarProps> = ({
                 <div className="maturityScoreLeft">
                     <span className="maturityScoreNumber">{overallScore}%</span>
                     <div className="maturityScoreDetails">
-                        <span className="maturityLabel">Idea Maturity Score</span>
+                        <span className="maturityLabel">{t('idea_maturity_score')}</span>
                         <span className={`maturityStatusText ${status.class}`}>
                             {status.text}
                         </span>

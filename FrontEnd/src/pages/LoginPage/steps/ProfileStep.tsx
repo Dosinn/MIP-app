@@ -5,6 +5,7 @@ import '../LoginFlow.css';
 import { useTeachers } from '../../../hooks/useUsers.ts';
 import UserAvatar from "../../../components/UserAvatar/UserAvatar.tsx";
 import PersonPicker from "../../../components/PersonPicker/PersonPicker.tsx";
+import { useAuth } from '../../../context/AuthContext.tsx';
 import type {Teacher, User} from "../../../api/schemas/PeopleSchema.ts";
 
 interface ProfileStepProps {
@@ -13,7 +14,8 @@ interface ProfileStepProps {
 
 function ProfileStep({ onSubmit }: ProfileStepProps) {
     const { t } = useTranslation();
-    const [name, setName] = useState('');
+    const { user } = useAuth();
+    const [name, setName] = useState(() => user?.name ?? '');
     const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null);
     const [showPicker, setShowPicker] = useState(false);
     const [isLoading, setIsLoading] = useState(false);

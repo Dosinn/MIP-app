@@ -13,7 +13,14 @@ public record ProjectHistoryResponse(
         String message,
         String status,
         String descriptionSnapshot,
-        String titleSnapshot
+        String titleSnapshot,
+        String problemSnapshot,
+        String targetAudienceSnapshot,
+        String uniquenessSnapshot,
+        Double problemCohesionSnapshot,
+        Double audiencePrecisionSnapshot,
+        Double alignmentScoreSnapshot,
+        Double uniquenessScoreSnapshot
 ) {
     public static ProjectHistoryResponse from(ProjectHistory history) {
         return new ProjectHistoryResponse(
@@ -24,7 +31,14 @@ public record ProjectHistoryResponse(
                 history.getMessage(),
                 history.getStatus().name().toLowerCase(),
                 history.getDescriptionSnapshot(),
-                history.getTitleSnapshot()
+                history.getTitleSnapshot(),
+                history.getProblemSnapshot(),
+                history.getTargetAudienceSnapshot(),
+                history.getUniquenessSnapshot(),
+                history.getProblemCohesionSnapshot(),
+                history.getAudiencePrecisionSnapshot(),
+                history.getAlignmentScoreSnapshot(),
+                history.getUniquenessScoreSnapshot()
         );
     }
 }

@@ -7,10 +7,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      spring:
-        condition: service_healthy
-      fastapi:
-        condition: service_healthy
+      - spring
+      - fastapi
 
   # 2. Python FastAPI мікросервіс (NLP, SlovakBERT, аналіз та подібність проєктів)
   fastapi:
@@ -55,12 +53,9 @@ services:
       - JWT_SECRET=${JWT_SECRET:-change-me-in-production-min-32-chars-long}
       # File uploads stored in ONCE persistent volume
       - UPLOAD_DIR=/storage/uploads
-      # Mail
-      - MAIL_HOST=${MAIL_HOST:-sandbox.smtp.mailtrap.io}
-      - MAIL_PORT=${MAIL_PORT:-2525}
-      - MAIL_USERNAME=${MAIL_USERNAME:-}
-      - MAIL_PASSWORD=${MAIL_PASSWORD:-}
-      - UNIVERSITY_EMAIL_DOMAIN=${UNIVERSITY_EMAIL_DOMAIN:-@stuba.sk}
+      # Google OAuth
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-516425979009-77lsabevsqs8acugjt03e3p8krv4u1t2.apps.googleusercontent.com}
+      - ALLOWED_DOMAINS=${ALLOWED_DOMAINS:-@stuba.sk,gmail.com}
     volumes:
       - once_storage:/storage
     depends_on:

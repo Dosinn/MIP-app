@@ -1,18 +1,38 @@
 import { FileText, Download } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import './FilesSections.css';
-import type {ProjectFiles} from "../../api/schemas/FilesSchema.ts";
+import type { FileAttachment, ProjectFiles } from "../../api/schemas/FilesSchema.ts";
 
 interface FilesSectionsProps {
     sections: ProjectFiles[];
 }
 
-function isPdf(name: string): boolean {
-    return name.toLowerCase().endsWith('.pdf');
-}
-
 function FilesSections({ sections }: FilesSectionsProps) {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+
+    const openPreview = (file: FileAttachment) => {
+        const viewUrl = file.viewUrl ?? file.fileUrl;
+        const params = new URLSearchParams({
+            url:      viewUrl,
+            download: file.fileUrl,
+            name:     file.fileName,
+        });
+        navigate(`/file-preview?${params.toString()}`);
+    };
+
+    const handleDownloadOnly = (e: React.MouseEvent, file: FileAttachment) => {
+        e.stopPropagation();
+        e.preventDefault();
+        const link = document.createElement('a');
+        link.href = file.fileUrl;
+        link.download = file.fileName;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     return (
         <div className="fileReviewGroup">
             {sections.map((section) => (
@@ -26,20 +46,29 @@ function FilesSections({ sections }: FilesSectionsProps) {
                     ) : (
                         <div className="filesList">
                             {section.sectionFiles.map((file) => (
-                                <a
+                                <div
                                     key={file.id}
-                                    href={file.fileUrl}
-                                    download
-                                    target="_blank"
-                                    rel="noopener noreferrer"
                                     className="filesListItem"
+                                    onClick={() => openPreview(file)}
+                                    role="button"
+                                    tabIndex={0}
+                                    onKeyDown={(e) => e.key === 'Enter' && openPreview(file)}
+                                    style={{ cursor: 'pointer' }}
                                 >
-                                    <div className={`filesListIcon ${isPdf(file.fileName) ? 'iconPdf' : 'iconOther'}`}>
+                                    <div className="filesListIcon iconPdf">
                                         <FileText size={22} />
                                     </div>
                                     <span className="filesListName">{file.fileName}</span>
-                                    <Download size={18} className="filesListDownload" />
-                                </a>
+                                    <button
+                                        type="button"
+                                        className="filesListDownloadBtn"
+                                        onClick={(e) => handleDownloadOnly(e, file)}
+                                        title={t('download_file')}
+                                        style={{ background: 'none', border: 'none', padding: '4px', cursor: 'pointer', display: 'flex', color: 'inherit' }}
+                                    >
+                                        <Download size={18} className="filesListDownload" />
+                                    </button>
+                                </div>
                             ))}
                         </div>
                     )}

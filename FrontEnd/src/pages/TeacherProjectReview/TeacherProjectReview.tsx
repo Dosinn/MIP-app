@@ -237,11 +237,10 @@ function TeacherProjectReview() {
                     />
                 ) : (
                     <>
-                        <h3 className="sectionTitleProject">Description</h3>
+                        <h3 className="sectionTitleProject">{t('description_title')}</h3>
 
                         <p className="projectDescription">{project.description}</p>
                     </>
-
                 )}
 
                 {project.improvedFrom && (
@@ -256,25 +255,34 @@ function TeacherProjectReview() {
                     </div>
                 )}
 
-                <h3 className="sectionTitleProject">Idea breakdown</h3>
+                <h3 className="sectionTitleProject">{t('idea_breakdown_title')}</h3>
 
                 <IdeaFieldAccordion
-                    label="Riešený problém"
+                    label={t('problem_label')}
                     score={project.problemCohesion}
+                    previousScore={viewMode === 'diff' ? lastReturnedHistory?.problemCohesionSnapshot : null}
                     text={project.problem}
+                    previousText={viewMode === 'diff' ? lastReturnedHistory?.problemSnapshot : null}
+                    diffMode={viewMode === 'diff'}
                 />
                 <IdeaFieldAccordion
-                    label="Cieľová skupina"
+                    label={t('audience_label')}
                     score={project.audiencePrecision}
+                    previousScore={viewMode === 'diff' ? lastReturnedHistory?.audiencePrecisionSnapshot : null}
                     text={project.targetAudience}
+                    previousText={viewMode === 'diff' ? lastReturnedHistory?.targetAudienceSnapshot : null}
+                    diffMode={viewMode === 'diff'}
                 />
                 <IdeaFieldAccordion
-                    label="Unikátnosť"
+                    label={t('uniqueness_label')}
                     score={project.uniquenessScore}
+                    previousScore={viewMode === 'diff' ? lastReturnedHistory?.uniquenessScoreSnapshot : null}
                     text={project.uniqueness}
+                    previousText={viewMode === 'diff' ? lastReturnedHistory?.uniquenessSnapshot : null}
+                    diffMode={viewMode === 'diff'}
                 />
 
-                <h3 className="sectionTitleProject">Files</h3>
+                <h3 className="sectionTitleProject">{t('manage_project_files_label')}</h3>
 
                 <FilesSections sections={project.files}/>
 

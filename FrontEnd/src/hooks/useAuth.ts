@@ -2,17 +2,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import authRepository from '../api/repositories/AuthRepository.ts';
 import { queryKeys } from '../api/queryKeys.ts';
 
-export function useRequestCode() {
-    return useMutation({
-        mutationFn: (email: string) => authRepository.requestCode(email),
-    });
-}
 
-export function useVerifyCode() {
+
+export function useGoogleLogin() {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: ({ email, code }: { email: string; code: string }) =>
-            authRepository.verifyCode(email, code),
+        mutationFn: (idToken: string) => authRepository.googleLogin(idToken),
         onSuccess: (data) => {
             if (data.token) {
                 localStorage.setItem('authToken', data.token);

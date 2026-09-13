@@ -6,7 +6,6 @@ import com.projekty.projekty.Team.TeamMembership;
 import com.projekty.projekty.Team.TeamMembershipService;
 import com.projekty.projekty.Team.TeamService;
 import com.projekty.projekty.User.User;
-import com.projekty.projekty.util.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,6 @@ public class TeamInviteService {
     private final TeamInviteFactory teamInviteFactory;
     private final TeamMembershipService teamMembershipService;
     private final TeamService teamService;
-    private final EmailService emailService;
 
     public TeamInvite inviteMember(User inviter, User invitedUser) {
         if (inviter.getId().equals(invitedUser.getId())) {
@@ -73,12 +71,6 @@ public class TeamInviteService {
 
         TeamInvite invite = teamInviteFactory.create(inviterTeam.orElse(null), invitedUser, inviter);
         invite = teamInviteRepository.save(invite);
-
-        try {
-            emailService.sendTeamInviteEmail(invitedUser.getEmail(), invite.getInviteToken());
-        } catch (Exception e) {
-            // Email notification is best-effort; invite is already saved
-        }
 
         return invite;
     }
