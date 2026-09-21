@@ -162,8 +162,8 @@ export function ProjectCreatePage() {
 
     const topOverallSimilarity = uniquenessCompare?.candidates[0]?.overall_similarity ?? null;
 
-    const MIDPOINT = 65;
-    const STEEPNESS = 0.08;
+    const MIDPOINT = 68;
+    const STEEPNESS = 0.12;
 
     const calibratedUniqueness = useMemo(() => {
         if (problem.trim().length < MIN_PROBLEM_LENGTH || uniqueness.trim().length < MIN_UNIQUENESS_LENGTH) {

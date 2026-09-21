@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { FileText, Upload, X } from 'lucide-react';
+import {Eye, FileText, Upload, X} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import './FileUploader.css';
@@ -15,12 +15,6 @@ interface FileUploaderProps {
 }
 
 
-const downloadNewFile = (file: File) => {
-    const url = URL.createObjectURL(file);
-    window.open(url, '_blank');
-    setTimeout(() => URL.revokeObjectURL(url), 10000);
-};
-
 function FileUploader({
     existingFiles = [],
     newFiles,
@@ -33,12 +27,21 @@ function FileUploader({
     const inputRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
 
-    const openPreview = (file: FileAttachment) => {
+    const openExistingFile = (file: FileAttachment) => {
         const viewUrl = file.viewUrl ?? file.fileUrl;
         const params = new URLSearchParams({
             url:      viewUrl,
             download: file.fileUrl,
             name:     file.fileName,
+        });
+        navigate(`/file-preview?${params.toString()}`);
+    };
+
+    const previewNewFile = (file: File) => {
+        const url = URL.createObjectURL(file);
+        const params = new URLSearchParams({
+            url,
+            name: file.name,
         });
         navigate(`/file-preview?${params.toString()}`);
     };
@@ -81,7 +84,7 @@ function FileUploader({
                         <div
                             key={`existing-${file.id}`}
                             className="fileItem"
-                            onClick={() => openPreview(file)}
+                            onClick={() => openExistingFile(file)}
                         >
                             <FileText size={22} className="fileIcon" />
                             <span className="fileName">{file.fileName}</span>
@@ -98,22 +101,34 @@ function FileUploader({
                     ))}
 
                     {newFiles.map((file, index) => (
+                        <div
+                            key={`new-${file.name}-${index}`}
+                            className="fileItem"
+                            onClick={() => previewNewFile(file)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => e.key === 'Enter' && previewNewFile(file)}
+                            style={{ cursor: 'pointer' }}
+                        >
+                            <FileText size={22} className="fileIcon" />
+                            <span className="fileName">{file.name}</span>
+
                             <div
-                                key={`new-${file.name}-${index}`}
-                                className="fileItem"
-                                onClick={() => downloadNewFile(file)}
+                                className="filesListDownloadBtn"
+                                style={{ background: 'none', border: 'none', padding: '4px', display: 'flex', color: 'inherit' }}
                             >
-                                <FileText size={22} className="fileIcon" />
-                                <span className="fileName">{file.name}</span>
-                                <button
-                                    type="button"
-                                    className="removeFileButton"
-                                    onClick={(e) => { e.stopPropagation(); removeNewFile(index); }}
-                                >
-                                    <X size={18} />
-                                </button>
+                                <Eye size={18} className="filesListDownload" />
                             </div>
-                        ))}
+
+                            <button
+                                type="button"
+                                className="removeFileButton"
+                                onClick={(e) => { e.stopPropagation(); removeNewFile(index); }}
+                            >
+                                <X size={18} />
+                            </button>
+                        </div>
+                    ))}
                 </div>
                 )}
 

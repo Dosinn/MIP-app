@@ -112,3 +112,12 @@ export type HistoryElement = z.infer<typeof HistoryElementSchema>;
 export type Notification = z.infer<typeof NotificationSchema>;
 export type SimilarityProject = z.infer<typeof SimilarityProjectSchema>;
 export type UniquenessCompareResult = z.infer<typeof UniquenessCompareSchema>;
+
+export interface PageResponse<T> {
+    content: T[];
+    pageNumber: number;
+    pageSize: number;
+    totalElements: number;
+    totalPages: number;
+    last: boolean;
+}

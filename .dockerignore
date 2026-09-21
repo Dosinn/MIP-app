@@ -10,3 +10,9 @@ FastApi/**/*.pyc
 *.log
 Spring/target
 .idea
+.env
+.env.*
+!.env.example
+FrontEnd/.env
+FrontEnd/.env.*
+!FrontEnd/.env.example

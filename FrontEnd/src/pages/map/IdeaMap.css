@@ -1,31 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500&display=swap');
-
+/* IdeaMap.css - Unified Design System */
 .ideaMapContainer {
     position: relative;
     width: 100%;
     height: calc(100lvh - (10lvh + env(safe-area-inset-top) + 8lvh));
-    background: #FAFBFC;
+    background-color: var(--bg-color);
+    background-image: radial-gradient(var(--border-color) 1.2px, transparent 1.2px);
+    background-size: 26px 26px;
+    background-position: center;
     overflow: hidden;
     font-family: 'Inter', system-ui, sans-serif;
 }
 
+/* Top-Left Project Count Badge */
+.ideaMapCountBadge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 16;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 7px 13px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    pointer-events: none;
+}
 
-.ideaMapLegendCard {
+.ideaMapCountDot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #10B981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+}
+
+.ideaMapCountText {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-slate-800);
+    letter-spacing: -0.01em;
+}
+
+/* Top-Right Single Legend Button */
+.ideaMapLegendWrapper {
     position: absolute;
     top: 16px;
     right: 16px;
-    z-index: 15;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(226, 232, 240, 0.95);
+    z-index: 16;
+}
+
+.ideaMapLegendToggle {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 10px 14px;
+    color: var(--color-slate-800);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.ideaMapLegendToggle:hover {
+    background: var(--color-gray-100);
+    color: var(--color-primary-blue);
+    transform: translateY(-1px);
+}
+
+.ideaMapLegendToggle:active {
+    transform: scale(0.95);
+}
+
+.ideaMapLegendToggle--active {
+    background: var(--color-blue-alpha-10);
+    color: var(--color-primary-blue);
+    border-color: var(--color-primary-blue);
+}
+
+/* Legend Popover Card */
+.ideaMapLegendCard {
+    position: absolute;
+    top: 0;
+    right: 48px;
+    z-index: 15;
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 12px 14px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-    pointer-events: none;
+    gap: 9px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09), 0 1px 3px rgba(0, 0, 0, 0.04);
+    animation: fadeInLegend 0.18s ease-out;
+}
+
+@keyframes fadeInLegend {
+    from {
+        opacity: 0;
+        transform: translateX(6px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
 }
 
 .legendRow {
@@ -62,30 +150,30 @@
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #28bc77;
+    background: #10B981;
 }
 
 .legendMarker--base {
     width: 11px;
     height: 11px;
     border-radius: 50%;
-    background: #1594C7;
-    opacity: 0.85;
+    background: #3B82F6;
+    opacity: 0.9;
 }
 
 .legendMarker--child {
-    width: 11px;
-    height: 11px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    border: 1.8px solid #1594C7;
+    border: 1.8px solid #3B82F6;
     background: transparent;
 }
 
 .legendMarker--child .legendDotInner {
-    width: 3.5px;
-    height: 3.5px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
-    background: #1594C7;
+    background: #3B82F6;
 }
 
 .legendMarker--similar {
@@ -96,17 +184,19 @@
 }
 
 .legendText {
-    font-size: 12px;
+    font-size: 12.5px;
     font-weight: 500;
-    color: #334155;
+    color: var(--color-slate-800);
     letter-spacing: -0.01em;
     white-space: nowrap;
     line-height: 1;
 }
 
+/* SVG Canvas & Nodes */
 .ideaMapSvg {
     display: block;
     cursor: grab;
+    touch-action: none;
 }
 
 .ideaMapSvg:active {
@@ -120,53 +210,82 @@
 .ideaPointCircle,
 .ideaPointRing,
 .ideaPointCenter {
-    transition: r 0.15s ease, stroke-width 0.15s ease, opacity 0.15s ease;
+    transition: r 0.16s ease, stroke-width 0.16s ease, opacity 0.16s ease;
 }
 
 .ideaPointGroup:hover .ideaPointCircle {
-    r: 8.5;
+    r: 10.5;
+    opacity: 1;
 }
 
 .ideaPointGroup:hover .ideaPointRing {
-    r: 8.5;
+    r: 10.5;
     stroke-width: 2.2px;
 }
 
 .ideaPointGroup:hover .ideaPointCenter {
-    r: 4.2;
+    r: 5;
 }
 
-.myIdeaPulse {
-    stroke-width: 1.5;
-    opacity: 0.6;
-    animation: pulse 2.2s ease-out infinite;
+.myIdeaGlow {
+    opacity: 0.65;
+    animation: mapPulse 2.4s cubic-bezier(0.24, 0, 0.38, 1) infinite;
     transform-origin: center;
 }
 
-@keyframes pulse {
+@keyframes mapPulse {
     0% {
-        r: 7;
-        opacity: 0.6;
+        r: 8;
+        opacity: 0.75;
     }
     100% {
-        r: 20;
+        r: 24;
         opacity: 0;
     }
 }
 
+.improveLine {
+    stroke: #8b5cf6;
+    stroke-width: 1.35;
+    stroke-dasharray: 4 3;
+    opacity: 0.55;
+    transition: opacity 0.18s ease;
+}
+
+.connectionLine {
+    stroke: #10B981;
+    stroke-linecap: round;
+    transition: stroke-opacity 0.2s ease;
+}
+
+/* Tooltip */
 .ideaMapTooltip {
-    position: fixed;
-    z-index: 20;
-    background: #1E293B;
-    color: #FFFFFF;
-    padding: 10px 14px;
-    border-radius: 10px;
-    pointer-events: none;
-    max-width: 250px;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    z-index: 25;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 12px 14px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    max-width: 260px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 6px;
+    pointer-events: auto;
+    animation: fadeInTooltip 0.15s ease-out;
+}
+
+@keyframes fadeInTooltip {
+    from {
+        opacity: 0;
+        transform: translateY(4px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .tooltipHeader {
@@ -179,8 +298,8 @@
     margin: 0;
     font-size: 13.5px;
     font-weight: 700;
-    color: #ffffff;
-    line-height: 1.3;
+    color: var(--color-slate-800);
+    line-height: 1.35;
 }
 
 .tooltipCategoryPill {
@@ -197,7 +316,7 @@
 .tooltipDesc {
     margin: 0;
     font-size: 12px;
-    color: #cbd5e1;
+    color: var(--color-gray-500);
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -205,129 +324,24 @@
     overflow: hidden;
 }
 
-.tooltipMeta {
-    margin: 2px 0 0;
-    font-size: 11px;
-    color: #9CA3AF;
-    font-family: 'Space Grotesk', sans-serif;
-}
-
-.connectionLine {
-    stroke: #1594C7;
-    stroke-dasharray: 3 3;
-    stroke-dashoffset: 100;
-    animation: draw-line 0.6s ease-out forwards;
-}
-
-.improveLine {
-    stroke: #8b5cf6;
-    stroke-width: 1.6px;
-    stroke-dasharray: 4 2.5;
-    opacity: 0.8;
-    transition: all 0.2s ease;
-}
-
-.improveLine:hover {
-    stroke: #7c3aed;
-    stroke-width: 2.2px;
-    opacity: 1;
-}
-
-@keyframes draw-line {
-    to { stroke-dashoffset: 0; }
-}
-
-.draftPoint {
-    transform-origin: center;
-    transform-box: fill-box;
-    animation: breathe 2.8s ease-in-out infinite;
-}
-
-.myIdeaGlow {
-    transform-origin: center;
-    transform-box: fill-box;
-    animation: ringFade 2.8s ease-in-out infinite;
-}
-
-@keyframes breathe {
-    0%, 100% {
-        transform: scale(1);
-        filter: drop-shadow(0 0 0px rgba(21, 148, 199, 0.6));
-    }
-    50% {
-        transform: scale(1.08);
-        filter: drop-shadow(0 0 4px rgba(21, 148, 199, 0.8));
-    }
-}
-
-@keyframes ringFade {
-    0% {
-        transform: scale(0.9);
-        opacity: 0.9;
-    }
-    70% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1.5);
-        opacity: 0;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .draftPoint,
-    .myIdeaGlow {
-        animation: none;
-    }
-    .myIdeaGlow {
-        opacity: 0.5;
-    }
-}
-
-.ideaMapLegendWrapper {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 15;
-}
-
-.ideaMapLegendToggle {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-    border: 1px solid rgba(226, 232, 240, 0.95);
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: #475569;
-    display: flex;
+.tooltipActionBtn {
+    margin-top: 4px;
+    align-self: flex-start;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 5px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--color-primary-blue);
+    background: var(--color-blue-alpha-10);
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 4px 9px;
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s ease;
 }
 
-.ideaMapLegendToggle:hover {
-    border-color: #1594C7;
-    color: #1594C7;
-}
-
-.ideaMapLegendCard {
-    position: absolute;
-    top: 40px;
-    right: 0;
-    z-index: 15;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(226, 232, 240, 0.95);
-    border-radius: 12px;
-    padding: 10px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    pointer-events: auto;
+.tooltipActionBtn:hover {
+    background: var(--color-primary-blue);
+    color: #ffffff;
 }

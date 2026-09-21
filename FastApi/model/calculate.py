@@ -18,7 +18,7 @@ async def backfill():
     model = SentenceTransformer(MODEL_NAME)
 
     async with async_session() as session:
-        result = await session.execute(select(Category))
+        result = await session.execute(select(Project))
         all_projects = result.scalars().all()
 
         to_process = [p for p in all_projects if needs_embedding(p)]

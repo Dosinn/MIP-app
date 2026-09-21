@@ -1,6 +1,6 @@
 import {useNavigate} from 'react-router-dom';
 import {useTheme} from '../../context/ThemeContext.tsx';
-import {Check, ChevronRight, LogOut, Moon, Sun} from 'lucide-react';
+import {Check, ChevronRight, LogOut, Moon, Sun, Mail} from 'lucide-react';
 import {useTranslation} from "react-i18next";
 import {useState} from "react";
 
@@ -89,6 +89,14 @@ function AccountPage() {
                 <LogOut size={18}/>
                 {t('account_logout_text')}
             </button>
+
+            <div className="accountSupport">
+                <p className="accountSupportText">{t('account_support_text')}</p>
+                <a href={`mailto:${t('account_support_email')}`} className="accountSupportEmail">
+                    <Mail size={16}/>
+                    <span>{t('account_support_email')}</span>
+                </a>
+            </div>
 
             {showLangModal && (
                 <Modal title={t('choose_language_title')} onClose={() => setShowLangModal(false)}>

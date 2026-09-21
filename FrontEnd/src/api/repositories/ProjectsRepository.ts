@@ -1,5 +1,5 @@
 import { apiClient } from '../apiClient.ts';
-import type { HistoryElement, Project, ProjectCard, ProjectReview } from '../schemas/ProjectSchema.ts';
+import type { HistoryElement, Project, ProjectCard, ProjectReview, PageResponse } from '../schemas/ProjectSchema.ts';
 
 export interface CreateProjectPayload {
     title: string;
@@ -28,6 +28,23 @@ export const projectsRepository = {
             categoryIds.forEach((id) => params.append('categoryIds', String(id)));
         }
         const res = await apiClient.get<ProjectCard[]>('/projects', { params });
+        return res.data;
+    },
+
+    async getLibraryPage(params: {
+        search?: string;
+        categoryIds?: number[];
+        page: number;
+        size?: number;
+    }): Promise<PageResponse<ProjectCard>> {
+        const queryParams = new URLSearchParams();
+        if (params.search) queryParams.append('search', params.search);
+        if (params.categoryIds?.length) {
+            params.categoryIds.forEach((id) => queryParams.append('categoryIds', String(id)));
+        }
+        queryParams.append('page', String(params.page));
+        queryParams.append('size', String(params.size ?? 12));
+        const res = await apiClient.get<PageResponse<ProjectCard>>('/projects', { params: queryParams });
         return res.data;
     },
 

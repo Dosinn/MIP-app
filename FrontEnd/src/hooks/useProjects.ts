@@ -1,6 +1,27 @@
-import {keepPreviousData, useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {keepPreviousData, useInfiniteQuery, useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import projectsRepository, {type CreateProjectPayload} from '../api/repositories/ProjectsRepository.ts';
 import {queryKeys} from '../api/queryKeys.ts';
+
+export function useInfiniteProjectsLibrary(search?: string, categoryIds?: number[], pageSize: number = 12) {
+    return useInfiniteQuery({
+        queryKey: ['projects', 'library', 'infinite', search ?? '', categoryIds ?? []],
+        queryFn: ({ pageParam = 0 }) =>
+            projectsRepository.getLibraryPage({
+                search,
+                categoryIds,
+                page: pageParam,
+                size: pageSize,
+            }),
+        initialPageParam: 0,
+        getNextPageParam: (lastPage) => {
+            if (lastPage.last || lastPage.pageNumber + 1 >= lastPage.totalPages) {
+                return undefined;
+            }
+            return lastPage.pageNumber + 1;
+        },
+        placeholderData: keepPreviousData,
+    });
+}
 
 export function useProjectsLibrary(search?: string, categoryIds?: number[]) {
     return useQuery({

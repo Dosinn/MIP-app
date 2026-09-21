@@ -1,4 +1,4 @@
-import { FileText, Download } from 'lucide-react';
+import { Eye, FileText } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import './FilesSections.css';
@@ -20,17 +20,6 @@ function FilesSections({ sections }: FilesSectionsProps) {
             name:     file.fileName,
         });
         navigate(`/file-preview?${params.toString()}`);
-    };
-
-    const handleDownloadOnly = (e: React.MouseEvent, file: FileAttachment) => {
-        e.stopPropagation();
-        e.preventDefault();
-        const link = document.createElement('a');
-        link.href = file.fileUrl;
-        link.download = file.fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
     };
 
     return (
@@ -59,15 +48,12 @@ function FilesSections({ sections }: FilesSectionsProps) {
                                         <FileText size={22} />
                                     </div>
                                     <span className="filesListName">{file.fileName}</span>
-                                    <button
-                                        type="button"
+                                    <div
                                         className="filesListDownloadBtn"
-                                        onClick={(e) => handleDownloadOnly(e, file)}
-                                        title={t('download_file')}
                                         style={{ background: 'none', border: 'none', padding: '4px', cursor: 'pointer', display: 'flex', color: 'inherit' }}
                                     >
-                                        <Download size={18} className="filesListDownload" />
-                                    </button>
+                                        <Eye size={18} className="filesListDownload" />
+                                    </div>
                                 </div>
                             ))}
                         </div>

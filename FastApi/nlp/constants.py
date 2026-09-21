@@ -12,8 +12,8 @@ AUDIENCE_DISTANCE_THRESHOLD = 0.35
 
 # Problem-Solution Alignment
 ALIGNMENT_DECISION_BOUNDARY = 0.50
-ALIGNMENT_NORM_MIN = 0.35
-ALIGNMENT_NORM_MAX = 0.75
+ALIGNMENT_NORM_MIN = 0.60
+ALIGNMENT_NORM_MAX = 1.00
 
 # Similarity & Uniqueness
 SIMILARITY_RETRIEVAL_THRESHOLD = 0.48
@@ -29,8 +29,8 @@ CATEGORY_CONFIDENT_THRESHOLD = 0.44
 # Real Dataset Median Baseline (for improvement mode)
 REAL_DATASET_BASELINE = {
     "problemFocus": 76,
-    "nichePrecision": 72,
-    "alignment": 78,
-    "uniqueness": 70,
+    "nichePrecision": 59,
+    "alignment": 80,
+    "uniqueness": 57,
     "evidence": 75,
 }

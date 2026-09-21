@@ -108,8 +108,8 @@ class EmbeddingStore:
 
         weighted = self.weighted()
         sim_matrix = weighted @ weighted.T
-        distance_matrix = 1 - sim_matrix
-        np.fill_diagonal(distance_matrix, 0)
+        distance_matrix = 1.0 - sim_matrix
+        np.fill_diagonal(distance_matrix, 0.0)
 
         # fast calculation of initial positions using classical MDS
         classical_positions = self.mds_classical.fit(distance_matrix, self.ids)

@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -9,9 +10,14 @@ from similarity.routes import similarity_router
 
 app = FastAPI(lifespan=lifespan)
 
+# In production, Nginx sits in front and handles routing; CORS is only relevant
+# for local development (Vite dev-server on :5173).
+_extra_origins = [o.strip() for o in os.getenv("CORS_ORIGINS", "").split(",") if o.strip()]
+allow_origins = ["http://localhost:5173", "https://protrude-graffiti-cotton.ngrok-free.dev"] + _extra_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://protrude-graffiti-cotton.ngrok-free.dev"],
+    allow_origins=allow_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

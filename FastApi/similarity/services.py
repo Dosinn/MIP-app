@@ -12,7 +12,7 @@ from nlp.constants import (
     UNIQUENESS_PROBLEM_WEIGHT,
     UNIQUENESS_AUDIENCE_WEIGHT,
 )
-from project.models import Project
+from project.models import Project, Category
 from .draft_point import project_draft_point
 from .schemas import DraftPositionResponse, DraftPoint, UniquenessResponse, PointResponse, DraftNeighbor, SimilarityResult
 
@@ -33,10 +33,23 @@ class SimilarityService:
         if not ids:
             return []
 
-        statement = select(Project.id, Project.title, Project.description, Project.improves_project_id).where(Project.id.in_(ids))
+        statement = (
+            select(Project.id, Project.title, Project.description, Project.improves_project_id, Category.name, Category.color)
+            .join(Category, Project.category_id == Category.id, isouter=True)
+            .where(Project.id.in_(ids))
+        )
         result = await session.exec(statement)
 
-        info = {pid: {"title": title, "description": description, "improves_project_id": improves_project_id} for pid, title, description, improves_project_id in result.all()}
+        info = {
+            pid: {
+                "title": title,
+                "description": description,
+                "improves_project_id": improves_project_id,
+                "category": cat_name,
+                "category_color": cat_color,
+            }
+            for pid, title, description, improves_project_id, cat_name, cat_color in result.all()
+        }
 
         return [
             PointResponse(
@@ -46,6 +59,8 @@ class SimilarityService:
                 x=float(pos[0]),
                 y=float(pos[1]),
                 improves_project_id=info.get(pid, {}).get("improves_project_id", None),
+                category=info.get(pid, {}).get("category", None),
+                category_color=info.get(pid, {}).get("category_color", None),
             ) for pid, pos in embedding_store.positions.items()
         ]
 

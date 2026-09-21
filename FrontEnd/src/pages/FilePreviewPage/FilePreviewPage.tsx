@@ -1,7 +1,8 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, FileText } from 'lucide-react';
+import { ArrowLeft, Download, FileText, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { apiClient } from '../../api/apiClient';
 import './FilePreviewPage.css';
 
 function FilePreviewPage() {
@@ -9,10 +10,9 @@ function FilePreviewPage() {
     const [params] = useSearchParams();
 
     const viewUrl     = params.get('url') ?? '';
-    // const downloadUrl = params.get('download') ?? viewUrl;
+    const downloadUrl = params.get('download') || viewUrl;
     const fileName    = params.get('name') ?? t('file_preview_title', 'File');
-
-    const isPdf = fileName.toLowerCase().endsWith('.pdf');
+    const [isDownloading, setIsDownloading] = useState(false);
 
     useEffect(() => {
         const viewportMeta = document.querySelector('meta[name="viewport"]');
@@ -38,17 +38,42 @@ function FilePreviewPage() {
         }
     };
 
-    const openExternal = () =>
-        window.open(viewUrl, '_blank', 'noopener,noreferrer');
+    const handleDownload = async () => {
+        if (!downloadUrl || isDownloading) return;
+        setIsDownloading(true);
+        try {
+            const response = await apiClient.get(downloadUrl, {
+                responseType: 'blob',
+                headers: {
+                    Accept: 'application/pdf',
+                },
+            });
 
-    // const download = () => {
-    //     const a = document.createElement('a');
-    //     a.href = downloadUrl;
-    //     a.download = fileName;
-    //     document.body.appendChild(a);
-    //     a.click();
-    //     document.body.removeChild(a);
-    // };
+            const blob = new Blob([response.data], { type: 'application/pdf' });
+            const blobUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = blobUrl;
+            a.download = fileName.toLowerCase().endsWith('.pdf') ? fileName : `${fileName}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                window.URL.revokeObjectURL(blobUrl);
+                document.body.removeChild(a);
+            }, 1000);
+        } catch (err) {
+            console.error('Blob download failed, falling back to direct link:', err);
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = fileName.toLowerCase().endsWith('.pdf') ? fileName : `${fileName}.pdf`;
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } finally {
+            setIsDownloading(false);
+        }
+    };
 
     return (
         <div className="filePreviewPage">
@@ -69,57 +94,36 @@ function FilePreviewPage() {
                     <button
                         type="button"
                         className="filePreviewActionBtn"
-                        onClick={openExternal}
-                        title={t('open_in_new_tab')}
+                        onClick={handleDownload}
+                        disabled={isDownloading}
+                        title={t('download_file', 'Download file')}
                     >
-                        <ExternalLink size={18} />
+                        {isDownloading ? <Loader2 size={18} className="filePreviewSpinner" /> : <Download size={18} />}
                     </button>
-                    {/*<button*/}
-                    {/*    type="button"*/}
-                    {/*    className="filePreviewActionBtn"*/}
-                    {/*    onClick={download}*/}
-                    {/*    title={t('download_file')}*/}
-                    {/*>*/}
-                    {/*    <Download size={18} />*/}
-                    {/*</button>*/}
                 </div>
             </div>
 
             {/* ── Viewer ── */}
             <div className="filePreviewBody">
-                {isPdf ? (
-                    <object
-                        data={viewUrl}
-                        type="application/pdf"
-                        className="filePreviewObject"
-                    >
-                        <div className="filePreviewFallback">
-                            <FileText size={64} />
-                            <p>{t('pdf_fallback_hint')}</p>
-                            <button
-                                type="button"
-                                className="filePreviewFallbackBtn"
-                                onClick={openExternal}
-                            >
-                                <ExternalLink size={18} />
-                                {t('open_in_new_tab')}
-                            </button>
-                        </div>
-                    </object>
-                ) : (
+                <object
+                    data={viewUrl}
+                    type="application/pdf"
+                    className="filePreviewObject"
+                >
                     <div className="filePreviewFallback">
                         <FileText size={64} />
-                        <p>{fileName}</p>
+                        <p>{t('pdf_fallback_hint')}</p>
                         <button
                             type="button"
                             className="filePreviewFallbackBtn"
-                            onClick={openExternal}
+                            onClick={handleDownload}
+                            disabled={isDownloading}
                         >
-                            <ExternalLink size={18} />
-                            {t('open_in_new_tab')}
+                            {isDownloading ? <Loader2 size={18} className="filePreviewSpinner" /> : <Download size={18} />}
+                            <span>{t('download_file', 'Download file')}</span>
                         </button>
                     </div>
-                )}
+                </object>
             </div>
         </div>
     );

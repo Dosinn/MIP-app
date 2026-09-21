@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? 'http://localhost:8080' : '');
+const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 export const apiClient = axios.create({
     baseURL: API_BASE_URL,
@@ -27,7 +27,7 @@ apiClient.interceptors.response.use(
     }
 );
 
-const FASTAPI_BASE_URL = import.meta.env.VITE_FASTAPI_URL ?? (import.meta.env.DEV ? 'http://localhost:8000' : '');
+const FASTAPI_BASE_URL = import.meta.env.VITE_FASTAPI_URL || '';
 
 export const fastApiClient = axios.create({
     baseURL: FASTAPI_BASE_URL,

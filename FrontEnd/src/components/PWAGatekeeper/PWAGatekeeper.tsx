@@ -36,13 +36,6 @@ const checkIsIOS = (): boolean => {
 export const PWAGatekeeper: React.FC<PWAGatekeeperProps> = ({ children }) => {
     const { t } = useTranslation();
     const [isStandalone, setIsStandalone] = useState<boolean>(checkIsStandalone);
-    const [isBypassed, setIsBypassed] = useState<boolean>(() => {
-        try {
-            return sessionStorage.getItem('pwa_bypass') === 'true';
-        } catch {
-            return false;
-        }
-    });
     const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [isIOS] = useState<boolean>(checkIsIOS);
 
@@ -85,6 +78,11 @@ export const PWAGatekeeper: React.FC<PWAGatekeeperProps> = ({ children }) => {
             const { outcome } = await deferredPrompt.userChoice;
             if (outcome === 'accepted') {
                 setIsStandalone(true);
+                try {
+                    localStorage.setItem('pwa_bypass', 'true');
+                } catch {
+                    // ignore storage errors
+                }
             }
         } catch (err) {
             console.error('PWA install prompt error:', err);
@@ -93,16 +91,7 @@ export const PWAGatekeeper: React.FC<PWAGatekeeperProps> = ({ children }) => {
         }
     };
 
-    const handleBypassClick = () => {
-        try {
-            sessionStorage.setItem('pwa_bypass', 'true');
-        } catch {
-            // ignore storage errors
-        }
-        setIsBypassed(true);
-    };
-
-    if (isStandalone || isBypassed) {
+    if (isStandalone) {
         return <>{children}</>;
     }
 
@@ -162,22 +151,6 @@ export const PWAGatekeeper: React.FC<PWAGatekeeperProps> = ({ children }) => {
                     )}
                 </div>
 
-                <div className="pwaDivider">
-                    <span className="pwaDividerLine"></span>
-                </div>
-
-                <button
-                    type="button"
-                    className="pwaBypassButton"
-                    onClick={handleBypassClick}
-                >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                        <line x1="8" y1="21" x2="16" y2="21"></line>
-                        <line x1="12" y1="17" x2="12" y2="21"></line>
-                    </svg>
-                    <span>{t('pwa_gatekeeper_bypass_btn')}</span>
-                </button>
             </div>
         </div>
     );

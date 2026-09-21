@@ -141,3 +141,16 @@
 .filePreviewFallbackBtn:active {
     opacity: 0.85;
 }
+
+.filePreviewSpinner {
+    animation: filePreviewRotate 0.8s linear infinite;
+}
+
+@keyframes filePreviewRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

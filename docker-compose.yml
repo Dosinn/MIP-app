@@ -16,12 +16,13 @@ services:
     expose:
       - "8000"
     environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/university_db
-      - MODEL_NAME=kinit/slovakbert-sts-stsb
-      - SIMILARITY_K=5
-      - SIMILARITY_THRESHOLD=0.48
-      - TITLE_WEIGHT=0.3
-      - DESC_WEIGHT=0.7
+      - DATABASE_URL=${DATABASE_URL:-postgresql+asyncpg://postgres:postgres@db:5432/university_db}
+      - MODEL_NAME=${MODEL_NAME:-kinit/slovakbert-sts-stsb}
+      - SIMILARITY_K=${SIMILARITY_K:-5}
+      - SIMILARITY_THRESHOLD=${SIMILARITY_THRESHOLD:-0.48}
+      - TITLE_WEIGHT=${TITLE_WEIGHT:-0.3}
+      - DESC_WEIGHT=${DESC_WEIGHT:-0.7}
+      - CORS_ORIGINS=${CORS_ORIGINS:-}
     volumes:
       - once_storage:/storage
     depends_on:
@@ -42,17 +43,18 @@ services:
       - "8080"
     environment:
       # Database
-      - POSTGRES_DB=university_db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/university_db
+      - POSTGRES_DB=${POSTGRES_DB:-university_db}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB:-university_db}
       # Security
-      - JWT_SECRET=${JWT_SECRET:-change-me-in-production-min-32-chars-long}
-      # File uploads stored in ONCE persistent volume
-      - UPLOAD_DIR=/storage/uploads
+      - JWT_SECRET=${JWT_SECRET:-this-is-a-local-dev-secret-key-change-in-production-projekty-2026}
+      # File uploads stored in persistent volume
+      - UPLOAD_DIR=${UPLOAD_DIR:-/storage/uploads}
       # Google OAuth
       - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID:-516425979009-77lsabevsqs8acugjt03e3p8krv4u1t2.apps.googleusercontent.com}
       - ALLOWED_DOMAINS=${ALLOWED_DOMAINS:-@stuba.sk,gmail.com}
+      - CORS_ORIGINS=${CORS_ORIGINS:-}
     volumes:
       - once_storage:/storage
     depends_on:
@@ -67,19 +69,21 @@ services:
 
   db:
     image: postgres:16-alpine
-    ports:
-      - "5432:5432"
+    expose:
+      - "5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: university_db
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-university_db}
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d university_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-university_db}"]
       interval: 5s
       timeout: 5s
       retries: 5
+    ports:
+      - "5432:5432"
 
 volumes:
   once_storage:

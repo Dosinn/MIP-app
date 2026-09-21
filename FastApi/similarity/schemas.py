@@ -12,6 +12,8 @@ class PointResponse(BaseModel):
     x: float
     y: float
     improves_project_id: Optional[int] = None
+    category: Optional[str] = None
+    category_color: Optional[str] = None
 
 class DraftNeighbor(BaseModel):
     targetId: int
