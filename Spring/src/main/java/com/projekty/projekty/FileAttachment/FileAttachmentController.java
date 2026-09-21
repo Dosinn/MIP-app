@@ -31,8 +31,13 @@ public class FileAttachmentController {
         FileAttachment file = fileAttachmentService.getFileById(fileId);
         Resource resource = fileAttachmentService.loadFileForDownload(fileId);
 
+        org.springframework.http.ContentDisposition contentDisposition = org.springframework.http.ContentDisposition.attachment()
+                .filename(file.getFileName() != null ? file.getFileName() : "file.pdf", java.nio.charset.StandardCharsets.UTF_8)
+                .build();
+
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName() + "\"")
+                .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                .headers(headers -> headers.setContentDisposition(contentDisposition))
                 .body(resource);
     }
 
@@ -41,14 +46,13 @@ public class FileAttachmentController {
         FileAttachment file = fileAttachmentService.getFileById(fileId);
         Resource resource = fileAttachmentService.loadFileForDownload(fileId);
 
-        org.springframework.http.MediaType mediaType = org.springframework.http.MediaType.APPLICATION_PDF;
-        if (file.getFileName() != null && !file.getFileName().toLowerCase().endsWith(".pdf")) {
-            mediaType = org.springframework.http.MediaType.APPLICATION_OCTET_STREAM;
-        }
+        org.springframework.http.ContentDisposition contentDisposition = org.springframework.http.ContentDisposition.inline()
+                .filename(file.getFileName() != null ? file.getFileName() : "file.pdf", java.nio.charset.StandardCharsets.UTF_8)
+                .build();
 
         return ResponseEntity.ok()
-                .contentType(mediaType)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getFileName() + "\"")
+                .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                .headers(headers -> headers.setContentDisposition(contentDisposition))
                 .body(resource);
     }
 

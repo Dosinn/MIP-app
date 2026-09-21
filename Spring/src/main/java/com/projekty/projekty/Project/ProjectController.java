@@ -15,6 +15,9 @@ import com.projekty.projekty.User.User;
 import com.projekty.projekty.util.CurrentUserProvider;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -138,10 +141,27 @@ public class ProjectController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProjectCardResponse>> getLibrary(
+    public ResponseEntity<?> getLibrary(
             @RequestParam(required = false) String search,
-            @RequestParam(required = false) List<Long> categoryIds
+            @RequestParam(required = false) List<Long> categoryIds,
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size
     ) {
+        if (page != null) {
+            int pageSize = (size != null && size > 0) ? size : 12;
+            Pageable pageable = PageRequest.of(page, pageSize);
+            Page<Project> projectPage = projectService.getLibrary(search, categoryIds, pageable);
+            PageResponse<ProjectCardResponse> response = new PageResponse<>(
+                    projectPage.getContent().stream().map(this::buildCardResponse).toList(),
+                    projectPage.getNumber(),
+                    projectPage.getSize(),
+                    projectPage.getTotalElements(),
+                    projectPage.getTotalPages(),
+                    projectPage.isLast()
+            );
+            return ResponseEntity.ok(response);
+        }
+
         List<Project> projects = projectService.getLibrary(search, categoryIds);
         List<ProjectCardResponse> response = projects.stream().map(this::buildCardResponse).toList();
         return ResponseEntity.ok(response);

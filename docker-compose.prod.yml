@@ -1,0 +1,47 @@
+# Production override for docker-compose.yml
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#
+# Key difference from dev:
+#   - frontend publishes on port 8088 (not 80) so Once can sit on 80/443
+#   - All secrets must be set via real .env (no fallback defaults)
+#   - Restart policies enabled for resilience
+
+services:
+  frontend:
+    # Once proxy will forward traffic here: localhost:8088 → container:80
+    # Bound to 127.0.0.1 — not accessible from outside, only Once can reach it
+    ports:
+      - "127.0.0.1:8088:80"
+    restart: unless-stopped
+
+  fastapi:
+    restart: unless-stopped
+    # Override env to remove insecure defaults
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - MODEL_NAME=${MODEL_NAME:-kinit/slovakbert-sts-stsb}
+      - SIMILARITY_K=${SIMILARITY_K:-5}
+      - SIMILARITY_THRESHOLD=${SIMILARITY_THRESHOLD:-0.48}
+      - TITLE_WEIGHT=${TITLE_WEIGHT:-0.3}
+      - DESC_WEIGHT=${DESC_WEIGHT:-0.7}
+      - CORS_ORIGINS=${CORS_ORIGINS:-}
+
+  spring:
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${POSTGRES_DB}
+      - JWT_SECRET=${JWT_SECRET}
+      - UPLOAD_DIR=${UPLOAD_DIR:-/storage/uploads}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - ALLOWED_DOMAINS=${ALLOWED_DOMAINS:-@stuba.sk}
+      - CORS_ORIGINS=${CORS_ORIGINS:-}
+
+  db:
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}

@@ -17,7 +17,10 @@ import com.projekty.projekty.Team.TeamMembership;
 import com.projekty.projekty.Team.TeamMembershipService;
 import com.projekty.projekty.Team.TeamService;
 import com.projekty.projekty.User.User;
+import com.projekty.projekty.User.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,6 +37,7 @@ public class ProjectService {
     private final ProjectReviewRepository projectReviewRepository;
     private final ProjectReviewFactory projectReviewFactory;
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     public Project createProject(
             User creator,
@@ -106,6 +110,21 @@ public class ProjectService {
         }
     }
 
+    public Page<Project> getLibrary(String search, List<Long> categoryIds, Pageable pageable) {
+        boolean hasSearch = search != null && !search.isBlank();
+        boolean hasCategories = categoryIds != null && !categoryIds.isEmpty();
+
+        if (hasSearch && hasCategories) {
+            return projectRepository.findApprovedByTitleAndCategories(search, categoryIds, pageable);
+        } else if (hasSearch) {
+            return projectRepository.findApprovedProjectsByTitleContainingIgnoreCase(search, pageable);
+        } else if (hasCategories) {
+            return projectRepository.findApprovedByCategories(categoryIds, pageable);
+        } else {
+            return projectRepository.findApprovedProjects(pageable);
+        }
+    }
+
     public List<Project> getImprovedVersionsOf(Long projectId) {
         Project base = getProjectById(projectId);
         return projectRepository.findApprovedByImprovesProject(base);
@@ -119,7 +138,17 @@ public class ProjectService {
         project.setArchived(true);
         List<TeamMembership> teamMembers = teamMembershipService.getMembers(project.getTeam());
         if (!teamMembers.isEmpty()) {
-            project.setMembers(new java.util.ArrayList<>(teamMembers.stream().map(TeamMembership::getUser).toList()));
+            List<com.projekty.projekty.User.User> members = teamMembers.stream().map(TeamMembership::getUser).toList();
+            project.setMembers(new java.util.ArrayList<>(members));
+            // Reset onboarding only for students so they pick a new teacher next year
+            List<com.projekty.projekty.User.User> students = members.stream()
+                    .filter(u -> u.getUserRole() == com.projekty.projekty.User.UserRole.STUDENT)
+                    .toList();
+            students.forEach(u -> {
+                u.setOnboarded(false);
+                u.setTeacher(null);
+            });
+            if (!students.isEmpty()) userRepository.saveAll(students);
         }
         project = projectRepository.save(project);
         teamMembershipService.unassignAllMembers(project.getTeam());
@@ -156,7 +185,17 @@ public class ProjectService {
             project.setArchived(true);
             List<TeamMembership> teamMembers = teamMembershipService.getMembers(project.getTeam());
             if (!teamMembers.isEmpty()) {
-                project.setMembers(new java.util.ArrayList<>(teamMembers.stream().map(TeamMembership::getUser).toList()));
+                List<com.projekty.projekty.User.User> members = teamMembers.stream().map(TeamMembership::getUser).toList();
+                project.setMembers(new java.util.ArrayList<>(members));
+                // Reset onboarding only for students so they pick a new teacher next year
+                List<com.projekty.projekty.User.User> students = members.stream()
+                        .filter(u -> u.getUserRole() == com.projekty.projekty.User.UserRole.STUDENT)
+                        .toList();
+                students.forEach(u -> {
+                    u.setOnboarded(false);
+                    u.setTeacher(null);
+                });
+                if (!students.isEmpty()) userRepository.saveAll(students);
             }
             teamMembershipService.unassignAllMembers(project.getTeam());
         }
