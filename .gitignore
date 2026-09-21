@@ -34,6 +34,11 @@ ENV/
 .env.local
 .env.*.local
 *.local
+*.pem
+*.key
+id_rsa*
+*.dump
+backup.sql
 
 # IDE & Editor files
 .idea/

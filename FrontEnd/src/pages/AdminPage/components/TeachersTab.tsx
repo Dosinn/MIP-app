@@ -154,7 +154,7 @@ export function TeachersTab({query}: TeachersTabProps) {
                         <input
                             type="email"
                             className="adminModalInput"
-                            placeholder="jan.novak@uniza.sk"
+                            placeholder="email@stuba.sk"
                             value={newTeacherEmail}
                             onChange={(e) => setNewTeacherEmail(e.target.value)}
                         />
