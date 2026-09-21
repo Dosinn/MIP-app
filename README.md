@@ -23,6 +23,14 @@ Every academic year, first-year students at FIIT STU must ideate, propose, and d
 1. **Interactive Idea Map:** A 2D semantic space visualising all approved projects using dimensionality reduction (MDS/SMACOF), helping students explore clusters and find unoccupied niches.
 2. **AI Quality Scoring:** Real-time analysis powered by a fine-tuned Slovak transformer (`SlovakBERT`), scoring problem clarity, solution fit, and novelty before professor submission.
 3. **Structured Review Workflow:** Role-based access for students and faculty, including Google OAuth (`@stuba.sk`), team invites, inline feedback, and project status tracking.
+---
+
+## 📱 Application Preview
+
+| 🗺️ Semantic Idea Map | 🤖 Real-Time NLP Radar | ⚙️ Academic Administration |
+|:---:|:---:|:---:|
+| <img src="docs/screenshot1.JPG" height="480" alt="Semantic Idea Map" /> | <img src="docs/screenshot2.JPG" height="480" alt="Real-Time NLP Radar" /> | <img src="docs/screenshot3.JPG" height="480" alt="Admin Control Panel" /> |
+| **Interactive 2D Topology**<br>Projects semantic embeddings (MDS/SMACOF) with real-time similarity clustering and D3.js connection lines. | **SlovakBERT NLP Evaluation**<br>Zero-Shot domain classification and 5-axis maturity radar (Problem, Audience, Alignment, Uniqueness, Evidence). | **Course Workflow Engine**<br>Multi-phase submission control (FIIT STU guidelines), phase locking, teacher management, and deadlines. |
 
 ---
 
@@ -77,6 +85,14 @@ The platform runs as a containerized microservice suite unified behind an Nginx 
 - **Single Sign-On:** Google OAuth 2.0 restricted to `@stuba.sk` university accounts, generating stateless JWT sessions.
 - **Role-Based Workflows:** Distinct interfaces and permissions for `student` (teams, creation wizard), `teacher` (review queues, revisions, approvals), and `admin` (year archives, user management).
 - **Mobile-First PWA:** Full standalone experience for iOS and Android with offline asset caching, custom in-app document viewer, and responsive layouts.
+
+---
+
+## 📱 Application Preview
+|                                                           🗺️ Semantic Idea Map                                                           | 🤖 Real-Time NLP Radar | ⚙️ Academic Administration |
+|:-----------------------------------------------------------------------------------------------------------------------------------------:|:---:|:---:|
+|                                         <img src="docs/screenshots" width="280" alt="Idea Map" />                                         | <img src="docs/screenshots/ai-scoring.png" width="280" alt="AI Scoring" /> | <img src="docs/screenshots/admin-workflow.png" width="280" alt="Admin Panel" /> |
+| **Interactive 2D Topology**<br>Projects semantic embeddings (MDS/SMACOF) with real-time similarity clustering and D3.js connection lines. | **SlovakBERT NLP Evaluation**<br>Zero-Shot domain classification and 5-axis maturity radar (Problem, Audience, Alignment, Uniqueness, Evidence). | **Course Workflow Engine**<br>Multi-phase submission control (FIIT STU guidelines), phase locking, teacher management, and deadlines. |
 
 ---
 
