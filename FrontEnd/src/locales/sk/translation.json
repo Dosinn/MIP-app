@@ -330,7 +330,7 @@
   "pwa_gatekeeper_ios_step1": "Klepnite na tlačidlo Zdieľať v lište Safari",
   "pwa_gatekeeper_ios_step2": "Zvoľte možnosť «Pridať na plochu»",
   "pwa_gatekeeper_desktop_hint": "Alebo kliknite na ikonu inštalácie v riadku prehliadača.",
-  "pwa_gatekeeper_bypass_btn": "Pokračovať v prehliadači (testovací režim)",
+  "pwa_gatekeeper_bypass_btn": "Pokračovať v prehliadači",
   "saved_version_label": "Uložená verzia",
   "improves_label": "Vychádza z projektu",
   "idea_maturity_score": "Skóre zrelosti nápadu",

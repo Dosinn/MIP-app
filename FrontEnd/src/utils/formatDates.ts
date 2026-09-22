@@ -5,7 +5,7 @@ function capitalize(str: string) {
 }
 
 export function formatLesson(dayOfWeek: number, hour: number, endHour?: number) {
-    const ref = new Date(2023, 0, 1 + dayOfWeek);
+    const ref = new Date(2023, 0, 2 + dayOfWeek); // Jan 2 2023 = Monday, so dayOfWeek=0 → Monday (DB convention)
     const locale = i18n.language === "sk" ? "sk-SK" : "en-US";
 
     const dayName = capitalize(

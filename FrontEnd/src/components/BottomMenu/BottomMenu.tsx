@@ -18,6 +18,7 @@ function BottomMenu() {
                 { path: '/teacher', icon: Home, end: true },
                 { path: '/teacher/students', icon: Users },
                 { path: '/search', icon: Search },
+                { path: '/map', icon: Map },
                 { path: '/account', icon: User },
             ];
         }
@@ -27,6 +28,7 @@ function BottomMenu() {
                 { path: '/admin', icon: Home, end: true },
                 { path: '/teacher', icon: GraduationCap },
                 { path: '/search', icon: Search },
+                { path: '/map', icon: Map },
                 { path: '/account', icon: User },
             ];
         }

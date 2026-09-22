@@ -170,3 +170,69 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
 }
+
+/* ===== Desktop Responsive Adaptations ===== */
+@media (min-width: 768px) {
+
+    /* Center all main page wrappers */
+    .mainPage,
+    .teacherPage,
+    .teacherStudentsPage,
+    .adminPage,
+    .accountPage,
+    .projectsContainer {
+        max-width: 960px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+
+    /* NavBar more breathing room on desktop */
+    .navBar {
+        padding: 0 2.5rem;
+    }
+
+    /* Project cards: 2-column grid on desktop */
+    .projectList,
+    .teamsList,
+    .unassignedList {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    /* Lesson items: 2-column grid */
+    .lessonsList {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        align-items: start;
+    }
+
+    /* Lessons list title spans full width */
+    .lessonsList > h1,
+    .lessonsList > .queryState {
+        grid-column: 1 / -1;
+    }
+
+    /* Admin sections list: 2-col */
+    .adminSectionsList {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    /* Admin users list: 2-col */
+    .adminUsersList {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    /* Fix hardcoded 50vw on admin section description */
+    .adminSectionDescription {
+        width: auto;
+        max-width: 100%;
+    }
+}

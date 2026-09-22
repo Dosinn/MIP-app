@@ -294,7 +294,7 @@
   "pwa_gatekeeper_ios_step1": "Tap the Share button in Safari's toolbar",
   "pwa_gatekeeper_ios_step2": "Select «Add to Home Screen» from the menu",
   "pwa_gatekeeper_desktop_hint": "Or click the install icon directly in the browser address bar.",
-  "pwa_gatekeeper_bypass_btn": "Continue in browser (testing mode)",
+  "pwa_gatekeeper_bypass_btn": "Continue in browser",
   "saved_version_label": "Saved version",
   "improves_label": "Extends project",
   "idea_maturity_score": "Idea Maturity Score",

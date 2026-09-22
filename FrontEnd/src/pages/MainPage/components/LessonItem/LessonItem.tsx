@@ -17,7 +17,9 @@ function getNextOccurrence(weekday: number, time: string): Date {
     const result = new Date(now);
     result.setHours(hours, minutes, 0, 0);
 
-    let diff = (weekday - now.getDay() + 7) % 7;
+    // DB: 0=Mon..4=Fri; JS getDay(): 0=Sun,1=Mon..6=Sat → convert
+    const jsWeekday = (weekday + 1) % 7;
+    let diff = (jsWeekday - now.getDay() + 7) % 7;
     if (diff === 0 && result <= now) diff = 7;
 
     result.setDate(now.getDate() + diff);
