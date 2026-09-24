@@ -13,12 +13,20 @@ public record UserResponse(
         return new UserResponse(
                 user.getId(),
                 user.getName(),
-                user.getEmail(),
+                cleanEmail(user.getEmail()),
                 user.getUserRole().name().toLowerCase(),
                 user.getTeacher() != null ? user.getTeacher().getId() : null,
                 user.isOnboarded(),
                 user.getUserRole() == UserRole.TEACHER || (user.getUserRole() == UserRole.ADMIN && user.isTeacher())
         );
+    }
+
+    public static String cleanEmail(String email) {
+        if (email == null) return null;
+        return email
+                .replaceAll("(?i)^archived_\\d*_*", "")
+                .replaceAll("(?i)\\.202\\d(\\.\\d+)?(?=@)", "")
+                .replaceAll("(?i)\\.(past|archived)(?=@)", "");
     }
 }
 

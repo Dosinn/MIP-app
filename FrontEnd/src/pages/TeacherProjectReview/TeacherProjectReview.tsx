@@ -9,6 +9,7 @@ import DecisionModal from './components/DecisionModal/DecisionModal.tsx';
 import type {HistoryElement, Project, SimilarityProject} from "../../api/schemas/ProjectSchema.ts";
 import projectsRepository from "../../api/repositories/ProjectsRepository.ts";
 import formatName from "../../utils/formatName.ts";
+import cleanEmail from "../../utils/cleanEmail.ts";
 import FilesSections from "../../components/FilesSections/FilesSections.tsx";
 import Modal from "../../components/Modal/Modal.tsx";
 import HistoryComponent from "../../components/HistoryComponent/HistoryComponent.tsx";
@@ -346,7 +347,7 @@ function TeacherProjectReview() {
                             <UserAvatar name={member.name} size={48}/>
                             <div className="personInfo">
                                 <span className="personName">{member.name}</span>
-                                <span className="personEmail">{member.email}</span>
+                                <span className="personEmail">{cleanEmail(member.email)}</span>
                             </div>
                         </div>
                     ))}

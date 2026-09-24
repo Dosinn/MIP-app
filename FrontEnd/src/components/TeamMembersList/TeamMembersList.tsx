@@ -7,6 +7,7 @@ import {useTranslation} from "react-i18next";
 import {useRemoveTeamMember} from "../../hooks/useTeams.ts";
 import {useToast} from "../Toast/ToastContext.tsx";
 import getApiErrorMessage from "../../utils/errorHandler.ts";
+import cleanEmail from "../../utils/cleanEmail.ts";
 
 interface TeamMembersListProps {
     members: User[];
@@ -48,7 +49,7 @@ export function TeamMembersList({members, teamId, onMemberRemoved}: TeamMembersL
                         <div className="teamMemberDetails">
                             <span className="teamMemberName">{member.name}</span>
                             {member.email && (
-                                <span className="teamMemberEmail">{member.email}</span>
+                                <span className="teamMemberEmail">{cleanEmail(member.email)}</span>
                             )}
                         </div>
                         {teamId && (

@@ -5,6 +5,7 @@ import {useState} from "react";
 
 import './ProjectPage.css';
 import formatName from "../../utils/formatName.ts";
+import cleanEmail from "../../utils/cleanEmail.ts";
 import ProjectCardComponent from "../../components/ProjectCard/ProjectCard.tsx";
 import Modal from "../../components/Modal/Modal.tsx";
 import FilesSections from "../../components/FilesSections/FilesSections.tsx";
@@ -215,7 +216,7 @@ function ProjectPage() {
                                 <UserAvatar name={member.name} size={48}/>
                                 <div className="personInfo">
                                     <span className="personName">{member.name}</span>
-                                    <span className="personEmail">{member.email?.replace(/(\.202[0-9]|\.past|\.archived)/g, '')}</span>
+                                    <span className="personEmail">{cleanEmail(member.email)}</span>
                                 </div>
                             </div>
                         ))}

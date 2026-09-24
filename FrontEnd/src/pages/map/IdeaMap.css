@@ -274,7 +274,19 @@
     flex-direction: column;
     gap: 6px;
     pointer-events: auto;
+    cursor: pointer;
     animation: fadeInTooltip 0.15s ease-out;
+}
+
+/* Invisible hover bridge extending around tooltip to bridge the gap from the point */
+.ideaMapTooltip::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    bottom: -20px;
+    left: -24px;
+    right: -20px;
+    z-index: -1;
 }
 
 @keyframes fadeInTooltip {

@@ -77,14 +77,14 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
         }
     };
 
-    const scheduleHideTooltip = () => {
+    const scheduleHideTooltip = (delay = 600) => {
         cancelLeaveTimeout();
         leaveTimeoutRef.current = setTimeout(() => {
             if (!pinnedIdRef.current) {
                 setHovered(null);
                 setHoverPos(null);
             }
-        }, 280);
+        }, delay);
     };
 
     useEffect(() => {
@@ -121,6 +121,12 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
         const zoomBehavior = d3
             .zoom<SVGSVGElement, unknown>()
             .scaleExtent([0.4, 8])
+            .on('start', () => {
+                cancelLeaveTimeout();
+                setPinnedId(null);
+                setHovered(null);
+                setHoverPos(null);
+            })
             .on('zoom', (event) => {
                 g.setAttribute('transform', event.transform.toString());
                 transformRef.current = event.transform;
@@ -187,7 +193,7 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
         return map;
     }, [points, myPoint, dims]);
 
-    const showTooltip = (p: IdeaPoint, clientX: number, clientY: number) => {
+    const showTooltipFromTarget = (p: IdeaPoint, targetEl: SVGElement | null, clientX?: number, clientY?: number) => {
         cancelLeaveTimeout();
         setHovered(p);
         const container = containerRef.current?.getBoundingClientRect();
@@ -196,13 +202,30 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
         const tooltipWidth = 260;
         const tooltipHeight = 120;
 
-        let x = clientX + 16 - container.left;
-        let y = clientY + 16 - container.top;
+        let x: number;
+        let y: number;
 
-        x = Math.min(x, container.width - tooltipWidth - 12);
-        y = Math.min(y, container.height - tooltipHeight - 12);
+        if (targetEl) {
+            const rect = targetEl.getBoundingClientRect();
+            // Position 8px to the right of node
+            x = rect.right + 8 - container.left;
+            // If it exceeds right boundary, flip to left of node
+            if (x + tooltipWidth > container.width - 12) {
+                x = rect.left - tooltipWidth - 8 - container.left;
+            }
+            // Align vertically centered to node
+            y = (rect.top + rect.bottom) / 2 - 35 - container.top;
+        } else if (clientX !== undefined && clientY !== undefined) {
+            x = clientX + 16 - container.left;
+            y = clientY + 16 - container.top;
+        } else {
+            return;
+        }
 
-        setHoverPos({ x: Math.max(x, 12), y: Math.max(y, 12) });
+        x = Math.max(12, Math.min(x, container.width - tooltipWidth - 12));
+        y = Math.max(12, Math.min(y, container.height - tooltipHeight - 12));
+
+        setHoverPos({ x, y });
     };
 
     const myPos = nodeMap.get(-999);
@@ -380,30 +403,30 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
                                 className="ideaPointGroup"
                                 onPointerEnter={(e) => {
                                     if (e.pointerType === 'touch') return;
-                                    showTooltip(p, e.clientX, e.clientY);
+                                    showTooltipFromTarget(p, e.currentTarget as SVGElement);
                                 }}
                                 onPointerMove={(e) => {
                                     if (e.pointerType === 'touch') return;
-                                    if (!pinnedIdRef.current || pinnedIdRef.current === p.id) {
-                                        showTooltip(p, e.clientX, e.clientY);
+                                    cancelLeaveTimeout();
+                                    if (!hovered || hovered.id !== p.id) {
+                                        showTooltipFromTarget(p, e.currentTarget as SVGElement);
                                     }
                                 }}
                                 onPointerLeave={(e) => {
                                     if (e.pointerType === 'touch') return;
                                     if (pinnedIdRef.current === p.id) return;
-                                    scheduleHideTooltip();
+                                    scheduleHideTooltip(600);
                                 }}
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    if (pinnedId === p.id) {
-                                        setPinnedId(null);
-                                        setHovered(null);
-                                        setHoverPos(null);
-                                    } else {
-                                        cancelLeaveTimeout();
-                                        setPinnedId(p.id);
-                                        showTooltip(p, e.clientX, e.clientY);
+                                    // If already hovered/pinned or double-clicked, navigate directly to project
+                                    if (e.detail > 1 || (pinnedId === p.id && hovered?.id === p.id)) {
+                                        navigate(`/project/${p.id}`);
+                                        return;
                                     }
+                                    cancelLeaveTimeout();
+                                    setPinnedId(p.id);
+                                    showTooltipFromTarget(p, e.currentTarget as SVGElement);
                                     onPointClick?.(p);
                                 }}
                             >
@@ -489,13 +512,16 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
                 <div
                     className="ideaMapTooltip"
                     style={{ left: hoverPos.x, top: hoverPos.y }}
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/project/${hovered.id}`);
+                    }}
                     onMouseEnter={() => {
                         cancelLeaveTimeout();
                     }}
                     onMouseLeave={() => {
                         if (!pinnedIdRef.current) {
-                            scheduleHideTooltip();
+                            scheduleHideTooltip(600);
                         }
                     }}
                 >
@@ -523,7 +549,10 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
                     <button
                         type="button"
                         className="tooltipActionBtn"
-                        onClick={() => navigate(`/project/${hovered.id}`)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/project/${hovered.id}`);
+                        }}
                     >
                         <span>{t('map_open_project')}</span>
                         <ExternalLink size={12} />
