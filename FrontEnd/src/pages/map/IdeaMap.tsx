@@ -63,6 +63,36 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
     const [legendOpen, setLegendOpen] = useState(false);
     const [pinnedId, setPinnedId] = useState<number | null>(null);
 
+    const leaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const pinnedIdRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        pinnedIdRef.current = pinnedId;
+    }, [pinnedId]);
+
+    const cancelLeaveTimeout = () => {
+        if (leaveTimeoutRef.current) {
+            clearTimeout(leaveTimeoutRef.current);
+            leaveTimeoutRef.current = null;
+        }
+    };
+
+    const scheduleHideTooltip = () => {
+        cancelLeaveTimeout();
+        leaveTimeoutRef.current = setTimeout(() => {
+            if (!pinnedIdRef.current) {
+                setHovered(null);
+                setHoverPos(null);
+            }
+        }, 280);
+    };
+
+    useEffect(() => {
+        return () => {
+            cancelLeaveTimeout();
+        };
+    }, []);
+
     const connectedIds = useMemo(() => {
         const map = new Map<number, number>();
         connections?.forEach((c) => map.set(c.targetId, c.strength));
@@ -158,12 +188,13 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
     }, [points, myPoint, dims]);
 
     const showTooltip = (p: IdeaPoint, clientX: number, clientY: number) => {
+        cancelLeaveTimeout();
         setHovered(p);
         const container = containerRef.current?.getBoundingClientRect();
         if (!container) return;
 
-        const tooltipWidth = 240;
-        const tooltipHeight = 110;
+        const tooltipWidth = 260;
+        const tooltipHeight = 120;
 
         let x = clientX + 16 - container.left;
         let y = clientY + 16 - container.top;
@@ -243,8 +274,10 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
                 height={dims.height}
                 onPointerDown={(e) => {
                     if ((e.target as SVGElement).closest('.ideaPointGroup')) return;
+                    cancelLeaveTimeout();
                     setPinnedId(null);
                     setHovered(null);
+                    setHoverPos(null);
                 }}
             >
                 <defs>
@@ -351,17 +384,23 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
                                 }}
                                 onPointerMove={(e) => {
                                     if (e.pointerType === 'touch') return;
-                                    showTooltip(p, e.clientX, e.clientY);
+                                    if (!pinnedIdRef.current || pinnedIdRef.current === p.id) {
+                                        showTooltip(p, e.clientX, e.clientY);
+                                    }
                                 }}
                                 onPointerLeave={(e) => {
                                     if (e.pointerType === 'touch') return;
-                                    setHovered(null);
+                                    if (pinnedIdRef.current === p.id) return;
+                                    scheduleHideTooltip();
                                 }}
                                 onClick={(e) => {
+                                    e.stopPropagation();
                                     if (pinnedId === p.id) {
                                         setPinnedId(null);
                                         setHovered(null);
+                                        setHoverPos(null);
                                     } else {
+                                        cancelLeaveTimeout();
                                         setPinnedId(p.id);
                                         showTooltip(p, e.clientX, e.clientY);
                                     }
@@ -451,6 +490,14 @@ function IdeaMap({ points, myPoint, connections, onPointClick }: IdeaMapProps) {
                     className="ideaMapTooltip"
                     style={{ left: hoverPos.x, top: hoverPos.y }}
                     onClick={(e) => e.stopPropagation()}
+                    onMouseEnter={() => {
+                        cancelLeaveTimeout();
+                    }}
+                    onMouseLeave={() => {
+                        if (!pinnedIdRef.current) {
+                            scheduleHideTooltip();
+                        }
+                    }}
                 >
                     <div className="tooltipHeader">
                         <p className="tooltipTitle">{hovered.title}</p>

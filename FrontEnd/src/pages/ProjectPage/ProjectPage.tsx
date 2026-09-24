@@ -215,7 +215,7 @@ function ProjectPage() {
                                 <UserAvatar name={member.name} size={48}/>
                                 <div className="personInfo">
                                     <span className="personName">{member.name}</span>
-                                    <span className="personEmail">{member.email}</span>
+                                    <span className="personEmail">{member.email?.replace(/(\.202[0-9]|\.past|\.archived)/g, '')}</span>
                                 </div>
                             </div>
                         ))}

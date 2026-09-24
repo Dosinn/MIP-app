@@ -63,6 +63,10 @@ public class ProjectService {
 
         Lesson lesson = lessonService.getLessonById(lessonId);
 
+        if (lesson.getType() != null && "LECTURE".equalsIgnoreCase(lesson.getType().trim())) {
+            throw new AccessForbiddenException("Lectures cannot be selected as a practice lesson");
+        }
+
         User creatorTeacher = creator.getTeacher();
         if (creatorTeacher == null || !lesson.getTeacher().getId().equals(creatorTeacher.getId())) {
             throw new TeacherMismatchException("Selected lesson does not belong to your teacher");

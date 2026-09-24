@@ -33,14 +33,33 @@ const checkIsIOS = (): boolean => {
     );
 };
 
+const checkIsMobilePhone = (): boolean => {
+    if (typeof window === 'undefined' || typeof navigator === 'undefined') return false;
+
+    const userAgent = navigator.userAgent ?? '';
+    // iPhone / iPod (excluding iPads)
+    const isIPhoneOrPod = /iPhone|iPod/.test(userAgent);
+    // Android mobile (tablets do NOT have "Mobile" in User-Agent)
+    const isAndroidMobile = /Android/i.test(userAgent) && /Mobile/i.test(userAgent);
+    // Other mobile phones
+    const isOtherPhone = /Windows Phone|webOS|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+    // Screen width: phones are narrower than tablets/PC
+    const isSmallScreen = window.innerWidth < 768 || (typeof window.screen !== 'undefined' && Math.min(window.screen.width, window.screen.height) < 768);
+
+    return (isIPhoneOrPod || isAndroidMobile || isOtherPhone) && isSmallScreen;
+};
+
 export const PWAGatekeeper: React.FC<PWAGatekeeperProps> = ({ children }) => {
     const { t } = useTranslation();
     const [isStandalone, setIsStandalone] = useState<boolean>(checkIsStandalone);
     const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
     const [isIOS] = useState<boolean>(checkIsIOS);
+    const [isMobilePhone] = useState<boolean>(checkIsMobilePhone);
 
     const [isBypassed, setIsBypassed] = useState<boolean>(() => {
         try {
+            // Never allow bypass on mobile phone
+            if (checkIsMobilePhone()) return false;
             return sessionStorage.getItem('pwa_bypass') === 'true';
         } catch {
             return false;
@@ -169,22 +188,26 @@ export const PWAGatekeeper: React.FC<PWAGatekeeperProps> = ({ children }) => {
                     )}
                 </div>
 
-                <div className="pwaDivider">
-                    <span className="pwaDividerLine"></span>
-                </div>
+                {!isMobilePhone && (
+                    <>
+                        <div className="pwaDivider">
+                            <span className="pwaDividerLine"></span>
+                        </div>
 
-                <button
-                    type="button"
-                    className="pwaBypassButton"
-                    onClick={handleBypassClick}
-                >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                        <line x1="8" y1="21" x2="16" y2="21"></line>
-                        <line x1="12" y1="17" x2="12" y2="21"></line>
-                    </svg>
-                    <span>{t('pwa_gatekeeper_bypass_btn')}</span>
-                </button>
+                        <button
+                            type="button"
+                            className="pwaBypassButton"
+                            onClick={handleBypassClick}
+                        >
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                            <span>{t('pwa_gatekeeper_bypass_btn')}</span>
+                        </button>
+                    </>
+                )}
 
             </div>
         </div>

@@ -91,9 +91,9 @@ public class LessonService {
                     .filter(l -> "LECTURE".equalsIgnoreCase(l.getType()))
                     .toList();
 
-            // Якщо у студента є тіма з проектом і вибраний lesson — показуємо тільки його + лекції
+            // Якщо у студента є тіма з активним проектом і вибраний lesson — показуємо тільки його + лекції
             Optional<ProjectReview> projectReview = teamService.getMyTeam(currentUser)
-                    .flatMap(team -> projectRepository.findByTeam(team))
+                    .flatMap(team -> projectRepository.findByTeamAndArchivedFalse(team))
                     .flatMap(project -> projectReviewRepository.findByProject(project));
 
             if (projectReview.isPresent()) {

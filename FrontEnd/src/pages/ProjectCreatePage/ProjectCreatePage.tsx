@@ -179,7 +179,8 @@ export function ProjectCreatePage() {
 
     const myTeacher = teachers.find((t) => t.id === user?.teacherId);
     const availableLessons: Lesson[] = useMemo(
-        () => myTeacher?.lessons ?? (user?.teacherId ? [] : teachers.flatMap((t) => t.lessons ?? [])),
+        () => (myTeacher?.lessons ?? (user?.teacherId ? [] : teachers.flatMap((t) => t.lessons ?? [])))
+            .filter((lesson) => lesson.type?.toUpperCase() !== 'LECTURE'),
         [myTeacher, user?.teacherId, teachers]
     );
 
@@ -218,7 +219,9 @@ export function ProjectCreatePage() {
                 if (draft.uniqueness) setUniqueness(draft.uniqueness);
                 if (draft.selectedCategory) setSelectedCategory(draft.selectedCategory);
                 if (draft.improvingProject) setImprovingProject(draft.improvingProject);
-                if (draft.selectedLesson) setSelectedLesson(draft.selectedLesson);
+                if (draft.selectedLesson && draft.selectedLesson.type?.toUpperCase() !== 'LECTURE') {
+                    setSelectedLesson(draft.selectedLesson);
+                }
             } catch {
                 /* empty */
             }
@@ -235,7 +238,7 @@ export function ProjectCreatePage() {
     }, [title, description, problem, audience, uniqueness, selectedCategory, improvingProject, selectedLesson, isHydrated]);
 
     useEffect(() => {
-        if (!selectedLesson && availableLessons.length > 0) {
+        if ((!selectedLesson || selectedLesson.type?.toUpperCase() === 'LECTURE') && availableLessons.length > 0) {
             setSelectedLesson(availableLessons[0]);
         }
     }, [availableLessons, selectedLesson]);
