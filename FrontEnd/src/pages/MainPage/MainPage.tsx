@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom"
 import {useTranslation} from "react-i18next";
 
 import type {LessonResponse, User} from "../../api/schemas/PeopleSchema.ts";
-import {Clock, Plus} from "lucide-react";
+import {Clock, ExternalLink, Globe, Plus} from "lucide-react";
 
 import QueryState from "../../components/QueryState/QueryState.tsx";
 import {
@@ -153,6 +153,21 @@ function MainPage() {
                     <UrgentDeadlines deadline={deadline}/>
                 </div>
             )}
+
+            <a
+                href="https://www2.fiit.stuba.sk/~lang/mip/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="courseWebsiteCard"
+            >
+                <div className="courseWebsiteCardLeft">
+                    <div className="courseWebsiteIconWrapper">
+                        <Globe size={20} />
+                    </div>
+                    <span className="courseWebsiteTitle">{t('course_website_title')}</span>
+                </div>
+                <ExternalLink size={18} className="courseWebsiteExternalIcon" />
+            </a>
 
             <div className="lessonsList">
                 <h1 className="sectionText">{t('upcoming_classes')}</h1>
