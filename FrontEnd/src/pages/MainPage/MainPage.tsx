@@ -162,7 +162,7 @@ function MainPage() {
             >
                 <div className="courseWebsiteCardLeft">
                     <div className="courseWebsiteIconWrapper">
-                        <Globe size={20} />
+                        <Globe size={24} />
                     </div>
                     <span className="courseWebsiteTitle">{t('course_website_title')}</span>
                 </div>

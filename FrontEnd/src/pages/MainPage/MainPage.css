@@ -39,7 +39,7 @@
     width: 38px;
     height: 38px;
     border-radius: 10px;
-    background: var(--color-blue-alpha-10);
+    /*background: var(--color-blue-alpha-10);*/
     color: var(--color-primary-blue);
     display: flex;
     align-items: center;
