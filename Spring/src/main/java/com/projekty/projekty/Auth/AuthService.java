@@ -4,6 +4,7 @@ import com.projekty.projekty.CustomException.InvalidEmailDomainException;
 import com.projekty.projekty.CustomException.InvalidOrExpiredCodeException;
 import com.projekty.projekty.Team.TeamMembershipService;
 import com.projekty.projekty.User.User;
+
 import com.projekty.projekty.User.UserFactory;
 import com.projekty.projekty.User.UserRepository;
 import com.projekty.projekty.User.UserResponse;
@@ -25,6 +26,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Service
 @RequiredArgsConstructor
