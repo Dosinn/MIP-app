@@ -38,8 +38,21 @@ public class AuthService {
     @Value("${app.google.client-id:}")
     private String googleClientId;
 
-    @Value("${app.google.allowed-domains:@stuba.sk,gmail.com}")
+    @Value("${app.google.allowed-domains:@stuba.sk}")
     private String allowedDomains;
+
+    private boolean isTokenIssuedForThisApp(String accessToken) throws Exception {
+        HttpRequest req = HttpRequest.newBuilder()
+                .uri(URI.create("https://oauth2.googleapis.com/tokeninfo?access_token="
+                        + URLEncoder.encode(accessToken, StandardCharsets.UTF_8)))
+                .GET()
+                .build();
+        HttpResponse<String> res = HttpClient.newHttpClient().send(req, HttpResponse.BodyHandlers.ofString());
+        if (res.statusCode() != 200) return false;
+
+        JsonObject o = JsonParser.parseString(res.body()).getAsJsonObject();
+        return o.has("aud") && googleClientId.equals(o.get("aud").getAsString());
+    }
 
     @Transactional
     public LoginResponse googleLogin(String token) {
@@ -74,6 +87,9 @@ public class AuthService {
 
             // 2. If not ID token or verification didn't resolve email, verify via Google Userinfo endpoint using access token
             if (email == null || email.isBlank()) {
+                if (!isTokenIssuedForThisApp(token)) {
+                    throw new InvalidOrExpiredCodeException("Invalid Google token");
+                }
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create("https://www.googleapis.com/oauth2/v3/userinfo"))
                         .header("Authorization", "Bearer " + token)
@@ -83,7 +99,10 @@ public class AuthService {
                 if (response.statusCode() == 200) {
                     JsonObject node = JsonParser.parseString(response.body()).getAsJsonObject();
                     if (node.has("email") && !node.get("email").isJsonNull()) {
-                        email = node.get("email").getAsString();
+                        boolean verified = node.has("email_verified") && node.get("email_verified").getAsBoolean();
+                        if (verified) {
+                            email = node.get("email").getAsString();
+                        }
                     }
                     if (node.has("name") && !node.get("name").isJsonNull()) {
                         fullName = node.get("name").getAsString();

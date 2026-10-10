@@ -31,6 +31,8 @@ function LoginFlow() {
     const completeProfileMutation = useCompleteProfile();
 
     const triggerGoogleLogin = useGoogleLogin({
+        prompt: 'select_account',
+        hosted_domain: 'stuba.sk',
         onSuccess: async (tokenResponse) => {
             setLoginError(null);
             try {
