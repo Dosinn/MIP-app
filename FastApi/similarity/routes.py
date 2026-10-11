@@ -53,7 +53,7 @@ async def check_similarity(
     model=Depends(get_model),
     session=Depends(get_session),
 ):
-    similarities = await similarity_services.check_similarity(payload.title, payload.description, model, payload.top_n)
+    similarities = await similarity_services.check_similarity(payload.title, payload.description, model, 5)
     if not similarities:
         return []
 
@@ -68,4 +68,4 @@ async def update_embeddings_alias(
 ) -> None:
     new_project = await project_services.set_project_embeddings(session, model, project.project_id)
     if new_project is None:
-        raise HTTPException(status_code=404, detail="Project not found")
+        raise HTTPException(status_code=404, detail="Project not found")
